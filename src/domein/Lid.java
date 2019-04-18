@@ -13,7 +13,7 @@ public class Lid extends Gebruiker {
         super();
     }
 
-    Lid(String familienaam, String voornaam, String geboortedatum, String straat, int postcode, String land, int rijksregisternummer, String email, int telefoon, String geboorteplaats, int huisnummer, String stad, String nationaliteit, String emailOuders, int gsm, char geslacht) {
+    Lid(String familienaam, String voornaam, String geboortedatum, String straat, int postcode, String land, int rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer, String stad, String nationaliteit, String emailOuders, String gsm, char geslacht) {
         super(familienaam, voornaam, geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer, stad, nationaliteit, emailOuders, gsm, geslacht);
     }
 

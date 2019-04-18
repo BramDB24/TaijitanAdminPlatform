@@ -8,11 +8,7 @@ package main;
 import domein.DomeinController;
 import gui.LidGegevensPanelController;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -20,10 +16,10 @@ import javafx.stage.Stage;
  * @author bramd
  */
 public class StartUp extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
-        DomeinController dc = new DomeinController();
+        DomeinController dc = new DomeinController(true);
         Scene scene = new Scene(new LidGegevensPanelController(dc)); //hier moet startpagina komen ofc.
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -35,5 +31,5 @@ public class StartUp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

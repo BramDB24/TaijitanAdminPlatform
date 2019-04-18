@@ -17,20 +17,24 @@ public abstract class Gebruiker {
     private String land;
     private String nationaliteit;
     private int rijksregisternummer;
-    private int vastTelefoonnummer;
-    private int gsmNummer;
+    private String vastTelefoonnummer;
+    private String gsmNummer;
     private String emailAdres;
     private String emailAdresOuders;
     private String geborenTe;
     private Date geboorteDatum;
 
     //constructors
-    public Gebruiker(){
-        
+    public Gebruiker() {
+
     }
-    public Gebruiker(String familienaam, String voornaam, String geboortedatum, String straat, int postcode, String land, 
-            int rijksregisternummer, String email, int telefoon, String geboorteplaats, int huisnummer, String stad, 
-            String nationaliteit, String emailOuders, int gsm, char geslacht) {
+
+    public Gebruiker(String familienaam, String voornaam,
+            String geboortedatum, String straat, int postcode, String land,
+            int rijksregisternummer, String email, String telefoon, 
+            String geboorteplaats, int huisnummer, String stad,
+            String nationaliteit, String emailOuders, String gsm,
+            char geslacht) {
         setFamilienaam(familienaam);
         setVoornaam(voornaam);
         setGeboorteDatum(geboorteDatum);
@@ -50,71 +54,74 @@ public abstract class Gebruiker {
     }
 
     //setters //validatie etc toevoegen
-    public void setFamilienaam(String familienaam) {
+    public final void setFamilienaam(String familienaam) {
         this.familienaam = familienaam;
     }
 
-    public void setVoornaam(String voornaam) {
+    public final void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
     }
 
-    public void setGeslacht(char geslacht) {
+    public final void setGeslacht(char geslacht) {
         this.geslacht = geslacht;
     }
 
-    public void setStraatnaam(String straatnaam) {
+    public final void setStraatnaam(String straatnaam) {
         this.straatnaam = straatnaam;
     }
 
-    public void setHuisnummer(int huisnummer) {
+    public final void setHuisnummer(int huisnummer) {
         this.huisnummer = huisnummer;
     }
 
-    public void setPostcode(int postcode) {
+    public final void setPostcode(int postcode) {
         this.postcode = postcode;
     }
 
-    public void setStad(String stad) {
+    public final void setStad(String stad) {
         this.stad = stad;
     }
 
-    public void setLand(String land) {
+    public final void setLand(String land) {
         this.land = land;
     }
 
-    public void setNationaliteit(String nationaliteit) {
+    public final void setNationaliteit(String nationaliteit) {
         this.nationaliteit = nationaliteit;
     }
 
-    public void setRijksregisternummer(int rijksregisternummer) {
+    public final void setRijksregisternummer(int rijksregisternummer) {
         this.rijksregisternummer = rijksregisternummer;
     }
 
-    public void setVastTelefoonnummer(int vastTelefoonnummer) {
+    public final void setVastTelefoonnummer(String vastTelefoonnummer) {
         this.vastTelefoonnummer = vastTelefoonnummer;
     }
 
-    public void setGsmNummer(int gsmNummer) {
+    public final void setGsmNummer(String gsmNummer) {
         this.gsmNummer = gsmNummer;
     }
 
-    public void setEmailAdres(String emailAdres) {
+    public final void setEmailAdres(String emailAdres) {
         this.emailAdres = emailAdres;
     }
 
-    public void setEmailAdresOuders(String emailAdresOuders) {
+    public final void setEmailAdresOuders(String emailAdresOuders) {
         this.emailAdresOuders = emailAdresOuders;
     }
 
-    public void setGeborenTe(String geborenTe) {
+    public final void setGeborenTe(String geborenTe) {
         this.geborenTe = geborenTe;
     }
 
-    public void setGeboorteDatum(Date geboorteDatum) {
+    public final void setGeboorteDatum(Date geboorteDatum) {
         this.geboorteDatum = geboorteDatum;
+    }
+
+    public String getGebruikersNaam() {
+        return gebruikersNaam;
     }
     
     
-    
-    
+
 }
