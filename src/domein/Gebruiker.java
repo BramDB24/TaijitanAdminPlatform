@@ -1,13 +1,25 @@
 package domein;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-public abstract class Gebruiker {
+/**
+ *
+ * @author Jonah
+ */
+@Entity
+@DiscriminatorColumn(name = "Rol")
+public abstract class Gebruiker implements Serializable {
 
     private LocalDateTime inschrijvingsdatum;
     private String familienaam;
     private String voornaam;
+    private String wachtwoord;
+    @Id
     private final String gebruikersNaam = voornaam + familienaam;
     private char geslacht;
     private String straatnaam;
@@ -29,14 +41,15 @@ public abstract class Gebruiker {
 
     }
 
-    public Gebruiker(String familienaam, String voornaam,
+    public Gebruiker(String familienaam, String voornaam, String wachtwoord,
             String geboortedatum, String straat, int postcode, String land,
-            int rijksregisternummer, String email, String telefoon, 
+            int rijksregisternummer, String email, String telefoon,
             String geboorteplaats, int huisnummer, String stad,
             String nationaliteit, String emailOuders, String gsm,
             char geslacht) {
         setFamilienaam(familienaam);
         setVoornaam(voornaam);
+        setWachtwoord(wachtwoord);
         setGeboorteDatum(geboorteDatum);
         setStraatnaam(straat);
         setPostcode(postcode);
@@ -118,10 +131,12 @@ public abstract class Gebruiker {
         this.geboorteDatum = geboorteDatum;
     }
 
+    public final void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = wachtwoord;
+    }
+
     public String getGebruikersNaam() {
         return gebruikersNaam;
     }
-    
-    
 
 }

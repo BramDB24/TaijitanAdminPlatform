@@ -17,7 +17,7 @@ import javax.persistence.Persistence;
  */
 public class GenericDaoJpa<E> implements GenericDao<E> {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("string");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("TaijitanPU");
     protected static final EntityManager em = emf.createEntityManager();
 
     private final Class<E> type;

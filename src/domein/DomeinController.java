@@ -18,27 +18,30 @@ public class DomeinController {
 
     }
 
-    public void addGebruiker(String familienaam, String voornaam, String geboortedatum, String straat, int postcode,
+    public void addGebruiker(String familienaam, String voornaam, String wachtwoord, String geboortedatum, String straat, int postcode,
             String land, int rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer,
             String stad, String nationaliteit, String emailOuders, String gsm, char geslacht) {
-        this.gebruikers.add(new Lid(familienaam, voornaam, geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer,
+        this.gebruikers.add(new Lid(familienaam, voornaam, wachtwoord, geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer,
                 stad, nationaliteit, emailOuders, gsm, geslacht));
     }
-
     
+    public void close(){
+        GebruikerDaoJpa.closePersistency();
+    }
     
     //setters, getters
     private void setGebruikerDao(GebruikerDao gd) {
         this.gebruikerDao = gd;
     }
-    
+
     public List<Gebruiker> getGebruikers() {
-        if(gebruikers == null){
+        if (gebruikers == null) {
             gebruikers = gebruikerDao.getAll();
-        } return gebruikers;
+        }
+        return gebruikers;
     }
-    
-    public List<String> getGebruikerNamen(){
+
+    public List<String> getGebruikerNamen() {
         return gebruikers.stream().map(Gebruiker::getGebruikersNaam).collect(Collectors.toList());
     }
 

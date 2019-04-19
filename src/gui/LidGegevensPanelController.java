@@ -79,7 +79,7 @@ public class LidGegevensPanelController extends GridPane {
     @FXML
     private void slaOp(ActionEvent event) {
         try{ //betere errorhandling nodig
-        dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), txtGeboortedatum.getText(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
+        dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", txtGeboortedatum.getText(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
         txtLand.getText(), Integer.parseInt(txtRijksregisternummer.getText()), txtEmail.getText(),txtTelefoon.getText(), txtGeboorteplaats.getText(),
         Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
         } catch (NumberFormatException exception) {

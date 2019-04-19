@@ -17,7 +17,7 @@ public class DatabasePopulation {
         GebruikerDaoJpa gdj = new GebruikerDaoJpa();
         GebruikerDaoJpa.startTransaction();
 
-        gdj.insert(new Lid("De Smet", "Jonah", "13/03/1998", "straat", 0000, "België", 123456789, "emai@email.com", "054124578", "GeboortePlek", 1, "Stad", "Belg", "emailOuders@email.com", "0476124578", 'M'));
+        gdj.insert(new Lid("De Smet", "Jonah","TestWachtwoord", "13/03/1998", "straat", 0000, "België", 123456789, "emai@email.com", "054124578", "GeboortePlek", 1, "Stad", "Belg", "emailOuders@email.com", "0476124578", 'M'));
 
         GebruikerDaoJpa.commitTransaction();
 
