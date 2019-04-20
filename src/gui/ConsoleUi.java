@@ -25,11 +25,8 @@ public class ConsoleUi {
     }
 
     private void doStandardJob() {
-        System.out.println("BierWinkelSysteem Actief");
-        System.out.println("Winkels :");
-        System.out.println(domeinController.getGebruikerNamen());
-        System.out.println("Geef winkelnaam voor toe te voegen bier");
-        
+        System.out.println("Gebruikers :");
+        System.out.println(domeinController.getGebruikerNamen());        
         
     }
 }

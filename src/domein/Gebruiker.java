@@ -3,9 +3,14 @@ package domein;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
@@ -13,14 +18,16 @@ import javax.persistence.Id;
  */
 @Entity
 @DiscriminatorColumn(name = "Rol")
+@Table(name = "Gebruiker")
 public abstract class Gebruiker implements Serializable {
 
     private LocalDateTime inschrijvingsdatum;
+    @Column(name = "Naam")
     private String familienaam;
     private String voornaam;
     private String wachtwoord;
     @Id
-    private final String gebruikersNaam = voornaam + familienaam;
+    private String gebruikersNaam;
     private char geslacht;
     private String straatnaam;
     private int huisnummer;
@@ -31,13 +38,15 @@ public abstract class Gebruiker implements Serializable {
     private int rijksregisternummer;
     private String vastTelefoonnummer;
     private String gsmNummer;
+    @Column(name = "email")
     private String emailAdres;
+    @Column(name = "emailOuders")
     private String emailAdresOuders;
     private String geborenTe;
     private Date geboorteDatum;
 
     //constructors
-    public Gebruiker() {
+    protected Gebruiker() {
 
     }
 
@@ -49,6 +58,7 @@ public abstract class Gebruiker implements Serializable {
             char geslacht) {
         setFamilienaam(familienaam);
         setVoornaam(voornaam);
+        setGebruikersNaam(familienaam, voornaam);
         setWachtwoord(wachtwoord);
         setGeboorteDatum(geboorteDatum);
         setStraatnaam(straat);
@@ -135,8 +145,38 @@ public abstract class Gebruiker implements Serializable {
         this.wachtwoord = wachtwoord;
     }
 
+    public final void setGebruikersNaam(String naam, String voornaam) {
+        this.gebruikersNaam = naam + voornaam;
+    }
+
     public String getGebruikersNaam() {
         return gebruikersNaam;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.gebruikersNaam);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Gebruiker other = (Gebruiker) obj;
+        if (!Objects.equals(this.gebruikersNaam, other.gebruikersNaam)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }
