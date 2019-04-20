@@ -1,5 +1,6 @@
 package domein;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import repository.GebruikerDao;
@@ -18,7 +19,7 @@ public class DomeinController {
 
     }
 
-    public void addGebruiker(String familienaam, String voornaam, String wachtwoord, String geboortedatum, String straat, int postcode,
+    public void addGebruiker(String familienaam, String voornaam, String wachtwoord, Date geboortedatum, String straat, int postcode,
             String land, int rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer,
             String stad, String nationaliteit, String emailOuders, String gsm, char geslacht) {
         this.gebruikers.add(new Lid(familienaam, voornaam, wachtwoord, geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer,

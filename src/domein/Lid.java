@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,7 +13,7 @@ public class Lid extends Gebruiker implements Serializable {
         super();
     }
 
-    Lid(String naam, String voornaam, String wachtwoord, String geboortedatum, String straat, int postcode, String land, int rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer, String stad, String nationaliteit, String emailOuders, String gsm, char geslacht) {
+    Lid(String naam, String voornaam, String wachtwoord, Date geboortedatum, String straat, int postcode, String land, int rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer, String stad, String nationaliteit, String emailOuders, String gsm, char geslacht) {
         super(naam, voornaam, wachtwoord, geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer, stad, nationaliteit, emailOuders, gsm, geslacht);
     }
 

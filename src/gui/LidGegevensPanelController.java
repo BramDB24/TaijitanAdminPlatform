@@ -7,6 +7,7 @@ package gui;
 
 import domein.DomeinController;
 import java.io.IOException;
+import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,8 +79,8 @@ public class LidGegevensPanelController extends GridPane {
 
     @FXML
     private void slaOp(ActionEvent event) {
-        try{ //betere errorhandling nodig
-        dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", txtGeboortedatum.getText(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
+        try{ //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
+        dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
         txtLand.getText(), Integer.parseInt(txtRijksregisternummer.getText()), txtEmail.getText(),txtTelefoon.getText(), txtGeboorteplaats.getText(),
         Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
         } catch (NumberFormatException exception) {

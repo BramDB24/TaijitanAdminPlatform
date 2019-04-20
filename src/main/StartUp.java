@@ -19,7 +19,7 @@ public class StartUp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        DomeinController dc = new DomeinController(true);
+        DomeinController dc = new DomeinController(false);
         Scene scene = new Scene(new LidGegevensPanelController(dc)); //hier moet startpagina komen ofc.
         primaryStage.setScene(scene);
         primaryStage.show();

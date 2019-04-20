@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @Table(name = "Gebruiker")
 public abstract class Gebruiker implements Serializable {
 
-    private LocalDateTime inschrijvingsdatum;
+    
     @Id
     private String gebruikersNaam;
     private String wachtwoord;
@@ -32,13 +32,15 @@ public abstract class Gebruiker implements Serializable {
     private String familienaam;
     private String voornaam;
     //adres id db?
-    @Column(name="Telefoon")
+    @Column(name="Telefoonnummer")
     private String vastTelefoonnummer;
     private Date geboorteDatum;
     @Column(name = "email")
     private String emailAdres;
     //Graad id db?
+    private int graad = 2;  //meegeven in gebruiker toevoegscherm!!!!!!!!!!!!!!!!!!!!!!!
     //Inschrijvingsdatum id db?
+    private LocalDateTime inschrijvingsdatum = LocalDateTime.now(); //meegeven in gebruiker toevoegscherm!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private String straatnaam;
     private int huisnummer;
     private int postcode;
@@ -52,8 +54,8 @@ public abstract class Gebruiker implements Serializable {
     @Column(name ="geboorteplek")
     private String geborenTe;
     //rol = discriminator
-    //formulenaam
-    //score
+    //formulenaam = in lid
+    //score = in lid
     private String nationaliteit; //nog niet in db
     private char geslacht; //nog niet in db
     //constructors
@@ -62,7 +64,7 @@ public abstract class Gebruiker implements Serializable {
     }
 
     public Gebruiker(String familienaam, String voornaam, String wachtwoord,
-            String geboortedatum, String straat, int postcode, String land,
+            Date geboortedatum, String straat, int postcode, String land,
             int rijksregisternummer, String email, String telefoon,
             String geboorteplaats, int huisnummer, String stad,
             String nationaliteit, String emailOuders, String gsm,
@@ -71,7 +73,7 @@ public abstract class Gebruiker implements Serializable {
         setVoornaam(voornaam);
         setGebruikersNaam(familienaam, voornaam);
         setWachtwoord(wachtwoord);
-        setGeboorteDatum(geboorteDatum);
+        setGeboorteDatum(geboortedatum);
         setStraatnaam(straat);
         setPostcode(postcode);
         setLand(land);
@@ -157,7 +159,7 @@ public abstract class Gebruiker implements Serializable {
     }
 
     public final void setGebruikersNaam(String naam, String voornaam) {
-        this.gebruikersNaam = naam + voornaam;
+        this.gebruikersNaam = naam + voornaam + "java";
     }
 
     public String getGebruikersNaam() {
