@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
@@ -17,34 +19,43 @@ import javax.persistence.Table;
  * @author Jonah
  */
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Rol")
 @Table(name = "Gebruiker")
 public abstract class Gebruiker implements Serializable {
 
     private LocalDateTime inschrijvingsdatum;
+    @Id
+    private String gebruikersNaam;
+    private String wachtwoord;
     @Column(name = "Naam")
     private String familienaam;
     private String voornaam;
-    private String wachtwoord;
-    @Id
-    private String gebruikersNaam;
-    private char geslacht;
+    //adres id db?
+    @Column(name="Telefoon")
+    private String vastTelefoonnummer;
+    private Date geboorteDatum;
+    @Column(name = "email")
+    private String emailAdres;
+    //Graad id db?
+    //Inschrijvingsdatum id db?
     private String straatnaam;
     private int huisnummer;
     private int postcode;
     private String stad;
     private String land;
-    private String nationaliteit;
     private int rijksregisternummer;
-    private String vastTelefoonnummer;
+    @Column(name="Gsm")
     private String gsmNummer;
-    @Column(name = "email")
-    private String emailAdres;
     @Column(name = "emailOuders")
     private String emailAdresOuders;
+    @Column(name ="geboorteplek")
     private String geborenTe;
-    private Date geboorteDatum;
-
+    //rol = discriminator
+    //formulenaam
+    //score
+    private String nationaliteit; //nog niet in db
+    private char geslacht; //nog niet in db
     //constructors
     protected Gebruiker() {
 

@@ -1,7 +1,11 @@
 package domein;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity(name = "Lid")
+@Table(name = "lid")
 public class Lid extends Gebruiker implements Serializable {
 
     protected Lid() {
