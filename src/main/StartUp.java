@@ -7,7 +7,6 @@ package main;
 
 import domein.DomeinController;
 import gui.LedenLijstPanelController;
-import gui.LidGegevensPanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

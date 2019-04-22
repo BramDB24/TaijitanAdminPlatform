@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import repository.GebruikerDao;
 import repository.GebruikerDaoJpa;
+import repository.GenericDao;
+import repository.GenericDaoJpa;
 
 public class DomeinController {
 
     private List<Gebruiker> gebruikers;
-    private ObservableList<String> leden;
-    private GebruikerDao gebruikerDao;
+    private GenericDao genericDao;
 
     public DomeinController(boolean withInit) {
         if (withInit) {
             new DatabasePopulation().seedDb();
         }
-        setGebruikerDao(new GebruikerDaoJpa());
+        setGenericDao(new GenericDaoJpa<>(Gebruiker.class));
     }
 
     public void addGebruiker(String familienaam, String voornaam, String wachtwoord, Date geboortedatum, String straat, int postcode,
@@ -56,41 +56,34 @@ public class DomeinController {
     }
 
     //setters, getters
-    private void setGebruikerDao(GebruikerDao gd) {
-        this.gebruikerDao = gd;
+    private void setGenericDao(GenericDao<Gebruiker> gd) {
+        this.genericDao = gd;
     }
 
     public List<Gebruiker> getGebruikers() {
-        if (gebruikers == null) {
-            gebruikers = gebruikerDao.getAll();
-        }
+        initializeGebruikersListWhenEmpty();
         return gebruikers;
     }
 
     public ObservableList<String> getLeden() {
-        if (gebruikers == null) {
-            gebruikers = gebruikerDao.getAll();
-            
-            leden = FXCollections.observableArrayList(
-                    gebruikers.stream().filter(g -> g instanceof Lid).map(l -> l.getGebruikersNaam()).collect(Collectors.toList()) 
-                    //l.toString()? of gwn gebruikersnaam blijven tonen
-            );
-        }
-
-        return FXCollections.unmodifiableObservableList(leden);
+        initializeGebruikersListWhenEmpty();
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(
+                gebruikers.stream().filter(g -> g instanceof Lid).map(l -> l.getGebruikersNaam()).collect(Collectors.toList())));
     }
-    
-    public String getLidInfo(String gebruikersnaam){
-        return gebruikers.stream().filter(g -> g.getGebruikersNaam().equals(gebruikersnaam)).findFirst().get() .getDataAsString();
-        //null check + exception !
-        //orElse Throw error?
+
+    public String getLidInfo(String gebruikersnaam) throws NullPointerException {
+        return gebruikers.stream().filter(g -> g.getGebruikersNaam().equals(gebruikersnaam)).findFirst().get().getDataAsString();
     }
 
     public List<String> getGebruikerNamen() {
-        if(gebruikers == null){
-            gebruikers = gebruikerDao.getAll();
-        }
+        initializeGebruikersListWhenEmpty();
         return gebruikers.stream().map(Gebruiker::getGebruikersNaam).collect(Collectors.toList());
+    }
+
+    public void initializeGebruikersListWhenEmpty() {
+        if (gebruikers == null) {
+            gebruikers = genericDao.getAll();
+        }
     }
 
 }

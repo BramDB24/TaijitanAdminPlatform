@@ -22,13 +22,13 @@ public class LedenLijstPanelController extends GridPane {
 
     private DomeinController dc;
     private LidGegevensPanelController lgpc;
-    
+
     @FXML
     private ListView<String> listViewLeden;
 
-    public LedenLijstPanelController(DomeinController dc){
+    public LedenLijstPanelController(DomeinController dc) {
         this.dc = dc;
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LedenLijstPanel.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -37,16 +37,20 @@ public class LedenLijstPanelController extends GridPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        
+
         lgpc = new LidGegevensPanelController(dc);
-        
+
         listViewLeden.setItems(dc.getLeden());
         listViewLeden.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         listViewLeden.getSelectionModel().selectedItemProperty().
                 addListener(val -> {
                     if (val != null) {
-                        lgpc.update(dc.getLidInfo(listViewLeden.getSelectionModel().getSelectedItem()));
+                        try {
+                            lgpc.update(dc.getLidInfo(listViewLeden.getSelectionModel().getSelectedItem()));
+                        } catch (NullPointerException e) {
+                            System.out.println("Er kan geen info getoont worden voor dit lid.");
+                        }
                     }
                 });
         this.add(lgpc, 1, 0);
