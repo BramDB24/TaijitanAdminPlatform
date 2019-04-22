@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Gebruiker;
 import java.io.IOException;
 import java.util.Date;
 import javafx.event.ActionEvent;
@@ -81,7 +82,7 @@ public class LidGegevensPanelController extends GridPane {
     private void slaOp(ActionEvent event) {
         try{ //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
         dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
-        txtLand.getText(), Integer.parseInt(txtRijksregisternummer.getText()), txtEmail.getText(),txtTelefoon.getText(), txtGeboorteplaats.getText(),
+        txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(),txtTelefoon.getText(), txtGeboorteplaats.getText(),
         Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
@@ -93,6 +94,28 @@ public class LidGegevensPanelController extends GridPane {
     @FXML
     private void annuleer(ActionEvent event) {
         //TODO (nog geen ander scherm atm)
+    }
+
+    public void update(String gebruikerInfo) {
+        String[] gebruiker = gebruikerInfo.split(",");
+        txtFamilienaam.setText(gebruiker[0]);
+        txtVoornaam.setText(gebruiker[1]);
+        txtTelefoon.setText(gebruiker[2]);
+        txtGeboortedatum.setText(gebruiker[3]);
+        txtEmail.setText(gebruiker[4]);
+        //Graad moet er nog bij
+        //Inschrijvingsdatum erbij of niet?
+        txtStraat.setText(gebruiker[7]);
+        txtHuisnummer.setText(gebruiker[8]);
+        txtPostcode.setText(gebruiker[9]);
+        txtStad.setText(gebruiker[10]);
+        txtLand.setText(gebruiker[11]);
+        txtRijksregisternummer.setText(gebruiker[12]);
+        txtGsm.setText(gebruiker[13]);
+        txtEmailOuders.setText(gebruiker[14]);
+        txtGeboorteplaats.setText(gebruiker[15]);
+        txtNationaliteit.setText(gebruiker[16]);
+        cbGeslacht.setPromptText(gebruiker[17]);
     }
     
 }

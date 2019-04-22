@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @Table(name = "Gebruiker")
 public abstract class Gebruiker implements Serializable {
 
-    
     @Id
     private String gebruikersNaam;
     private String wachtwoord;
@@ -46,7 +45,7 @@ public abstract class Gebruiker implements Serializable {
     private int postcode;
     private String stad;
     private String land;
-    private int rijksregisternummer;
+    private String rijksregisternummer;
     @Column(name="Gsm")
     private String gsmNummer;
     @Column(name = "emailOuders")
@@ -65,7 +64,7 @@ public abstract class Gebruiker implements Serializable {
 
     public Gebruiker(String familienaam, String voornaam, String wachtwoord,
             Date geboortedatum, String straat, int postcode, String land,
-            int rijksregisternummer, String email, String telefoon,
+            String rijksregisternummer, String email, String telefoon,
             String geboorteplaats, int huisnummer, String stad,
             String nationaliteit, String emailOuders, String gsm,
             char geslacht) {
@@ -126,7 +125,7 @@ public abstract class Gebruiker implements Serializable {
         this.nationaliteit = nationaliteit;
     }
 
-    public final void setRijksregisternummer(int rijksregisternummer) {
+    public final void setRijksregisternummer(String rijksregisternummer) {
         this.rijksregisternummer = rijksregisternummer;
     }
 
@@ -162,9 +161,22 @@ public abstract class Gebruiker implements Serializable {
         this.gebruikersNaam = naam + voornaam + "java";
     }
 
+    ///////////
+    //GETTERS//
+    ///////////
     public String getGebruikersNaam() {
         return gebruikersNaam;
     }
+    
+    //!!! Al de gegevens worden meegegeven in 1 grote string, gescheiden dooor een komma. DUS SPLIT(",")
+    public String getDataAsString(){
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", 
+                familienaam, voornaam, vastTelefoonnummer, geboorteDatum.toString(), emailAdres,
+                Integer.toString(graad), inschrijvingsdatum.toString(), straatnaam, Integer.toString(huisnummer), 
+                Integer.toString(postcode), stad, land, rijksregisternummer, gsmNummer, emailAdresOuders, geborenTe, 
+                nationaliteit,Character.toString(geslacht));
+    }
+    
 
     @Override
     public int hashCode() {

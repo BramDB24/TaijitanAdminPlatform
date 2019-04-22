@@ -6,6 +6,7 @@
 package main;
 
 import domein.DomeinController;
+import gui.LedenLijstPanelController;
 import gui.LidGegevensPanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -20,7 +21,7 @@ public class StartUp extends Application {
     @Override
     public void start(Stage primaryStage) {
         DomeinController dc = new DomeinController(false);
-        Scene scene = new Scene(new LidGegevensPanelController(dc)); //hier moet startpagina komen ofc.
+        Scene scene = new Scene(new LedenLijstPanelController(dc)); //hier moet startpagina komen ofc.
         primaryStage.setScene(scene);
         primaryStage.show();
     }
