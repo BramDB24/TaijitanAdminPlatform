@@ -8,6 +8,7 @@ package gui;
 import domein.DomeinController;
 import domein.Gebruiker;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,11 +95,11 @@ public class LidGegevensPanelController extends GridPane {
             if (dc.getGebruikerNamen().stream().anyMatch(naam -> naam == txtGebruikersnaam.getText())) {
                 dc.aanpassenGebruiker(txtGebruikersnaam.getText(), txtFamilienaam.getText(), txtVoornaam.getText(), txtWachtwoord.getText(), new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
                         txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
-                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
+                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), LocalDateTime.now());
             } else {
                 dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
                         txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
-                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
+                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), LocalDateTime.now());
             }
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();

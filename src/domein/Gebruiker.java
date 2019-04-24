@@ -72,7 +72,7 @@ public abstract class Gebruiker implements Serializable {
             String rijksregisternummer, String email, String telefoon,
             String geboorteplaats, int huisnummer, String stad,
             String nationaliteit, String emailOuders, String gsm,
-            char geslacht) {
+            char geslacht, int graad, LocalDateTime inschrijvingsdatum) {
         setFamilienaam(familienaam);
         setVoornaam(voornaam);
         setGebruikersNaam(familienaam, voornaam);
@@ -91,6 +91,8 @@ public abstract class Gebruiker implements Serializable {
         setEmailAdresOuders(emailOuders);
         setGsmNummer(gsm);
         setGeslacht(geslacht);
+        setGraad(graad);
+        setInschrijvingsdatum(inschrijvingsdatum);
     }
 
     //setters //validatie etc toevoegen
@@ -166,6 +168,15 @@ public abstract class Gebruiker implements Serializable {
         this.gebruikersNaam = naam + voornaam + "java";
     }
 
+    public void setGraad(int graad) {
+        this.graad = graad;
+    }
+
+    public void setInschrijvingsdatum(LocalDateTime inschrijvingsdatum) {
+        this.inschrijvingsdatum = inschrijvingsdatum;
+    }
+
+    
     ///////////
     //GETTERS//
     ///////////
