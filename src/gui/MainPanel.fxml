@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="1058.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="1032.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" maxWidth="295.20001220703125" minWidth="10.0" prefWidth="205.99996337890627" />
     <ColumnConstraints hgrow="ALWAYS" maxWidth="528.0" minWidth="10.0" prefWidth="513.6000366210938" />
@@ -22,6 +22,11 @@
       <Button fx:id="activiteiten" mnemonicParsing="false" prefWidth="140.0" text="Beheren activiteiten" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="70.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonAanwezigheden" prefWidth="140.0" text="Aanwezigheden" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="110.0" />
          </GridPane.margin>
       </Button>
    </children>

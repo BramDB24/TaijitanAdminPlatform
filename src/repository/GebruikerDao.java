@@ -6,7 +6,7 @@
 package repository;
 
 import domein.Gebruiker;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 /**
@@ -14,6 +14,6 @@ import javax.persistence.EntityNotFoundException;
  * @author Jonah
  */
 public interface GebruikerDao extends GenericDao<Gebruiker>  {
-    public Collection<String> getAanwezigeGebruikers(int oneOrZero) throws EntityNotFoundException;
+    public List<String> getAanwezigeGebruikers(int oneOrZero) throws EntityNotFoundException;
     
 }

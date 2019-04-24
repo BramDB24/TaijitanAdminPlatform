@@ -23,11 +23,13 @@ import javafx.scene.layout.GridPane;
 
     private DomeinController dc;
     private LedenLijstPanelController llpc;
-
+    private AanwezighedenPanelController apc;
     @FXML
     private Button leden;
     @FXML
     private Button activiteiten;
+    @FXML
+    private Button aanwezigheden;
 
     public MainPanelController(DomeinController dc) {
         this.dc = dc;
@@ -47,6 +49,12 @@ import javafx.scene.layout.GridPane;
     public void toonLedenlijst(ActionEvent event) {
         llpc = new LedenLijstPanelController(dc);
         this.add(llpc, 1, 1);
+    }
+
+    @FXML
+    private void toonAanwezigheden(ActionEvent event) {
+        apc = new AanwezighedenPanelController(dc);
+        this.add(apc, 1, 1);
     }
 
     /**

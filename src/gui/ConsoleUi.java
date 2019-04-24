@@ -28,7 +28,7 @@ public class ConsoleUi {
         System.out.println("Gebruikers :");
         System.out.println(domeinController.getGebruikerNamen());  
         System.out.println("Aanwezigen :");
-        System.out.println(domeinController.getAanwezighedenGebruikers(1));
+        System.out.println(domeinController.getAanwezighedenGebruikers(0));
         
     }
 }

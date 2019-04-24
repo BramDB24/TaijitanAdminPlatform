@@ -6,7 +6,7 @@
 package repository;
 
 import domein.Gebruiker;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
@@ -22,11 +22,9 @@ public class GebruikerDaoJpa extends GenericDaoJpa<Gebruiker> implements Gebruik
 
 
     @Override
-    public Collection<String> getAanwezigeGebruikers(int oneOrZero) throws EntityNotFoundException {
+    public List<String> getAanwezigeGebruikers(int oneOrZero) throws EntityNotFoundException {
         try{
-            return em.createNativeQuery("Gebruiker.getAanwezigheid", Gebruiker.class)
-//                    .setParameter("oneOrZero",oneOrZero)
-                    .getResultList();
+           return em.createNativeQuery("select gebruikersnaam from LidSessie where cast(aanwezigheid as int) = " + oneOrZero).getResultList();
         }catch(NoResultException e){
             throw new EntityNotFoundException();
         }

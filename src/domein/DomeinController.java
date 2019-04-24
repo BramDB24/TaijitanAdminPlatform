@@ -69,10 +69,9 @@ public class DomeinController {
         this.gebruikerDao = gebruikerDao;
     }
 
-    public Collection<String> getAanwezighedenGebruikers(int oneOrZero) throws EntityNotFoundException {
+    public ObservableList<String> getAanwezighedenGebruikers(int oneOrZero) throws EntityNotFoundException {
         try {
-            return gebruikerDao.getAanwezigeGebruikers(oneOrZero);
-
+            return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(gebruikerDao.getAanwezigeGebruikers(oneOrZero))) ;
         } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException("Er zijn geen aanwezigen gevonden");
         }
