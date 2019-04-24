@@ -6,7 +6,9 @@
 package gui;
 
 import domein.DomeinController;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
@@ -38,11 +40,9 @@ public class LedenLijstPanelController extends GridPane {
             throw new RuntimeException(ex);
         }
 
-        lgpc = new LidGegevensPanelController(dc);
-
         listViewLeden.setItems(dc.getLeden());
+        lgpc = new LidGegevensPanelController(dc);
         listViewLeden.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
         listViewLeden.getSelectionModel().selectedItemProperty().
                 addListener(val -> {
                     if (val != null) {
@@ -53,6 +53,11 @@ public class LedenLijstPanelController extends GridPane {
                         }
                     }
                 });
+    }
+
+    @FXML
+    private void handleMouseClick(javafx.scene.input.MouseEvent event) {
+        this.getChildren().remove(lgpc);
         this.add(lgpc, 1, 0);
     }
 }
