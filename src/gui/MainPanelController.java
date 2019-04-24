@@ -19,7 +19,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Johanna
  */
-    public class MainPanelController extends GridPane {
+public class MainPanelController extends GridPane {
 
     private DomeinController dc;
     private LedenLijstPanelController llpc;
@@ -47,14 +47,16 @@ import javafx.scene.layout.GridPane;
 
     @FXML
     public void toonLedenlijst(ActionEvent event) {
+        
         llpc = new LedenLijstPanelController(dc);
-        this.add(llpc, 1, 1);
+        this.add(llpc, 1, 0);
     }
 
     @FXML
     private void toonAanwezigheden(ActionEvent event) {
+        
         apc = new AanwezighedenPanelController(dc);
-        this.add(apc, 1, 1);
+        this.add(apc, 1, 0);
     }
 
     /**

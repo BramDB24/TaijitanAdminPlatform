@@ -16,7 +16,9 @@ import repository.GenericDaoJpa;
 public class DomeinController {
 
     private List<Gebruiker> gebruikers;
-    private GenericDao genericDao;
+    private List<Lesmateriaal> lesmateriaal;
+    private GenericDao genericDaoGebruikers;
+    private GenericDao genericDaoLesmateriaal;
     private GebruikerDao gebruikerDao;
 
     public DomeinController(boolean withInit) {
@@ -24,6 +26,7 @@ public class DomeinController {
             new DatabasePopulation().seedDb();
         }
         setGenericDao(new GenericDaoJpa<>(Gebruiker.class));
+        setGenericDaoLesmateriaal(new GenericDaoJpa(Lesmateriaal.class));
         setGebruikerDao(new GebruikerDaoJpa());
     }
 
@@ -65,12 +68,17 @@ public class DomeinController {
 
     //setters, getters
     private void setGenericDao(GenericDao<Gebruiker> gd) {
-        this.genericDao = gd;
+        this.genericDaoGebruikers = gd;
     }
 
     public final void setGebruikerDao(GebruikerDao gebruikerDao) {
         this.gebruikerDao = gebruikerDao;
     }
+
+    public final void setGenericDaoLesmateriaal(GenericDao genericDaoLesmateriaal) {
+        this.genericDaoLesmateriaal = genericDaoLesmateriaal;
+    }
+    
 
     public ObservableList<String> getAanwezighedenGebruikers(int oneOrZero) throws EntityNotFoundException {
         try {
@@ -99,10 +107,15 @@ public class DomeinController {
         initializeGebruikersListWhenEmpty();
         return gebruikers.stream().map(Gebruiker::getGebruikersNaam).collect(Collectors.toList());
     }
+    
+    public List<String> getLesmateriaal(){
+        lesmateriaal = genericDaoLesmateriaal.getAll();
+        return this.lesmateriaal.stream().map(Lesmateriaal::getNaam).collect(Collectors.toList());
+    }
 
     public void initializeGebruikersListWhenEmpty() {
         if (gebruikers == null) {
-            gebruikers = genericDao.getAll();
+            gebruikers = genericDaoGebruikers.getAll();
         }
     }
 

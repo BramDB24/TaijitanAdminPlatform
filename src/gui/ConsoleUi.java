@@ -29,6 +29,8 @@ public class ConsoleUi {
         System.out.println(domeinController.getGebruikerNamen());  
         System.out.println("Aanwezigen :");
         System.out.println(domeinController.getAanwezighedenGebruikers(0));
+        System.out.println("Lesmateriaal");
+        System.out.println(domeinController.getLesmateriaal());
         
     }
 }
