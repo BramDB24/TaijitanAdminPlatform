@@ -11,6 +11,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.GridPane;
@@ -27,6 +28,8 @@ public class LedenLijstPanelController extends GridPane {
 
     @FXML
     private ListView<String> listViewLeden;
+    @FXML
+    private Button toevoegen;
 
     public LedenLijstPanelController(DomeinController dc) {
         this.dc = dc;
@@ -58,6 +61,13 @@ public class LedenLijstPanelController extends GridPane {
     @FXML
     private void handleMouseClick(javafx.scene.input.MouseEvent event) {
         this.getChildren().remove(lgpc);
-        this.add(lgpc, 1, 0);
+        this.add(lgpc, 1, 1);
+    }
+
+    @FXML
+    private void toevoegenLid(ActionEvent event) {
+        this.getChildren().remove(lgpc);
+        lgpc = new LidGegevensPanelController(dc);
+        this.add(lgpc, 1, 1);
     }
 }
