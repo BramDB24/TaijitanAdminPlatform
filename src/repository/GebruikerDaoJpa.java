@@ -6,6 +6,7 @@
 package repository;
 
 import domein.Gebruiker;
+import java.util.Collection;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
@@ -19,13 +20,14 @@ public class GebruikerDaoJpa extends GenericDaoJpa<Gebruiker> implements Gebruik
         super(Gebruiker.class);
     }
 
+
     @Override
-    public Gebruiker getGebruikerByName(String name) throws EntityNotFoundException {
-        try {
-            return em.createNamedQuery("Gebruiker.findByName", Gebruiker.class)
-                    .setParameter("gebruikerNaam", name)
-                    .getSingleResult();
-        } catch (NoResultException e) {
+    public Collection<String> getAanwezigeGebruikers(int oneOrZero) throws EntityNotFoundException {
+        try{
+            return em.createNativeQuery("Gebruiker.getAanwezigheid", Gebruiker.class)
+//                    .setParameter("oneOrZero",oneOrZero)
+                    .getResultList();
+        }catch(NoResultException e){
             throw new EntityNotFoundException();
         }
     }

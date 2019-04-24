@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -17,9 +19,13 @@ import javax.persistence.Table;
  * @author Jonah
  */
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Rol")
 @Table(name = "Gebruiker")
+@NamedQueries({
+    @NamedQuery(name = "Gebruiker.getAanwezigheid",
+            query = "SELECT gebruikersnaam FROM Gebruiker WHERE gebruikersnaam = :oneOrZero")
+})
 public abstract class Gebruiker implements Serializable {
 
     @Id
@@ -29,7 +35,7 @@ public abstract class Gebruiker implements Serializable {
     private String familienaam;
     private String voornaam;
     //adres id db?
-    @Column(name="Telefoonnummer")
+    @Column(name = "Telefoonnummer")
     private String vastTelefoonnummer;
     private Date geboorteDatum;
     @Column(name = "email")
@@ -44,11 +50,11 @@ public abstract class Gebruiker implements Serializable {
     private String stad;
     private String land;
     private String rijksregisternummer;
-    @Column(name="Gsm")
+    @Column(name = "Gsm")
     private String gsmNummer;
     @Column(name = "emailOuders")
     private String emailAdresOuders;
-    @Column(name ="geboorteplek")
+    @Column(name = "geboorteplek")
     private String geborenTe;
     //rol = discriminator
     //formulenaam = in lid
@@ -56,6 +62,7 @@ public abstract class Gebruiker implements Serializable {
     private String nationaliteit; //nog niet in db
     private char geslacht; //nog niet in db
     //constructors
+
     protected Gebruiker() {
 
     }
@@ -165,16 +172,15 @@ public abstract class Gebruiker implements Serializable {
     public String getGebruikersNaam() {
         return gebruikersNaam;
     }
-    
+
     //!!! Al de gegevens worden meegegeven in 1 grote string, gescheiden dooor een komma. DUS SPLIT(",")
-    public String getDataAsString(){
-        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", 
+    public String getDataAsString() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
                 familienaam, voornaam, vastTelefoonnummer, geboorteDatum.toString(), emailAdres,
-                Integer.toString(graad), inschrijvingsdatum.toString(), straatnaam, Integer.toString(huisnummer), 
-                Integer.toString(postcode), stad, land, rijksregisternummer, gsmNummer, emailAdresOuders, geborenTe, 
-                nationaliteit,Character.toString(geslacht));
+                Integer.toString(graad), inschrijvingsdatum.toString(), straatnaam, Integer.toString(huisnummer),
+                Integer.toString(postcode), stad, land, rijksregisternummer, gsmNummer, emailAdresOuders, geborenTe,
+                nationaliteit, Character.toString(geslacht));
     }
-    
 
     @Override
     public int hashCode() {
@@ -201,5 +207,4 @@ public abstract class Gebruiker implements Serializable {
         return true;
     }
 
-    
 }

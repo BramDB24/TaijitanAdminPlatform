@@ -1,10 +1,13 @@
 package domein;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javax.persistence.EntityNotFoundException;
+import repository.GebruikerDao;
 import repository.GebruikerDaoJpa;
 import repository.GenericDao;
 import repository.GenericDaoJpa;
@@ -13,12 +16,14 @@ public class DomeinController {
 
     private List<Gebruiker> gebruikers;
     private GenericDao genericDao;
+    private GebruikerDao gebruikerDao;
 
     public DomeinController(boolean withInit) {
         if (withInit) {
             new DatabasePopulation().seedDb();
         }
         setGenericDao(new GenericDaoJpa<>(Gebruiker.class));
+        setGebruikerDao(new GebruikerDaoJpa());
     }
 
     public void addGebruiker(String familienaam, String voornaam, String wachtwoord, Date geboortedatum, String straat, int postcode,
@@ -58,6 +63,19 @@ public class DomeinController {
     //setters, getters
     private void setGenericDao(GenericDao<Gebruiker> gd) {
         this.genericDao = gd;
+    }
+
+    public final void setGebruikerDao(GebruikerDao gebruikerDao) {
+        this.gebruikerDao = gebruikerDao;
+    }
+
+    public Collection<String> getAanwezighedenGebruikers(int oneOrZero) throws EntityNotFoundException {
+        try {
+            return gebruikerDao.getAanwezigeGebruikers(oneOrZero);
+
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("Er zijn geen aanwezigen gevonden");
+        }
     }
 
     public List<Gebruiker> getGebruikers() {
