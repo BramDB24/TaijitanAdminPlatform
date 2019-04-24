@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,9 +12,11 @@
     <ColumnConstraints hgrow="ALWAYS" maxWidth="660.7999877929688" minWidth="10.0" prefWidth="660.7999877929688" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="194.79999389648438" minHeight="10.0" prefHeight="40.400000000000006" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="360.4" minHeight="10.0" prefHeight="360.4" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ListView fx:id="listViewLeden" onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="260.0" />
+      <ListView fx:id="listViewLeden" onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="260.0" GridPane.rowIndex="1" />
+      <Button fx:id="toevoegen" mnemonicParsing="false" onAction="#toevoegenLid" text="Lid toevoegen" GridPane.halignment="CENTER" />
    </children>
 </fx:root>

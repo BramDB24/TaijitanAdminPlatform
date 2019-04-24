@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="1058.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1108.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" maxWidth="295.20001220703125" minWidth="10.0" prefWidth="205.99996337890627" />
-    <ColumnConstraints hgrow="ALWAYS" maxWidth="528.0" minWidth="10.0" prefWidth="513.6000366210938" />
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="1058.0" minWidth="10.0" prefWidth="513.6000366210938" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="451.1999870300293" minHeight="10.0" prefHeight="440.7999778747559" vgrow="SOMETIMES" />

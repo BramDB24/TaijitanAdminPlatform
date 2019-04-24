@@ -9,17 +9,19 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="639.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="162.20001220703125" minWidth="10.0" prefWidth="123.40001220703124" />
-    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="271.6" minWidth="10.0" prefWidth="203.0" />
-      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="199.19997558593752" minWidth="10.0" prefWidth="91.0" />
-      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="186.20001220703125" minWidth="10.0" prefWidth="153.19998779296873" />
+    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="271.6" minWidth="10.0" prefWidth="179.39998779296877" />
+      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="199.19997558593752" minWidth="10.0" prefWidth="141.80001220703127" />
+      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="186.20001220703125" minWidth="10.0" prefWidth="150.80001220703127" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -64,10 +66,20 @@
       <TextField fx:id="txtEmailOuders" GridPane.columnIndex="3" GridPane.rowIndex="9" />
       <TextField fx:id="txtGsm" GridPane.columnIndex="3" GridPane.rowIndex="10" />
       <ComboBox fx:id="cbGeslacht" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="btnOpslaan" mnemonicParsing="false" onAction="#slaOp" text="Opslaan" GridPane.rowIndex="11" />
-      <Button fx:id="btnAnnuleer" mnemonicParsing="false" onAction="#annuleer" text="Annuleer" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <Button fx:id="btnOpslaan" mnemonicParsing="false" onAction="#slaOp" text="Opslaan" GridPane.rowIndex="13" />
+      <Button fx:id="btnAnnuleer" mnemonicParsing="false" onAction="#annuleer" text="Annuleer" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+      <Label text="Gebruikersnaam" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label text="Wachtwoord" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label text="Wachtwoord bevestiging" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="txtGebruikersnaam" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <TextField fx:id="txtWachtwoord" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <TextField fx:id="txtWachtwoord2" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Label text="Graad" GridPane.rowIndex="11" />
+      <Label text="Inschrijvingsdatum" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <TextField fx:id="txtGraad" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <TextField fx:id="txtInschrijving" GridPane.columnIndex="3" GridPane.rowIndex="11" />
    </children>
    <padding>
-      <Insets bottom="10.0" left="20.0" right="20.0" />
+      <Insets bottom="20.0" left="20.0" right="20.0" />
    </padding>
 </fx:root>

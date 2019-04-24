@@ -62,8 +62,18 @@ public class LidGegevensPanelController extends GridPane {
     private Button btnOpslaan;
     @FXML
     private Button btnAnnuleer;
+    @FXML
+    private TextField txtGebruikersnaam;
+    @FXML
+    private TextField txtWachtwoord;
+    @FXML
+    private TextField txtWachtwoord2;
+    @FXML
+    private TextField txtGraad;
+    @FXML
+    private TextField txtInschrijving;
 
-    public LidGegevensPanelController(DomeinController dc){
+    public LidGegevensPanelController(DomeinController dc) {
         this.dc = dc;
         System.out.println(getClass().getResource("LidGegevensPanel.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LidGegevensPanel.fxml"));
@@ -76,14 +86,20 @@ public class LidGegevensPanelController extends GridPane {
         }
         cbGeslacht.setPromptText("M");
         cbGeslacht.getItems().addAll('M', 'V', 'O');
-    }  
+    }
 
     @FXML
     private void slaOp(ActionEvent event) {
-        try{ //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
-        dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
-        txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(),txtTelefoon.getText(), txtGeboorteplaats.getText(),
-        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
+        try { //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
+            if (dc.getGebruikerNamen().stream().anyMatch(naam -> naam == txtGebruikersnaam.getText())) {
+                dc.aanpassenGebruiker(txtGebruikersnaam.getText(), txtFamilienaam.getText(), txtVoornaam.getText(), txtWachtwoord.getText(), new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
+                        txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
+                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
+            } else {
+                dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
+                        txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
+                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue());
+            }
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
         } catch (IllegalArgumentException exception) {
@@ -117,5 +133,5 @@ public class LidGegevensPanelController extends GridPane {
         txtNationaliteit.setText(gebruiker[16]);
         cbGeslacht.setPromptText(gebruiker[17]);
     }
-    
+
 }
