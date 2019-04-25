@@ -56,7 +56,7 @@ public class MainPanelController extends GridPane {
     private void toonAanwezigheden(ActionEvent event) {
         
         apc = new AanwezighedenPanelController(dc);
-        this.add(apc, 1, 0);
+        this.add(apc, 1, 1);
     }
 
     /**
