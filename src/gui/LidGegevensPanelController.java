@@ -8,7 +8,7 @@ package gui;
 import domein.DomeinController;
 import domein.Gebruiker;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -31,7 +32,6 @@ public class LidGegevensPanelController extends GridPane {
     private TextField txtFamilienaam;
     @FXML
     private TextField txtVoornaam;
-    @FXML
     private TextField txtGeboortedatum;
     @FXML
     private TextField txtStraat;
@@ -62,17 +62,13 @@ public class LidGegevensPanelController extends GridPane {
     @FXML
     private Button btnOpslaan;
     @FXML
-    private Button btnAnnuleer;
-    @FXML
-    private TextField txtGebruikersnaam;
-    @FXML
-    private TextField txtWachtwoord;
-    @FXML
-    private TextField txtWachtwoord2;
-    @FXML
     private TextField txtGraad;
     @FXML
-    private TextField txtInschrijving;
+    private Button btnVerwijder;
+    @FXML
+    private DatePicker dateGeboorte;
+    @FXML
+    private DatePicker dateInschrijving;
 
     public LidGegevensPanelController(DomeinController dc) {
         this.dc = dc;
@@ -92,14 +88,15 @@ public class LidGegevensPanelController extends GridPane {
     @FXML
     private void slaOp(ActionEvent event) {
         try { //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
-            if (dc.getGebruikerNamen().stream().anyMatch(naam -> naam == txtGebruikersnaam.getText())) {
-                dc.aanpassenGebruiker(txtGebruikersnaam.getText(), txtFamilienaam.getText(), txtVoornaam.getText(), txtWachtwoord.getText(), new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
+            String gebruikersnaam = txtFamilienaam.getText() + txtVoornaam.getText();
+            if (dc.getGebruikerNamen().stream().anyMatch(naam -> naam == gebruikersnaam)) {
+                dc.aanpassenGebruiker(gebruikersnaam, txtFamilienaam.getText(), txtVoornaam.getText(), dateGeboorte.getValue(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
                         txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
-                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), LocalDateTime.now());
+                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), dateInschrijving.getValue());
             } else {
-                dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), "", new Date(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
+                dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), dateGeboorte.getValue(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
                         txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
-                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), LocalDateTime.now());
+                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), dateInschrijving.getValue());
             }
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
@@ -108,20 +105,16 @@ public class LidGegevensPanelController extends GridPane {
         }
     }
 
-    @FXML
-    private void annuleer(ActionEvent event) {
-        //TODO (nog geen ander scherm atm)
-    }
 
     public void update(String gebruikerInfo) {
         String[] gebruiker = gebruikerInfo.split(",");
         txtFamilienaam.setText(gebruiker[0]);
         txtVoornaam.setText(gebruiker[1]);
         txtTelefoon.setText(gebruiker[2]);
-        txtGeboortedatum.setText(gebruiker[3]);
+        dateGeboorte.setValue(LocalDate.parse(gebruiker[3]));
         txtEmail.setText(gebruiker[4]);
-        //Graad moet er nog bij
-        //Inschrijvingsdatum erbij of niet?
+        txtGraad.setText(gebruiker[5]);
+        dateInschrijving.setValue(LocalDate.parse(gebruiker[6]));
         txtStraat.setText(gebruiker[7]);
         txtHuisnummer.setText(gebruiker[8]);
         txtPostcode.setText(gebruiker[9]);
@@ -133,6 +126,12 @@ public class LidGegevensPanelController extends GridPane {
         txtGeboorteplaats.setText(gebruiker[15]);
         txtNationaliteit.setText(gebruiker[16]);
         cbGeslacht.setPromptText(gebruiker[17]);
+        
+    }
+
+    @FXML
+    private void verwijder(ActionEvent event) {
+        
     }
 
 }

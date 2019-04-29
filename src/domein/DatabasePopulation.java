@@ -5,7 +5,7 @@
  */
 package domein;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 import repository.GebruikerDaoJpa;
 
@@ -19,7 +19,7 @@ public class DatabasePopulation {
         GebruikerDaoJpa gdj = new GebruikerDaoJpa();
         GebruikerDaoJpa.startTransaction();
             
-        gdj.insert(new Lid("De Smet", "Jonah","TestWachtwoord", new Date(), "straat", 0000, "België", "123456789", "emai@email.com", "054124578", "GeboortePlek", 1, "Stad", "Belg", "emailOuders@email.com", "0476124578", 'M', 2, LocalDateTime.now()));
+        gdj.insert(new Lid("De Smet", "Jonah","TestWachtwoord", LocalDate.now(), "straat", 0000, "België", "123456789", "emai@email.com", "054124578", "GeboortePlek", 1, "Stad", "Belg", "emailOuders@email.com", "0476124578", 'M', 2, LocalDate.now()));
 
         GebruikerDaoJpa.commitTransaction();
 

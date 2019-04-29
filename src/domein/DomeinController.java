@@ -1,6 +1,6 @@
 package domein;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -30,20 +30,19 @@ public class DomeinController {
         setGebruikerDao(new GebruikerDaoJpa());
     }
 
-    public void addGebruiker(String familienaam, String voornaam, String wachtwoord, Date geboortedatum, String straat, int postcode,
+    public void addGebruiker(String familienaam, String voornaam, LocalDate geboortedatum, String straat, int postcode,
             String land, String rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer,
-            String stad, String nationaliteit, String emailOuders, String gsm, char geslacht, int graad, LocalDateTime inschrijvingsdatum) {
-        this.gebruikers.add(new Lid(familienaam, voornaam, wachtwoord, geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer,
+            String stad, String nationaliteit, String emailOuders, String gsm, char geslacht, int graad, LocalDate inschrijvingsdatum) {
+        this.gebruikers.add(new Lid(familienaam, voornaam, "", geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer,
                 stad, nationaliteit, emailOuders, gsm, geslacht, graad, inschrijvingsdatum));
     }
 
-    public void aanpassenGebruiker(String gebruikersnaam, String familienaam, String voornaam, String wachtwoord, Date geboortedatum, String straat, int postcode,
+    public void aanpassenGebruiker(String gebruikersnaam, String familienaam, String voornaam, LocalDate geboortedatum, String straat, int postcode,
             String land, String rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer,
-            String stad, String nationaliteit, String emailOuders, String gsm, char geslacht, int graad, LocalDateTime inschrijvingsdatum) {
+            String stad, String nationaliteit, String emailOuders, String gsm, char geslacht, int graad, LocalDate inschrijvingsdatum) {
         Gebruiker gebruiker = this.gebruikers.stream().filter(g -> g.getGebruikersNaam().equals(gebruikersnaam)).findFirst().get();
         gebruiker.setFamilienaam(familienaam);
         gebruiker.setVoornaam(voornaam);
-        gebruiker.setWachtwoord(wachtwoord);
         gebruiker.setGeboorteDatum(geboortedatum);
         gebruiker.setStraatnaam(straat);
         gebruiker.setPostcode(postcode);
@@ -62,6 +61,10 @@ public class DomeinController {
         gebruiker.setInschrijvingsdatum(inschrijvingsdatum);
     }
 
+    public void verwijderGebruiker(String gebruikersnaam) {
+        //TODO
+    }
+    
     public void close() {
         GebruikerDaoJpa.closePersistency();
     }

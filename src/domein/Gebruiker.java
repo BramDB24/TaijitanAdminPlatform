@@ -1,7 +1,7 @@
 package domein;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -31,13 +31,13 @@ public abstract class Gebruiker implements Serializable {
     //adres id db?
     @Column(name = "Telefoonnummer")
     private String vastTelefoonnummer;
-    private Date geboorteDatum;
+    private LocalDate geboorteDatum;
     @Column(name = "email")
     private String emailAdres;
     //Graad id db?
     private int graad = 2;  //meegeven in gebruiker toevoegscherm!!!!!!!!!!!!!!!!!!!!!!!
     //Inschrijvingsdatum id db?
-    private LocalDateTime inschrijvingsdatum = LocalDateTime.now(); //meegeven in gebruiker toevoegscherm!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private LocalDate inschrijvingsdatum = LocalDate.now(); //meegeven in gebruiker toevoegscherm!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private String straatnaam;
     private int huisnummer;
     private int postcode;
@@ -62,11 +62,11 @@ public abstract class Gebruiker implements Serializable {
     }
 
     public Gebruiker(String familienaam, String voornaam, String wachtwoord,
-            Date geboortedatum, String straat, int postcode, String land,
+            LocalDate geboortedatum, String straat, int postcode, String land,
             String rijksregisternummer, String email, String telefoon,
             String geboorteplaats, int huisnummer, String stad,
             String nationaliteit, String emailOuders, String gsm,
-            char geslacht, int graad, LocalDateTime inschrijvingsdatum) {
+            char geslacht, int graad, LocalDate inschrijvingsdatum) {
         setFamilienaam(familienaam);
         setVoornaam(voornaam);
         setGebruikersNaam(familienaam, voornaam);
@@ -150,7 +150,7 @@ public abstract class Gebruiker implements Serializable {
         this.geborenTe = geborenTe;
     }
 
-    public final void setGeboorteDatum(Date geboorteDatum) {
+    public final void setGeboorteDatum(LocalDate geboorteDatum) {
         this.geboorteDatum = geboorteDatum;
     }
 
@@ -159,14 +159,14 @@ public abstract class Gebruiker implements Serializable {
     }
 
     public final void setGebruikersNaam(String naam, String voornaam) {
-        this.gebruikersNaam = naam + voornaam + "java";
+        this.gebruikersNaam = naam + voornaam;
     }
 
     public void setGraad(int graad) {
         this.graad = graad;
     }
 
-    public void setInschrijvingsdatum(LocalDateTime inschrijvingsdatum) {
+    public void setInschrijvingsdatum(LocalDate inschrijvingsdatum) {
         this.inschrijvingsdatum = inschrijvingsdatum;
     }
 

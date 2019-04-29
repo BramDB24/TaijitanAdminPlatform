@@ -61,13 +61,13 @@ public class LedenLijstPanelController extends GridPane {
     @FXML
     private void handleMouseClick(javafx.scene.input.MouseEvent event) {
         this.getChildren().remove(lgpc);
-        this.add(lgpc, 1, 1);
+        this.add(lgpc, 1, 0);
     }
 
     @FXML
     private void toevoegenLid(ActionEvent event) {
         this.getChildren().remove(lgpc);
         lgpc = new LidGegevensPanelController(dc);
-        this.add(lgpc, 1, 1);
+        this.add(lgpc, 1, 0);
     }
 }
