@@ -1,125 +1,48 @@
 package domein;
 
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javax.persistence.EntityNotFoundException;
-import repository.GebruikerDao;
-import repository.GebruikerDaoJpa;
-import repository.GenericDao;
-import repository.GenericDaoJpa;
+import java.util.HashSet;
+import java.util.Set;
+import repository.UserDaoJpa;
 
-public class DomeinController {
+public abstract class DomeinController<E> implements Subject {
 
-    private List<Gebruiker> gebruikers;
-    private List<Lesmateriaal> lesmateriaal;
-    private GenericDao genericDaoGebruikers;
-    private GenericDao genericDaoLesmateriaal;
-    private GebruikerDao gebruikerDao;
+    private final Taijitan taijitan;
+    private final Set<Observer> observerlist;
 
-    public DomeinController(boolean withInit) {
-        if (withInit) {
-            new DatabasePopulation().seedDb();
-        }
-        setGenericDao(new GenericDaoJpa<>(Gebruiker.class));
-        setGenericDaoLesmateriaal(new GenericDaoJpa(Lesmateriaal.class));
-        setGebruikerDao(new GebruikerDaoJpa());
+    public DomeinController() {
+        taijitan = new Taijitan(new UserDaoJpa());
+        observerlist = new HashSet<>();
     }
 
-    public void addGebruiker(String familienaam, String voornaam, LocalDate geboortedatum, String straat, int postcode,
-            String land, String rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer,
-            String stad, String nationaliteit, String emailOuders, String gsm, char geslacht, int graad, LocalDate inschrijvingsdatum) {
-        this.gebruikers.add(new Lid(familienaam, voornaam, "", geboortedatum, straat, postcode, land, rijksregisternummer, email, telefoon, geboorteplaats, huisnummer,
-                stad, nationaliteit, emailOuders, gsm, geslacht, graad, inschrijvingsdatum));
+    //<editor-fold desc="methodes">
+    public abstract void newItem(E object);
+
+    public void removeItem(E object) {
+        throw new UnsupportedOperationException();
     }
 
-    public void aanpassenGebruiker(String gebruikersnaam, String familienaam, String voornaam, LocalDate geboortedatum, String straat, int postcode,
-            String land, String rijksregisternummer, String email, String telefoon, String geboorteplaats, int huisnummer,
-            String stad, String nationaliteit, String emailOuders, String gsm, char geslacht, int graad, LocalDate inschrijvingsdatum) {
-        Gebruiker gebruiker = this.gebruikers.stream().filter(g -> g.getGebruikersNaam().equals(gebruikersnaam)).findFirst().get();
-        gebruiker.setFamilienaam(familienaam);
-        gebruiker.setVoornaam(voornaam);
-        gebruiker.setGeboorteDatum(geboortedatum);
-        gebruiker.setStraatnaam(straat);
-        gebruiker.setPostcode(postcode);
-        gebruiker.setLand(land);
-        gebruiker.setRijksregisternummer(rijksregisternummer);
-        gebruiker.setEmailAdres(email);
-        gebruiker.setVastTelefoonnummer(telefoon);
-        gebruiker.setGeborenTe(geboorteplaats);
-        gebruiker.setHuisnummer(huisnummer);
-        gebruiker.setStad(stad);
-        gebruiker.setNationaliteit(nationaliteit);
-        gebruiker.setEmailAdresOuders(emailOuders);
-        gebruiker.setGsmNummer(gsm);
-        gebruiker.setGeslacht(geslacht);
-        gebruiker.setGraad(graad);
-        gebruiker.setInschrijvingsdatum(inschrijvingsdatum);
+    public abstract void removeItem();
+
+    @Override
+    public void addObserver(Observer observer) {
+        observerlist.add(observer);
     }
 
-    public void verwijderGebruiker(String gebruikersnaam) {
-        //TODO
-    }
-    
-    public void close() {
-        GebruikerDaoJpa.closePersistency();
+    @Override
+    public void removeObserver(Observer observer) {
+        observerlist.remove(observer);
     }
 
-    //setters, getters
-    private void setGenericDao(GenericDao<Gebruiker> gd) {
-        this.genericDaoGebruikers = gd;
+    public void notifyObservers() {
+        observerlist.forEach(e -> e.update());
     }
 
-    public final void setGebruikerDao(GebruikerDao gebruikerDao) {
-        this.gebruikerDao = gebruikerDao;
-    }
-
-    public final void setGenericDaoLesmateriaal(GenericDao genericDaoLesmateriaal) {
-        this.genericDaoLesmateriaal = genericDaoLesmateriaal;
-    }
+    //</editor-fold>
     
 
-    public ObservableList<String> getAanwezighedenGebruikers(int oneOrZero) throws EntityNotFoundException {
-        try {
-            return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(gebruikerDao.getAanwezigeGebruikers(oneOrZero))) ;
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("Er zijn geen aanwezigen gevonden");
-        }
+    //<editor-fold defaultstate="collapsed" desc="getters">
+    public Taijitan getTaijitan() {
+        return taijitan;
     }
-
-    public List<Gebruiker> getGebruikers() {
-        initializeGebruikersListWhenEmpty();
-        return gebruikers;
-    }
-
-    public ObservableList<String> getLeden() {
-        initializeGebruikersListWhenEmpty();
-        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(
-                gebruikers.stream().filter(g -> g instanceof Lid).map(l -> l.getGebruikersNaam()).collect(Collectors.toList())));
-    }
-
-    public String getLidInfo(String gebruikersnaam) throws NullPointerException {
-        return gebruikers.stream().filter(g -> g.getGebruikersNaam().equals(gebruikersnaam)).findFirst().get().getDataAsString();
-    }
-
-    public List<String> getGebruikerNamen() {
-        initializeGebruikersListWhenEmpty();
-        return gebruikers.stream().map(Gebruiker::getGebruikersNaam).collect(Collectors.toList());
-    }
-    
-    public List<String> getLesmateriaal(){
-        lesmateriaal = genericDaoLesmateriaal.getAll();
-        return this.lesmateriaal.stream().map(Lesmateriaal::getNaam).collect(Collectors.toList());
-    }
-
-    public void initializeGebruikersListWhenEmpty() {
-        if (gebruikers == null) {
-            gebruikers = genericDaoGebruikers.getAll();
-        }
-    }
-
+    //</editor-fold>
 }

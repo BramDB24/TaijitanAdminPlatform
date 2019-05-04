@@ -6,6 +6,7 @@
 package repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -14,14 +15,13 @@ import java.util.List;
  */
 public interface GenericDao<E> {
 
-    public List<E> getAll();
+    List<E> getAll();
 
-    public <U> E get(U id);
+    Optional<E> get(long id);
 
-    public E update(E object);
+    void update(E object);
 
-    public void delete(E object);
-
-    public void insert(E object);
-
+    void delete(E object);
+    
+    void save(E object);
 }

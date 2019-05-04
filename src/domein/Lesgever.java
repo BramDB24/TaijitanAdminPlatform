@@ -1,6 +1,6 @@
 package domein;
 
-public class Beheerder extends Gebruiker {
+public class Lesgever extends Gebruiker {
 
     @Override
     public String getGebruikersnaam() {
