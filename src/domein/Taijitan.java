@@ -9,7 +9,7 @@ import repository.UserDaoJpa;
 public class Taijitan<E> {
 
     private Lesmateriaal lesmaterialen;
-    private final ObservableList<GebuikerInterface> gebruikers;
+    private final ObservableList<Gebruiker> gebruikers;
     private Activiteit activiteiten;
     private final UserDaoJpa dao;
 
@@ -17,7 +17,8 @@ public class Taijitan<E> {
         this.dao = (UserDaoJpa) dao;
         gebruikers = FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(this.dao.getAll()));
     }
-
+    
+    //<editor-fold desc="UserActions">
     public void createUser(GebruikerDTO dto) {
         Gebruiker user = new Lid(dto);
         gebruikers.add(user);
@@ -34,14 +35,19 @@ public class Taijitan<E> {
         gebruikers.set(gebruikers.indexOf(user), user);
         dao.update(user);
     }
+    
+    public Gebruiker getUser(Gebruiker gebruiker){
+        return gebruikers.stream().filter(g -> g.equals(gebruiker)).findFirst().get();
+    }
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters">
     public Lesmateriaal getLesmaterialen() {
         return lesmaterialen;
     }
 
-    public ObservableList<Gebruiker> getGebruikers() {
-        return (ObservableList<Gebruiker>) (Object) gebruikers;
+    public ObservableList<GebruikerInterface> getGebruikers() {
+        return (ObservableList<GebruikerInterface>) (Object) gebruikers;
     }
 
     public Activiteit getActiviteiten() {

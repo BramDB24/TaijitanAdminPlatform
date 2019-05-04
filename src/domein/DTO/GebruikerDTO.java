@@ -216,6 +216,5 @@ public class GebruikerDTO {
     public int getScore() {
         return score;
     }
-
     // </editor-fold>
 }

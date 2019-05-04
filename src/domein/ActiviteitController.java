@@ -1,5 +1,7 @@
 package domein;
 
+import javafx.collections.ObservableList;
+
 public class ActiviteitController extends DomeinController {
 
 	private Activiteit huidigeActiviteit;
@@ -24,4 +26,19 @@ public class ActiviteitController extends DomeinController {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ObservableList toonOverzicht() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void notifyObservers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void toonItem(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

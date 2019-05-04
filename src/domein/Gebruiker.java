@@ -7,10 +7,15 @@ import java.util.Objects;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Rol")
-public abstract class Gebruiker implements GebuikerInterface, Serializable {
+@Table(name = "Gebruiker")
+public abstract class Gebruiker implements GebruikerInterface, Serializable {
 
     // <editor-fold desc="attributes">
     @Id
@@ -23,7 +28,7 @@ public abstract class Gebruiker implements GebuikerInterface, Serializable {
     private String email;
     private int graad;
     private LocalDate inschrijvingsdatum;
-    private String straat;
+    private String straatnaam;
     private String huisnummer;
     private String postcode;
     private String stad;
@@ -52,7 +57,7 @@ public abstract class Gebruiker implements GebuikerInterface, Serializable {
         email = dto.getEmail();
         graad = dto.getGraad();
         inschrijvingsdatum = dto.getInschrijvingsdatum();
-        straat = dto.getStraat();
+        straatnaam = dto.getStraat();
         huisnummer = dto.getHuisnummer();
         postcode = dto.getPostcode();
         stad = dto.getStad();
@@ -117,7 +122,7 @@ public abstract class Gebruiker implements GebuikerInterface, Serializable {
 
     @Override
     public String getStraat() {
-        return straat;
+        return straatnaam;
     }
 
     @Override
@@ -182,6 +187,37 @@ public abstract class Gebruiker implements GebuikerInterface, Serializable {
     public int getScore() {
         return score;
     }
+    
+    @Override
+    public GebruikerDTO getGebruikerDTO(){
+        return createGebruikerDTO();
+    }
+    
+    private GebruikerDTO createGebruikerDTO(){
+        GebruikerDTO dto = new GebruikerDTO();
+        dto.setGebruikersnaam(gebruikersnaam);
+        dto.setNaam(naam);
+        dto.setVoornaam(voornaam);
+        dto.setTelefoonnummer(telefoonnummer);
+        dto.setGeboortedatum(geboortedatum);
+        dto.setEmail(email);
+        dto.setGraad(graad);
+        dto.setInschrijvingsdatum(inschrijvingsdatum);
+        dto.setStraat(straatnaam);
+        dto.setHuisnummer(huisnummer);
+        dto.setPostcode(postcode);
+        dto.setStad(stad);
+        dto.setLand(land);
+        dto.setRijksregisternummer(rijksregisternummer);
+        dto.setGsm(gsm);
+        dto.setEmailouders(emailouders);
+        dto.setGeboorteplek(geboorteplek);
+        dto.setNationaliteit(nationaliteit);
+        dto.setGeslacht(geslacht);
+        dto.setFormulenaam(formulenaam);
+        dto.setScore(score);
+        return dto;
+    }
     // </editor-fold>
 
     //<editor-fold desc="Database hashcode/equals">
@@ -208,4 +244,9 @@ public abstract class Gebruiker implements GebuikerInterface, Serializable {
     }
     //</editor-fold>
 
+    @Override
+    public String toString(){
+        //fieldsize klopt niet helemaal in gui omdat bepaalde chars minder plek in nemen dan andere. Bv: i < w
+        return String.format("%-40s | %-15s %s", gebruikersnaam, naam, voornaam) ; 
+    }
 }

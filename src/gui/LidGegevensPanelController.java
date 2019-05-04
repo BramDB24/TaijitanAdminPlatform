@@ -5,8 +5,10 @@
  */
 package gui;
 
+import domein.DTO.GebruikerDTO;
 import domein.DomeinController;
 import domein.Gebruiker;
+import domein.Observer;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -25,7 +27,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author bramd
  */
-public class LidGegevensPanelController extends GridPane {
+public class LidGegevensPanelController extends GridPane implements Observer{
 
     private final DomeinController dc;
     @FXML
@@ -88,7 +90,7 @@ public class LidGegevensPanelController extends GridPane {
     @FXML
     private void slaOp(ActionEvent event) {
         try { //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
-            String gebruikersnaam = txtFamilienaam.getText() + txtVoornaam.getText();
+            /*String gebruikersnaam = txtFamilienaam.getText() + txtVoornaam.getText();
             if (dc.getGebruikerNamen().stream().anyMatch(naam -> naam == gebruikersnaam)) {
                 dc.aanpassenGebruiker(gebruikersnaam, txtFamilienaam.getText(), txtVoornaam.getText(), dateGeboorte.getValue(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
                         txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
@@ -98,6 +100,7 @@ public class LidGegevensPanelController extends GridPane {
                         txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
                         Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), dateInschrijving.getValue());
             }
+*/
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
         } catch (IllegalArgumentException exception) {
@@ -132,6 +135,29 @@ public class LidGegevensPanelController extends GridPane {
     @FXML
     private void verwijder(ActionEvent event) {
         
+    }
+
+    @Override
+    public void update(Object gebruiker) { //DTO hier?
+        GebruikerDTO gebruikerDTO = (GebruikerDTO)gebruiker;
+        txtFamilienaam.setText(gebruikerDTO.getNaam());
+        txtVoornaam.setText(gebruikerDTO.getVoornaam());
+        txtTelefoon.setText(gebruikerDTO.getTelefoonnummer());
+        dateGeboorte.setValue(gebruikerDTO.getGeboortedatum());
+        txtEmail.setText(gebruikerDTO.getEmail());
+        txtGraad.setText(Integer.toString(gebruikerDTO.getGraad()));
+        dateInschrijving.setValue(gebruikerDTO.getInschrijvingsdatum());
+        txtStraat.setText(gebruikerDTO.getStraat());
+        txtHuisnummer.setText(gebruikerDTO.getHuisnummer());
+        txtPostcode.setText(gebruikerDTO.getPostcode());
+        txtStad.setText(gebruikerDTO.getStad());
+        txtLand.setText(gebruikerDTO.getLand());
+        txtRijksregisternummer.setText(gebruikerDTO.getRijksregisternummer());
+        txtGsm.setText(gebruikerDTO.getGsm());
+        txtEmailOuders.setText(gebruikerDTO.getEmailouders());
+        txtGeboorteplaats.setText(gebruikerDTO.getGeboorteplek());
+        txtNationaliteit.setText(gebruikerDTO.getNationaliteit());
+        cbGeslacht.setPromptText(gebruikerDTO.getGeslacht());
     }
 
 }

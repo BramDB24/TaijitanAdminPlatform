@@ -2,6 +2,6 @@ package domein;
 
 public interface Observer {
 
-	void update();
+	void update(Object object);
 
 }

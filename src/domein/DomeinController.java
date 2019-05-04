@@ -2,6 +2,7 @@ package domein;
 
 import java.util.HashSet;
 import java.util.Set;
+import javafx.collections.ObservableList;
 import repository.UserDaoJpa;
 
 public abstract class DomeinController<E> implements Subject {
@@ -17,12 +18,12 @@ public abstract class DomeinController<E> implements Subject {
     //<editor-fold desc="methodes">
     public abstract void newItem(E object);
 
-    public void removeItem(E object) {
-        throw new UnsupportedOperationException();
-    }
-
     public abstract void removeItem();
 
+    public abstract ObservableList<E> toonOverzicht();
+    
+    public abstract void toonItem(E object);
+    
     @Override
     public void addObserver(Observer observer) {
         observerlist.add(observer);
@@ -33,9 +34,12 @@ public abstract class DomeinController<E> implements Subject {
         observerlist.remove(observer);
     }
 
-    public void notifyObservers() {
-        observerlist.forEach(e -> e.update());
+    public abstract void notifyObservers();
+        
+    protected Set<Observer> getObservers(){
+        return observerlist;
     }
+    
 
     //</editor-fold>
     

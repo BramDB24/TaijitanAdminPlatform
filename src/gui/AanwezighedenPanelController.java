@@ -24,6 +24,8 @@ import javafx.scene.layout.GridPane;
  *
  * @author Jonah
  */
+
+//Dit scherm mag weg?
 public class AanwezighedenPanelController extends GridPane {
 
     @FXML
@@ -50,7 +52,7 @@ public class AanwezighedenPanelController extends GridPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        aanwezighedenListview.setItems(dc.getAanwezighedenGebruikers(computeRadiobuttonValue()));
+        //aanwezighedenListview.setItems(dc.getAanwezighedenGebruikers(computeRadiobuttonValue()));
 
     }
 
@@ -66,7 +68,7 @@ public class AanwezighedenPanelController extends GridPane {
         }
     }
 
-    @FXML
+  /*  @FXML
     private void computeAanwezig(ActionEvent event) {
         aanwezighedenListview.setItems(dc.getAanwezighedenGebruikers(1));
 
@@ -77,5 +79,5 @@ public class AanwezighedenPanelController extends GridPane {
         aanwezighedenListview.setItems(dc.getAanwezighedenGebruikers(0));
 
     }
-
+*/
 }

@@ -18,7 +18,7 @@ public class StartUpConsole {
         new StartUpConsole().run();
     }
     public void run(){
-        new ConsoleUi(new DomeinController(false)).run();
+      //  new ConsoleUi(new DomeinController(false)).run();
     }
     
     

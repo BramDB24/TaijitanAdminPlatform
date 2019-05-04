@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -19,11 +21,14 @@ import javax.persistence.Query;
  */
 public class UserDaoJpa implements GenericDao<Gebruiker> {
 
-    private EntityManager entityManager;
-
+    //Dit moet nog veranderen
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("TaijitanPU");
+    private EntityManager entityManager = emf.createEntityManager();
+    
     @Override
     public List<Gebruiker> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM Gebruiker e");
+        var x = query;
         return query.getResultList();
     }
 

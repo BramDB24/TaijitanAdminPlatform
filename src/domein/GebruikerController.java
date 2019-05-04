@@ -1,6 +1,7 @@
 package domein;
 
 import domein.DTO.GebruikerDTO;
+import javafx.collections.ObservableList;
 
 public class GebruikerController<E> extends DomeinController<E> {
 
@@ -21,14 +22,18 @@ public class GebruikerController<E> extends DomeinController<E> {
     }
     
     @Override
-    public void addObserver(Observer observer) {
-        super.addObserver(observer);
+    public void toonItem(E gebruiker) {
+        huidigeGebruiker = getTaijitan().getUser((Gebruiker)gebruiker);
+        notifyObservers();
+    }
+    
+    @Override
+    public ObservableList<E> toonOverzicht() {
+        return getTaijitan().getGebruikers();
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        super.removeObserver(observer);
-    }
-
-    
+    public void notifyObservers() {
+        getObservers().forEach(o -> o.update(huidigeGebruiker.getGebruikerDTO()));
+    }    
 }
