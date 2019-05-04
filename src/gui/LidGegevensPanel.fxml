@@ -19,6 +19,7 @@
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -34,44 +35,46 @@
   </rowConstraints>
    <children>
       <Label text="Lid gegevens:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-      <Label text="Familienaam" GridPane.rowIndex="1" />
-      <Label text="Voornaam" GridPane.rowIndex="2" />
-      <Label text="Geslacht" GridPane.rowIndex="3" />
-      <Label text="Geboortedatum" GridPane.rowIndex="4" />
-      <Label text="Postcode" GridPane.rowIndex="6" />
-      <Label text="Rijksregisternummer" GridPane.rowIndex="8" />
-      <Label text="Email" GridPane.rowIndex="9" />
-      <Label text="Telefoon" GridPane.rowIndex="10" />
-      <Label text="Straat" GridPane.rowIndex="5" />
-      <Label text="Geboortepaats" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <Label text="Huisnummer" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Label text="Stad" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <Label text="Email ouders" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-      <Label text="Gsm" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-      <Label text="Land" GridPane.rowIndex="7" />
-      <Label text="Nationaliteit" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <TextField fx:id="txtFamilienaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="txtVoornaam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="txtStraat" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <TextField fx:id="txtPostcode" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField fx:id="txtLand" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <TextField fx:id="txtRijksregisternummer" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <TextField fx:id="txtTelefoon" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-      <TextField fx:id="txtGeboorteplaats" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-      <TextField fx:id="txtHuisnummer" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-      <TextField fx:id="txtStad" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-      <TextField fx:id="txtNationaliteit" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-      <TextField fx:id="txtEmailOuders" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-      <TextField fx:id="txtGsm" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-      <ComboBox fx:id="cbGeslacht" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="btnOpslaan" mnemonicParsing="false" onAction="#slaOp" text="Opslaan" GridPane.rowIndex="12" />
-      <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#verwijder" text="Verwijder" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-      <Label text="Graad" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Label text="Inschrijvingsdatum" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <TextField fx:id="txtGraad" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <DatePicker fx:id="dateGeboorte" prefHeight="26.0" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <DatePicker fx:id="dateInschrijving" prefWidth="148.8" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Label text="Familienaam" GridPane.rowIndex="2" />
+      <Label text="Voornaam" GridPane.rowIndex="3" />
+      <Label text="Geslacht" GridPane.rowIndex="4" />
+      <Label text="Geboortedatum" GridPane.rowIndex="5" />
+      <Label text="Postcode" GridPane.rowIndex="7" />
+      <Label text="Rijksregisternummer" GridPane.rowIndex="9" />
+      <Label text="Email" GridPane.rowIndex="10" />
+      <Label text="Telefoon" GridPane.rowIndex="11" />
+      <Label text="Straat" GridPane.rowIndex="6" />
+      <Label text="Geboortepaats" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label text="Huisnummer" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Label text="Stad" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Label text="Email ouders" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <Label text="Gsm" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <Label text="Land" GridPane.rowIndex="8" />
+      <Label text="Nationaliteit" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+      <TextField fx:id="txtFamilienaam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="txtVoornaam" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="txtStraat" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <TextField fx:id="txtPostcode" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="txtLand" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <TextField fx:id="txtRijksregisternummer" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <TextField fx:id="txtTelefoon" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <TextField fx:id="txtGeboorteplaats" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <TextField fx:id="txtHuisnummer" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <TextField fx:id="txtStad" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <TextField fx:id="txtNationaliteit" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+      <TextField fx:id="txtEmailOuders" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+      <TextField fx:id="txtGsm" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+      <ComboBox fx:id="cbGeslacht" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button fx:id="btnOpslaan" mnemonicParsing="false" onAction="#slaOp" text="Opslaan" GridPane.rowIndex="13" />
+      <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#verwijder" text="Verwijder" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+      <Label text="Graad" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label text="Inschrijvingsdatum" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="txtGraad" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <DatePicker fx:id="dateGeboorte" prefHeight="26.0" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <DatePicker fx:id="dateInschrijving" prefWidth="148.8" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <TextField fx:id="txtGebruikersnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="Gebruikersnaam" GridPane.rowIndex="1" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" />

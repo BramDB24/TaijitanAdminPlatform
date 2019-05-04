@@ -7,11 +7,8 @@ package gui;
 
 import domein.DTO.GebruikerDTO;
 import domein.DomeinController;
-import domein.Gebruiker;
 import domein.Observer;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +31,6 @@ public class LidGegevensPanelController extends GridPane implements Observer{
     private TextField txtFamilienaam;
     @FXML
     private TextField txtVoornaam;
-    private TextField txtGeboortedatum;
     @FXML
     private TextField txtStraat;
     @FXML
@@ -71,6 +67,8 @@ public class LidGegevensPanelController extends GridPane implements Observer{
     private DatePicker dateGeboorte;
     @FXML
     private DatePicker dateInschrijving;
+    @FXML
+    private TextField txtGebruikersnaam;
 
     public LidGegevensPanelController(DomeinController dc) {
         this.dc = dc;
@@ -90,17 +88,27 @@ public class LidGegevensPanelController extends GridPane implements Observer{
     @FXML
     private void slaOp(ActionEvent event) {
         try { //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
-            /*String gebruikersnaam = txtFamilienaam.getText() + txtVoornaam.getText();
-            if (dc.getGebruikerNamen().stream().anyMatch(naam -> naam == gebruikersnaam)) {
-                dc.aanpassenGebruiker(gebruikersnaam, txtFamilienaam.getText(), txtVoornaam.getText(), dateGeboorte.getValue(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
-                        txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
-                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), dateInschrijving.getValue());
-            } else {
-                dc.addGebruiker(txtFamilienaam.getText(), txtVoornaam.getText(), dateGeboorte.getValue(), txtStraat.getText(), Integer.parseInt(txtPostcode.getText()),
-                        txtLand.getText(), txtRijksregisternummer.getText(), txtEmail.getText(), txtTelefoon.getText(), txtGeboorteplaats.getText(),
-                        Integer.parseInt(txtHuisnummer.getText()), txtStad.getText(), txtNationaliteit.getText(), txtEmailOuders.getText(), txtGsm.getText(), cbGeslacht.getValue(), Integer.parseInt(txtGraad.getText()), dateInschrijving.getValue());
-            }
-*/
+            GebruikerDTO dto = new GebruikerDTO();
+            dto.setGebruikersnaam(txtGebruikersnaam.getText());
+            dto.setNaam(txtFamilienaam.getText());
+            dto.setVoornaam(txtVoornaam.getText());
+            dto.setGeboortedatum(dateGeboorte.getValue());
+            dto.setStraat(txtStraat.getText());
+            dto.setPostcode(txtPostcode.getText());
+            dto.setLand(txtLand.getText());
+            dto.setRijksregisternummer(txtRijksregisternummer.getText());
+            dto.setEmail(txtEmail.getText());
+            dto.setTelefoonnummer(txtTelefoon.getText());
+            dto.setGeboorteplek(txtGeboorteplaats.getText());
+            dto.setHuisnummer(txtHuisnummer.getText());
+            dto.setStad(txtStad.getText());
+            dto.setNationaliteit(txtNationaliteit.getText());
+            dto.setEmailouders(txtEmailOuders.getText());
+            dto.setGsm(txtGsm.getText());
+            dto.setGeslacht(Character.toString(cbGeslacht.getValue())); ///char of string?
+            dto.setGraad(Integer.parseInt(txtGraad.getText()));
+            dto.setInschrijvingsdatum(dateInschrijving.getValue());
+            dc.editItem(dto);
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
         } catch (IllegalArgumentException exception) {
@@ -108,38 +116,15 @@ public class LidGegevensPanelController extends GridPane implements Observer{
         }
     }
 
-
-    public void update(String gebruikerInfo) {
-        String[] gebruiker = gebruikerInfo.split(",");
-        txtFamilienaam.setText(gebruiker[0]);
-        txtVoornaam.setText(gebruiker[1]);
-        txtTelefoon.setText(gebruiker[2]);
-        dateGeboorte.setValue(LocalDate.parse(gebruiker[3]));
-        txtEmail.setText(gebruiker[4]);
-        txtGraad.setText(gebruiker[5]);
-        dateInschrijving.setValue(LocalDate.parse(gebruiker[6]));
-        txtStraat.setText(gebruiker[7]);
-        txtHuisnummer.setText(gebruiker[8]);
-        txtPostcode.setText(gebruiker[9]);
-        txtStad.setText(gebruiker[10]);
-        txtLand.setText(gebruiker[11]);
-        txtRijksregisternummer.setText(gebruiker[12]);
-        txtGsm.setText(gebruiker[13]);
-        txtEmailOuders.setText(gebruiker[14]);
-        txtGeboorteplaats.setText(gebruiker[15]);
-        txtNationaliteit.setText(gebruiker[16]);
-        cbGeslacht.setPromptText(gebruiker[17]);
-        
-    }
-
     @FXML
     private void verwijder(ActionEvent event) {
-        
+        dc.removeItem();
     }
 
     @Override
     public void update(Object gebruiker) { //DTO hier?
         GebruikerDTO gebruikerDTO = (GebruikerDTO)gebruiker;
+        txtGebruikersnaam.setText(gebruikerDTO.getGebruikersnaam());
         txtFamilienaam.setText(gebruikerDTO.getNaam());
         txtVoornaam.setText(gebruikerDTO.getVoornaam());
         txtTelefoon.setText(gebruikerDTO.getTelefoonnummer());

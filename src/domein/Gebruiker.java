@@ -47,7 +47,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
 
     }
 
-    public Gebruiker(GebruikerDTO dto) {
+    public Gebruiker(GebruikerDTO dto) { //validatie (setters) hier? of in dto
         gebruikersnaam = dto.getGebruikersnaam();
         wachtwoord = dto.getWachtwoord();
         naam = dto.getNaam();
@@ -248,5 +248,29 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     public String toString(){
         //fieldsize klopt niet helemaal in gui omdat bepaalde chars minder plek in nemen dan andere. Bv: i < w
         return String.format("%-40s | %-15s %s", gebruikersnaam, naam, voornaam) ; 
+    }
+
+    public void setAttributes(GebruikerDTO dto) {
+        gebruikersnaam = dto.getGebruikersnaam();
+        naam = dto.getNaam();
+        voornaam = dto.getVoornaam();
+        telefoonnummer = dto.getTelefoonnummer();
+        geboortedatum = dto.getGeboortedatum();
+        email = dto.getEmail();
+        graad = dto.getGraad();
+        inschrijvingsdatum = dto.getInschrijvingsdatum();
+        straatnaam = dto.getStraat();
+        huisnummer = dto.getHuisnummer();
+        postcode = dto.getPostcode();
+        stad = dto.getStad();
+        land = dto.getLand();
+        rijksregisternummer = dto.getRijksregisternummer();
+        gsm = dto.getGsm();
+        emailouders = dto.getEmailouders();
+        geboorteplek = dto.getGeboorteplek();
+        nationaliteit = dto.getNationaliteit();
+        geslacht = dto.getGeslacht();
+        formulenaam = dto.getFormulenaam();
+        score = dto.getScore();
     }
 }

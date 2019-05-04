@@ -15,7 +15,7 @@ public class Taijitan<E> {
 
     public Taijitan(GenericDao<E> dao) {
         this.dao = (UserDaoJpa) dao;
-        gebruikers = FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(this.dao.getAll()));
+        gebruikers = FXCollections.observableArrayList(this.dao.getAll());
     }
     
     //<editor-fold desc="UserActions">
@@ -32,7 +32,8 @@ public class Taijitan<E> {
 
     public void updateUser(GebruikerDTO dto) {
         Gebruiker user = (Gebruiker) gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(dto.getGebruikersnaam())).findFirst().get();
-        gebruikers.set(gebruikers.indexOf(user), user);
+        //gebruikers.set(gebruikers.indexOf(user), user);
+        user.setAttributes(dto);
         dao.update(user);
     }
     
@@ -47,7 +48,7 @@ public class Taijitan<E> {
     }
 
     public ObservableList<GebruikerInterface> getGebruikers() {
-        return (ObservableList<GebruikerInterface>) (Object) gebruikers;
+        return FXCollections.unmodifiableObservableList((ObservableList<GebruikerInterface>) (Object) gebruikers);
     }
 
     public Activiteit getActiviteiten() {

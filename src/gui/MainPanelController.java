@@ -45,7 +45,6 @@ public class MainPanelController extends GridPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     @FXML

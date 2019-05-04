@@ -36,4 +36,9 @@ public class GebruikerController<E> extends DomeinController<E> {
     public void notifyObservers() {
         getObservers().forEach(o -> o.update(huidigeGebruiker.getGebruikerDTO()));
     }    
+
+    @Override
+    public void editItem(E dto) {
+        getTaijitan().updateUser((GebruikerDTO)dto);
+    }
 }
