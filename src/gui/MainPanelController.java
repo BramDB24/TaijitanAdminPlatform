@@ -24,8 +24,9 @@ public class MainPanelController extends GridPane {
 
     private DomeinController dc;
     private OverzichtPanelController overzichtPanel;
-    private AanwezighedenPanelController apc;
+    private OverzichttypesPanelController opc;
     private LidGegevensPanelController lidGegevensPanel;
+    private ParametersPanelController parametersPanel;
     
     @FXML
     private Button leden;
@@ -51,22 +52,34 @@ public class MainPanelController extends GridPane {
     public void toonLedenlijst(ActionEvent event) {
         dc = new GebruikerController();
         overzichtPanel = new OverzichtPanelController(dc, this);
-        this.add(overzichtPanel, 1, 0);
+        this.add(overzichtPanel, 1, 1);
     }
 
-    @FXML
-    private void toonAanwezigheden(ActionEvent event) {
+    /*private void toonAanwezigheden(ActionEvent event) {
         dc = new ActiviteitController();
         apc = new AanwezighedenPanelController(dc);
-        this.add(apc, 1, 1);
-    }
+        this.add(apc, 1, 2);
+    }*/
 
     public void toonItem(Object object) {
         lidGegevensPanel = new LidGegevensPanelController(dc);
         dc.addObserver(lidGegevensPanel);
         dc.toonItem(object);
-        this.add(lidGegevensPanel, 2, 0);
-        
+        this.add(lidGegevensPanel, 2, 1);
+    }
+
+    public void toonNogItem (Object object) {
+        parametersPanel = new ParametersPanelController(dc, this);
+        dc.addObserver(parametersPanel);
+        dc.toonItem(object); //Moet geïmplementeerd worden in de activiteitcontroller denk ikkk
+        this.add(parametersPanel, 1, 1);
+    }
+    
+    @FXML
+    private void toonOverzichtenlijst(ActionEvent event) {
+        dc = new ActiviteitController();
+        opc = new OverzichttypesPanelController(dc, this);
+        this.add(opc, 1, 0);
     }
 
     
