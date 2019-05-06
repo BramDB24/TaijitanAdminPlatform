@@ -4,49 +4,59 @@ import domein.DTO.GebruikerDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import repository.GenericDao;
-import repository.UserDaoJpa;
+import repository.GenericDaoJpa;
 
 public class Taijitan<E> {
 
-    private Lesmateriaal lesmaterialen;
-    private final ObservableList<Gebruiker> gebruikers;
+    private ObservableList<Oefening> oefening;
+    private ObservableList<Gebruiker> gebruikers;
     private Activiteit activiteiten;
-    private final UserDaoJpa dao;
-
-    public Taijitan(GenericDao<E> dao) {
-        this.dao = (UserDaoJpa) dao;
-        gebruikers = FXCollections.observableArrayList(this.dao.getAll());
-    }
+    private final GenericDaoJpa<Gebruiker> userDao;
+    private final GenericDaoJpa<Oefening> lesmateriaalDaoJpa;
     
+    public Taijitan(GenericDao<E> dao) {
+        this.userDao = new GenericDaoJpa<>(Gebruiker.class);
+        this.lesmateriaalDaoJpa = new GenericDaoJpa<>(Oefening.class);
+    }
+
     //<editor-fold desc="UserActions">
     public void createUser(GebruikerDTO dto) {
         Gebruiker user = new Lid(dto);
         gebruikers.add(user);
-        dao.save(user);
+        userDao.save(user);
     }
 
     public void removeUser(Gebruiker huidigeGebruiker) {
         gebruikers.remove(huidigeGebruiker);
-        dao.delete(huidigeGebruiker);
+        userDao.delete(huidigeGebruiker);
     }
 
     public void updateUser(GebruikerDTO dto) {
         Gebruiker user = (Gebruiker) gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(dto.getGebruikersnaam())).findFirst().get();
-        //gebruikers.set(gebruikers.indexOf(user), user);
         user.setAttributes(dto);
-        dao.update(user);
+        userDao.update(user);
     }
-    
-    public Gebruiker getUser(Gebruiker gebruiker){
+
+    public Gebruiker getUser(Gebruiker gebruiker) {
         return gebruikers.stream().filter(g -> g.equals(gebruiker)).findFirst().get();
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="getters">
-    public Lesmateriaal getLesmaterialen() {
-        return lesmaterialen;
+    //<editor-fold defaultstate="collapsed" desc="Init">
+    public void initUsers() {
+        gebruikers = FXCollections.observableArrayList(this.userDao.getAll());
     }
+    
+    public void initOefening(){
+        oefening = FXCollections.observableArrayList(this.lesmateriaalDaoJpa.getAll());
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="getters">
 
+    public ObservableList<OefeningInterface> getOefening() {
+        return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>)(Object) oefening);
+    }
+    
     public ObservableList<GebruikerInterface> getGebruikers() {
         return FXCollections.unmodifiableObservableList((ObservableList<GebruikerInterface>) (Object) gebruikers);
     }

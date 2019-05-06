@@ -23,12 +23,12 @@ public class UserDaoJpa implements GenericDao<Gebruiker> {
 
     //Dit moet nog veranderen
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("TaijitanPU");
-    private EntityManager entityManager = emf.createEntityManager();
+    private final EntityManager entityManager = emf.createEntityManager();
     
     @Override
     public List<Gebruiker> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM Gebruiker e");
-        var x = query;
+        
         return query.getResultList();
     }
 

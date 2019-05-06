@@ -3,7 +3,7 @@ package domein;
 import java.util.HashSet;
 import java.util.Set;
 import javafx.collections.ObservableList;
-import repository.UserDaoJpa;
+import repository.GenericDaoJpa;
 
 public abstract class DomeinController<E> implements Subject {
 
@@ -11,7 +11,7 @@ public abstract class DomeinController<E> implements Subject {
     private final Set<Observer> observerlist;
 
     public DomeinController() {
-        taijitan = new Taijitan(new UserDaoJpa());
+        taijitan = new Taijitan(new GenericDaoJpa<>(Object.class));
         observerlist = new HashSet<>();
     }
 

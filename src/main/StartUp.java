@@ -5,7 +5,6 @@
  */
 package main;
 
-import domein.DomeinController;
 import gui.MainPanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
