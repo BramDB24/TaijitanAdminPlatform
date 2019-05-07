@@ -23,7 +23,7 @@ public interface GebruikerInterface {
 
     public LocalDate getInschrijvingsdatum();
 
-    public String getStraat();
+    public String getStraatnaam();
 
     public String getHuisnummer();
 

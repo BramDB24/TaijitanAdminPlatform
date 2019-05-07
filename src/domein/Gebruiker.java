@@ -121,7 +121,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     @Override
-    public String getStraat() {
+    public String getStraatnaam() {
         return straatnaam;
     }
 
