@@ -3,48 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package repository;
+package domein;
 
-import domein.Oefeningen;
-import java.util.List;
-import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author Jonah
+ * @param <E>
  */
-public class LesmateriaalDaoJpa implements GenericDao<Oefeningen> {
+public class OverzichtController<E> extends DomeinController<E> {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("TaijitanPU");
-    private final EntityManager entityManager = emf.createEntityManager();
-
-    @Override
-    public List<Oefeningen> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Oefening e");
-        return query.getResultList();
+    public OverzichtController() {
+        super();
     }
 
     @Override
-    public Optional<Oefeningen> get(long id) {
+    public void newItem(E object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Oefeningen object) {
+    public void removeItem() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Oefeningen object) {
+    public void editItem(E dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void save(Oefeningen object) {
+    public void toonItem(E object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ObservableList<E> toonOverzicht() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void notifyObservers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

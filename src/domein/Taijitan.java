@@ -8,15 +8,16 @@ import repository.GenericDaoJpa;
 
 public class Taijitan<E> {
 
-    private ObservableList<Oefening> oefening;
+    private ObservableList<Oefeningen> oefening;
     private ObservableList<Gebruiker> gebruikers;
     private Activiteit activiteiten;
-    private final GenericDaoJpa<Gebruiker> userDao;
-    private final GenericDaoJpa<Oefening> lesmateriaalDaoJpa;
-    
+    private final  GenericDaoJpa<Gebruiker> userDao;
+    private final GenericDaoJpa<Oefeningen> lesmateriaalDaoJpa;
+
     public Taijitan(GenericDao<E> dao) {
+        this.lesmateriaalDaoJpa = new GenericDaoJpa<>(Oefeningen.class);
+
         this.userDao = new GenericDaoJpa<>(Gebruiker.class);
-        this.lesmateriaalDaoJpa = new GenericDaoJpa<>(Oefening.class);
     }
 
     //<editor-fold desc="UserActions">
@@ -46,17 +47,17 @@ public class Taijitan<E> {
     public void initUsers() {
         gebruikers = FXCollections.observableArrayList(this.userDao.getAll());
     }
-    
-    public void initOefening(){
+
+    public void initOefening() {
         oefening = FXCollections.observableArrayList(this.lesmateriaalDaoJpa.getAll());
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getters">
 
     public ObservableList<OefeningInterface> getOefening() {
-        return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>)(Object) oefening);
+        return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefening);
     }
-    
+
     public ObservableList<GebruikerInterface> getGebruikers() {
         return FXCollections.unmodifiableObservableList((ObservableList<GebruikerInterface>) (Object) gebruikers);
     }

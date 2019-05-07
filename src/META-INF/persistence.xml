@@ -5,6 +5,7 @@
     <class>domein.Gebruiker</class>
     <class>domein.Lid</class>
     <class>domein.Lesmateriaal</class>
+    <class>domein.Oefeningen</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=G07Taijitan"/>
       <property name="javax.persistence.jdbc.user" value="Taijitan"/>

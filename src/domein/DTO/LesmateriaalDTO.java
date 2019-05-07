@@ -5,7 +5,7 @@
  */
 package domein.DTO;
 
-import domein.Oefening;
+import domein.Oefeningen;
 
 /**
  *

@@ -5,9 +5,10 @@
  */
 package gui;
 
-import domein.ActiviteitController;
 import domein.DomeinController;
 import domein.GebruikerController;
+import domein.OefeningController;
+import domein.OverzichtController;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,13 +28,15 @@ public class MainPanelController extends GridPane {
     private OverzichttypesPanelController opc;
     private LidGegevensPanelController lidGegevensPanel;
     private ParametersPanelController parametersPanel;
-    
+
     @FXML
     private Button leden;
     @FXML
     private Button activiteiten;
     @FXML
     private Button aanwezigheden;
+    @FXML
+    private Button lesmateriaal;
 
     public MainPanelController(/*DomeinController dc*/) {
         //this.dc = dc;
@@ -55,6 +58,13 @@ public class MainPanelController extends GridPane {
         this.add(overzichtPanel, 1, 1);
     }
 
+    @FXML
+    public void toonToonmateriaal(ActionEvent event) {
+        dc = new OefeningController();
+        overzichtPanel = new OverzichtPanelController(dc, this);
+        this.add(overzichtPanel, 1, 1);
+    }
+
     /*private void toonAanwezigheden(ActionEvent event) {
         dc = new ActiviteitController();
         apc = new AanwezighedenPanelController(dc);
@@ -68,16 +78,16 @@ public class MainPanelController extends GridPane {
         this.add(lidGegevensPanel, 2, 1);
     }
 
-    public void toonNogItem (Object object) {
+    public void toonNogItem(Object object) {
         parametersPanel = new ParametersPanelController(dc, this);
         dc.addObserver(parametersPanel);
-        dc.toonItem(object); //Moet geïmplementeerd worden in de activiteitcontroller denk ikkk
+        dc.toonItem(object); //Moet geïmplementeerd worden in de activiteitcontroller denk ikkk oof
         this.add(parametersPanel, 1, 1);
     }
-    
+
     @FXML
     private void toonOverzichtenlijst(ActionEvent event) {
-        dc = new ActiviteitController();
+        dc = new OverzichtController();
         opc = new OverzichttypesPanelController(dc, this);
         this.add(opc, 1, 0);
     }

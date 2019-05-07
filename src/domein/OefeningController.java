@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
  *
  * @author Jonah
  */
-public class OefeningController extends DomeinController<Oefening>{
+public class OefeningController extends DomeinController<Oefeningen>{
 
     public OefeningController() {
         super();
@@ -21,7 +21,7 @@ public class OefeningController extends DomeinController<Oefening>{
     
 
     @Override
-    public void newItem(Oefening object) {
+    public void newItem(Oefeningen object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -31,18 +31,18 @@ public class OefeningController extends DomeinController<Oefening>{
     }
 
     @Override
-    public void editItem(Oefening dto) {
+    public void editItem(Oefeningen dto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void toonItem(Oefening object) {
+    public void toonItem(Oefeningen object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ObservableList<Oefening> toonOverzicht() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ObservableList<Oefeningen> toonOverzicht() {
+        return getTaijitan().getOefening();
     }
 
     @Override
