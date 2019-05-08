@@ -15,11 +15,9 @@ public class OefeningController extends DomeinController<Oefening>{
 
     public OefeningController() {
         super();
-        //getTaijitan().initOefening();
+        getTaijitan().initOefeningen();
     }
     
-    
-
     @Override
     public void newItem(Oefening object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

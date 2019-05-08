@@ -52,10 +52,7 @@ public class LidSessieKey implements Serializable {
         if (!Objects.equals(this.gebruikersnaam, other.gebruikersnaam)) {
             return false;
         }
-        if (!Objects.equals(this.sessieDatum, other.sessieDatum)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.sessieDatum, other.sessieDatum);
     }
     
 }

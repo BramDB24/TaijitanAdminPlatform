@@ -7,7 +7,7 @@ package gui;
 
 import domein.DomeinController;
 import domein.GebruikerController;
-import domein.LesmateriaalController;
+
 import domein.OefeningController;
 import domein.OverzichtController;
 import java.io.IOException;
@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -29,7 +28,6 @@ public class MainPanelController extends GridPane {
     private DomeinController gebruikerController;
     private DomeinController LesmateriaalController;
     private DomeinController OefeningController;
-    private OverzichtController OverzichtController;
     private OverzichtPanelController overzichtPanel;
     private OverzichttypesPanelController opc;
     private LidGegevensPanelController lidGegevensPanel;
@@ -67,13 +65,6 @@ public class MainPanelController extends GridPane {
         this.add(overzichtPanel, 1, 1);
     }
 
-    @FXML
-    public void toonToonmateriaal(ActionEvent event) {
-        dc = new OefeningController();
-        overzichtPanel = new OverzichtPanelController(dc, this);
-        this.add(overzichtPanel, 1, 1);
-    }
-
     /*private void toonAanwezigheden(ActionEvent event) {
         dc = new ActiviteitController();
         apc = new AanwezighedenPanelController(dc);
@@ -87,15 +78,13 @@ public class MainPanelController extends GridPane {
     }
 
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
-        OverzichtController = new OverzichtController();
         switch (keuze) {
             case "Activiteiten":
-                OverzichtController.toonActiviteitenOverzicht();
+                dc = new GebruikerController();
                 break;
             case "Inschrijvingen":
                 break;
             case "Aanwezigheden":
-                OverzichtController.toonAanwezighedenOverzicht();
                 break;
             case "ClubKampioenschap":
                 break;
@@ -117,6 +106,13 @@ public class MainPanelController extends GridPane {
         dc = new OverzichtController();
         opc = new OverzichttypesPanelController(dc, this);
         this.add(opc, 1, 0);
+    }
+
+    @FXML
+    private void toonMateriaal(ActionEvent event) {
+        dc = new OefeningController();
+        overzichtPanel = new OverzichtPanelController(dc, this);
+        this.add(overzichtPanel, 1, 1);
     }
 
 }

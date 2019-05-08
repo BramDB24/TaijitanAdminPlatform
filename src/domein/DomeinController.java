@@ -3,7 +3,6 @@ package domein;
 import java.util.HashSet;
 import java.util.Set;
 import javafx.collections.ObservableList;
-import repository.GenericDaoJpa;
 
 public abstract class DomeinController<E> implements Subject {
 

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +19,8 @@ public abstract class Lesmateriaal implements LesmateriaalInterface, Serializabl
     @Id
     private int lesmateriaalid;
     private String naam;
-
+    private int oefeningId;
+    
     public Lesmateriaal(LesmateriaalDTO dto) {
         naam = dto.getNaam();
     }

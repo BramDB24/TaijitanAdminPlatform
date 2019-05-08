@@ -6,24 +6,24 @@
 package domein;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  *
  * @author bramd
  */
-@Entity(name = "Tekst")
-@Table(name = "Tekst")
+@Entity
 public class Tekst extends Lesmateriaal implements Serializable{
 
-    private byte[] tekst;
+    @Column(name = "[file]")
+    private byte[] file;
 
     protected Tekst() {
 
     }
 
     public byte[] getTekst() {
-        return this.tekst;
+        return this.file;
     }
 }

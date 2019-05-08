@@ -7,24 +7,22 @@ package domein;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  *
  * @author bramd
  */
-@Entity(name = "Foto")
-@Table(name = "Foto")
+@Entity
 public class Foto extends Lesmateriaal implements Serializable{
-
-    private byte[] foto;
+   
+    private byte[] image;
 
     protected Foto() {
 
     }
 
     public byte[] getFoto() {
-        return this.foto;
+        return this.image;
     }
 
 }
