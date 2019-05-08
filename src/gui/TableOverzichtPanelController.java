@@ -9,7 +9,6 @@ import domein.DomeinController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
@@ -41,18 +40,6 @@ public class TableOverzichtPanelController extends VBox {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        ObservableList<Object> objecten = dc.toonOverzicht();
-        klasse = objecten.get(0).getClass();
-        
-        geefFields().stream().map((e) -> {
-            TableColumn<Object, String> column = new TableColumn<>((String) e);
-            column.setCellValueFactory(new PropertyValueFactory<>((String) e));
-            return column;
-        }).forEach((column) -> {
-            tableView.getColumns().add(column);
-        });
-        tableView.setItems(dc.toonOverzicht());
-
     }
 
     private void setFields(Class<?> klasse) {
