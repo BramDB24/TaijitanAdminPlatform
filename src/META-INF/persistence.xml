@@ -11,6 +11,7 @@
     <class>domein.Video</class>
     <class>domein.LidSessie</class>
     <class>domein.Sessie</class>
+    <class>domein.GebruikerOefening</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=G07Taijitan"/>
       <property name="javax.persistence.jdbc.user" value="Taijitan"/>
