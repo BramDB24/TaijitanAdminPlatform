@@ -64,6 +64,7 @@ public class MainPanelController extends GridPane {
 
     @FXML
     public void toonLedenlijst(ActionEvent event) {
+        clearScreen();
         dc = new GebruikerController();
         overzichtPanel = new OverzichtPanelController(dc, this);
         this.add(overzichtPanel, 1, 1);
@@ -74,6 +75,11 @@ public class MainPanelController extends GridPane {
         apc = new AanwezighedenPanelController(dc);
         this.add(apc, 1, 2);
     }*/
+    public void clearScreen()
+    {
+        this.getChildren().removeAll(lidGegevensPanel, parametersPanel,tableOverzichtPanel,opc,overzichtPanel);
+        
+    }
     public void toonItem(Object object) {
         lidGegevensPanel = new LidGegevensPanelController(dc);
         dc.addObserver(lidGegevensPanel);
@@ -83,6 +89,8 @@ public class MainPanelController extends GridPane {
 
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
         OverzichtController<Object> oc = new OverzichtController<>();
+        
+
         if(tableOverzichtPanel == null)
             tableOverzichtPanel = new TableOverzichtPanelController();
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
@@ -113,6 +121,7 @@ public class MainPanelController extends GridPane {
 
     @FXML
     private void toonOverzichtenlijst(ActionEvent event) {
+        clearScreen();
         dc = new OverzichtController();
         opc = new OverzichttypesPanelController(dc, this);
         this.add(opc, 1, 0);
