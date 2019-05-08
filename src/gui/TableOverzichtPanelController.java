@@ -26,13 +26,11 @@ import javafx.scene.layout.VBox;
  */
 public class TableOverzichtPanelController extends VBox {
 
-    private DomeinController dc;
     private Class<?> klasse;
     @FXML
     private TableView<Object> tableView;
 
-    public TableOverzichtPanelController(DomeinController dc) {
-        this.dc = dc;
+    public TableOverzichtPanelController() {
         System.out.println(getClass().getResource("TableOverzichtPanel.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TableOverzichtPanel.fxml"));
         loader.setRoot(this);
@@ -42,19 +40,10 @@ public class TableOverzichtPanelController extends VBox {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        ObservableList<Object> objecten = dc.toonOverzicht();
-        klasse = objecten.get(0).getClass();
-        
-        for(var field : geefFields()){
-            TableColumn<Object, String> column = new TableColumn<>((String) field);
-            column.setCellValueFactory(new PropertyValueFactory<>((String) field));
-            tableView.getColumns().add(column);
-        }
-        tableView.setItems(dc.toonOverzicht());
-
     }
 
-    private List<String> geefFields() {
+    private void setFields(Class<?> klasse) {
+        tableView.getColumns().clear();
         List<String> fields = new ArrayList<>();
         if (klasse.getSuperclass() != null) {
             Arrays.asList(klasse.getSuperclass().getDeclaredFields()).stream()
@@ -62,6 +51,20 @@ public class TableOverzichtPanelController extends VBox {
         }
         Arrays.asList(klasse.getDeclaredFields()).stream()
                 .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
-        return fields;
+        
+        fields.stream().map((field) -> {
+            TableColumn<Object, String> column = new TableColumn<>((String) field);
+            column.setCellValueFactory(new PropertyValueFactory<>((String) field));
+            return column;
+        }).forEachOrdered((column) -> {
+            tableView.getColumns().add(column);
+        });
+        
+    }
+    
+    public void setObservableList(ObservableList<Object> list){
+        setFields(list.get(0).getClass());
+        tableView.setItems(list);
+        
     }
 }

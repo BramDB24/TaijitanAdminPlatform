@@ -5,6 +5,7 @@
  */
 package domein;
 
+import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 
 /**
@@ -12,7 +13,7 @@ import javafx.collections.ObservableList;
  * @author Jonah
  * @param <E>
  */
-public class OverzichtController<E> extends DomeinController<E> {
+public class OverzichtController<E> extends DomeinController<E>{
 
     public OverzichtController() {
         super();
@@ -49,18 +50,19 @@ public class OverzichtController<E> extends DomeinController<E> {
     }
     
     public ObservableList<E> toonActiviteitenOverzicht(){
-        return getTaijitan().getActiviteiten();
+        return getTaijitan().getGebruikers();
     }
     
     public ObservableList<E> toonInschrijvingenOverzicht(){
         return null;
     }
     
-    public ObservableList<E> toonAanwezighedenOverzicht(){
-        return getTaijitan().getAanwezigheden();
+    public ObservableList<Object> toonAanwezighedenOverzicht(LocalDateTime date){
+        return getTaijitan().getAanwezigheden(date);
     }
+    
     public ObservableList<E> toonClubkampioenschapOverzicht(){
-        return null;
+        return getTaijitan().getClubkampioenschapOverzicht();
     }
     public ObservableList<E> toonRaadplegingenLesmateriaalOverzicht(){
         return getTaijitan().getOefening();

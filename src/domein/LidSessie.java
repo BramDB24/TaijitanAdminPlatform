@@ -5,6 +5,8 @@
  */
 package domein;
 
+import domein.DTO.LidSessieDTO;
+import domein.DTO.GebruikerDTO;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -38,6 +40,17 @@ public class LidSessie implements Serializable {
 
     public LidSessie() {
 
+    }
+    
+    private LidSessieDTO createLidSessieDTO(){
+        LidSessieDTO dto = new LidSessieDTO();
+        dto.setGebruikersnaam(lid.getGebruikersnaam());
+        dto.setAanwezig(aanwezigheid);
+        return dto;
+    }
+    
+    public LidSessieDTO getLidSessieDTO(){
+        return createLidSessieDTO();
     }
 
 }

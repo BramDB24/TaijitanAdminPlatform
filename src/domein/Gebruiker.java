@@ -1,6 +1,7 @@
 package domein;
 
 import domein.DTO.GebruikerDTO;
+import domein.DTO.GebruikerpuntenDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -193,6 +194,9 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         return createGebruikerDTO();
     }
     
+    public GebruikerpuntenDTO getGebruikerPuntenDTO(){
+        return createGebruikerPuntenDTO();
+    }
     private GebruikerDTO createGebruikerDTO(){
         GebruikerDTO dto = new GebruikerDTO();
         dto.setGebruikersnaam(gebruikersnaam);
@@ -216,6 +220,15 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         dto.setGeslacht(geslacht);
         dto.setFormulenaam(formulenaam);
         dto.setScore(score);
+        return dto;
+    }
+    
+    private GebruikerpuntenDTO createGebruikerPuntenDTO() {
+        GebruikerpuntenDTO dto = new GebruikerpuntenDTO();
+        dto.setGebruikersnaam(gebruikersnaam);
+        dto.setNaam(naam);
+        dto.setScore(score);
+        dto.setVoornaam(voornaam);
         return dto;
     }
     // </editor-fold>
@@ -273,4 +286,6 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         formulenaam = dto.getFormulenaam();
         score = dto.getScore();
     }
+
+    
 }

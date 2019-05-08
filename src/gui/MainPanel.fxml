@@ -12,24 +12,25 @@
     <ColumnConstraints hgrow="ALWAYS" maxWidth="1058.0" minWidth="10.0" prefWidth="513.6000366210938" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="451.1999870300293" minHeight="10.0" prefHeight="406.4" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="451.1999870300293" minHeight="10.0" prefHeight="47.200006103515626" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="451.1999870300293" minHeight="10.0" prefHeight="403.1999938964844" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="leden" mnemonicParsing="false" onAction="#toonLedenlijst" prefWidth="140.0" text="Beheren leden" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Button fx:id="leden" mnemonicParsing="false" onAction="#toonLedenlijst" prefWidth="140.0" text="Beheren leden" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="20.0" />
          </GridPane.margin></Button>
-      <Button fx:id="activiteiten" mnemonicParsing="false" prefWidth="140.0" text="Beheren activiteiten" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Button fx:id="activiteiten" mnemonicParsing="false" prefWidth="140.0" text="Beheren activiteiten" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="60.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonOverzichtenlijst" prefWidth="140.0" text="Overzicht opvragen" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonOverzichtenlijst" prefWidth="140.0" text="Overzicht opvragen" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="100.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="lesmateriaal" mnemonicParsing="false" onAction="#toonMateriaal" prefWidth="140.0" text="Lesmateriaal" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Button fx:id="lesmateriaal" mnemonicParsing="false" onAction="#toonMateriaal" prefWidth="140.0" text="Lesmateriaal" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="140.0" />
          </GridPane.margin>

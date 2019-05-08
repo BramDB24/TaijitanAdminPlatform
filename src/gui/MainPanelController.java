@@ -7,10 +7,13 @@ package gui;
 
 import domein.DomeinController;
 import domein.GebruikerController;
+import domein.LidSessie;
 
 import domein.OefeningController;
 import domein.OverzichtController;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.Month;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +35,7 @@ public class MainPanelController extends GridPane {
     private OverzichttypesPanelController opc;
     private LidGegevensPanelController lidGegevensPanel;
     private ParametersPanelController parametersPanel;
+    private TableOverzichtPanelController tableOverzichtPanel;
 
     @FXML
     private Button leden;
@@ -78,22 +82,28 @@ public class MainPanelController extends GridPane {
     }
 
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
+        OverzichtController<Object> oc = new OverzichtController<>();
+        if(tableOverzichtPanel == null)
+            tableOverzichtPanel = new TableOverzichtPanelController();
+        if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
+            this.add(tableOverzichtPanel, 1, 1);
+        }
         switch (keuze) {
             case "Activiteiten":
-                dc = new GebruikerController();
+                tableOverzichtPanel.setObservableList(oc.toonActiviteitenOverzicht());
                 break;
             case "Inschrijvingen":
                 break;
             case "Aanwezigheden":
+                tableOverzichtPanel.setObservableList(oc.toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0)));
                 break;
-            case "ClubKampioenschap":
+            case "Clubkampioenschap":
+                tableOverzichtPanel.setObservableList(oc.toonClubkampioenschapOverzicht());
                 break;
             case "Raadplegingen lesmateriaal":
                 break;
         }
-        if (!scherm.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
-            scherm.getChildren().add(new TableOverzichtPanelController(dc));
-        }
+        
 
         //parametersPanel = new ParametersPanelController(dc, this);
         //dc.addObserver(parametersPanel);

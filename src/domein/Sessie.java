@@ -8,6 +8,8 @@ package domein;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -36,7 +38,7 @@ public class Sessie implements SessieInterface, Serializable {
     }
 
     @Override
-    public List<LidSessie> getLedenlijst() {
-        return ledenlijst;
+    public ObservableList<LidSessie> getLedenlijst() {
+        return FXCollections.observableArrayList(ledenlijst);
     }
 }

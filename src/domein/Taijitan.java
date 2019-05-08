@@ -1,7 +1,13 @@
 package domein;
 
 import domein.DTO.GebruikerDTO;
+import domein.DTO.GebruikerpuntenDTO;
+import domein.DTO.LidSessieDTO;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import repository.GenericDao;
@@ -13,7 +19,7 @@ public class Taijitan<E> {
     private ObservableList<Gebruiker> gebruikers;
     private ObservableList<Activiteit> activiteiten;
     private ObservableList<Sessie> sessies;
-    private final  GenericDaoJpa<Gebruiker> userDao;
+    private final GenericDaoJpa<Gebruiker> userDao;
     private final GenericDaoJpa<Oefening> lesmateriaalDaoJpa;
     private final GenericDaoJpa<Sessie> sessieDaoJpa;
 
@@ -50,33 +56,43 @@ public class Taijitan<E> {
     public void initUsers() {
         gebruikers = FXCollections.observableArrayList(this.userDao.getAll());
     }
-    
-    public void initOefeningen(){
+
+    public void initOefeningen() {
         oefeningen = FXCollections.observableArrayList(this.lesmateriaalDaoJpa.getAll());
     }
-    
-    public void initSessies(){
+
+    public void initSessies() {
         sessies = FXCollections.observableArrayList(this.sessieDaoJpa.getAll());
     }
-    
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getters">
-
     public ObservableList<OefeningInterface> getOefening() {
         return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen);
     }
 
     public ObservableList<GebruikerInterface> getGebruikers() {
+        if(gebruikers == null)
+            initUsers();
         return FXCollections.unmodifiableObservableList((ObservableList<GebruikerInterface>) (Object) gebruikers);
     }
 
     public ObservableList<ActiviteitInterface> getActiviteiten() {
         return FXCollections.unmodifiableObservableList((ObservableList<ActiviteitInterface>) (Object) activiteiten);
     }
-    
-    public ObservableList<SessieInterface> getAanwezigheden() {
-        return FXCollections.unmodifiableObservableList((ObservableList<SessieInterface>) (Object) sessies);
-    }
-    //</editor-fold>
 
+    public ObservableList<LidSessieDTO> getAanwezigheden(LocalDateTime date) {
+        if(sessies == null)
+            initSessies();
+        Sessie sessie = sessies.stream().filter(s -> s.getSessieDatum().getYear() == date.getYear()).findFirst().get();
+        return FXCollections.observableArrayList(sessie.getLedenlijst().stream().map(s -> s.getLidSessieDTO()).collect(Collectors.toList()));
+    }
+    
+    public ObservableList<GebruikerpuntenDTO> getClubkampioenschapOverzicht(){
+        if(gebruikers == null)
+            initUsers();
+        return FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getGebruikerPuntenDTO()).collect(Collectors.toList()));
+    }
+
+    //</editor-fold>
 }
