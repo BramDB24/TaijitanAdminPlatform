@@ -22,5 +22,7 @@ public interface OefeningInterface {
     public int getOefeningType();
 
     public List<LesmateriaalInterface> getLesmateriaal();
+    
+    public List<GebruikerOefening> getRaadplegingen();
 
 }

@@ -57,13 +57,13 @@ public class OverzichtController<E> extends DomeinController<E> {
     }
     
     public ObservableList<E> toonAanwezighedenOverzicht(){
-        return null;
+        return getTaijitan().getAanwezigheden();
     }
     public ObservableList<E> toonClubkampioenschapOverzicht(){
         return null;
     }
     public ObservableList<E> toonRaadplegingenLesmateriaalOverzicht(){
-        return null;
+        return getTaijitan().getOefening();
     }
 
 }

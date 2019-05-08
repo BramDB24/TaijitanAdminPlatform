@@ -29,6 +29,7 @@ public class MainPanelController extends GridPane {
     private DomeinController gebruikerController;
     private DomeinController LesmateriaalController;
     private DomeinController OefeningController;
+    private OverzichtController OverzichtController;
     private OverzichtPanelController overzichtPanel;
     private OverzichttypesPanelController opc;
     private LidGegevensPanelController lidGegevensPanel;
@@ -86,13 +87,15 @@ public class MainPanelController extends GridPane {
     }
 
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
+        OverzichtController = new OverzichtController();
         switch (keuze) {
             case "Activiteiten":
-                dc = new GebruikerController();
+                OverzichtController.toonActiviteitenOverzicht();
                 break;
             case "Inschrijvingen":
                 break;
             case "Aanwezigheden":
+                OverzichtController.toonAanwezighedenOverzicht();
                 break;
             case "ClubKampioenschap":
                 break;

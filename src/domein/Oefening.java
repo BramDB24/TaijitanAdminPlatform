@@ -29,6 +29,9 @@ public class Oefening implements OefeningInterface, Serializable {
 
     }
 
+    @OneToMany(mappedBy = "oefening")
+    private List<GebruikerOefening> raadplegingen;
+    
     @Override
     public int getOefeningId() {
         return oefeningId;
@@ -53,6 +56,11 @@ public class Oefening implements OefeningInterface, Serializable {
     public List<LesmateriaalInterface> getLesmateriaal() {
         return (List<LesmateriaalInterface>) (Object)lesmateriaal;
     }
+    
+    @Override
+    public List<GebruikerOefening> getRaadplegingen() {
+        return raadplegingen;
+    }
 
     @Override
     public int hashCode() {
@@ -75,6 +83,8 @@ public class Oefening implements OefeningInterface, Serializable {
         final Oefening other = (Oefening) obj;
         return this.oefeningId == other.oefeningId;
     }
+
+    
 
 
     

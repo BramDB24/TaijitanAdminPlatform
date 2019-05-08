@@ -73,6 +73,10 @@ public class Taijitan<E> {
     public ObservableList<ActiviteitInterface> getActiviteiten() {
         return FXCollections.unmodifiableObservableList((ObservableList<ActiviteitInterface>) (Object) activiteiten);
     }
+    
+    public ObservableList<SessieInterface> getAanwezigheden() {
+        return FXCollections.unmodifiableObservableList((ObservableList<SessieInterface>) (Object) sessies);
+    }
     //</editor-fold>
 
 }

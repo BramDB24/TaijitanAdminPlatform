@@ -19,14 +19,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Sessies")
-public class Sessie implements Serializable {
+public class Sessie implements SessieInterface, Serializable {
 
     @Id
-    private LocalDateTime SessieDatum;
+    private LocalDateTime sessieDatum;
     @OneToMany(mappedBy = "sessie")
     private List<LidSessie> ledenlijst;
 
     protected Sessie() {
 
+    }
+
+    @Override
+    public LocalDateTime getSessieDatum() {
+        return sessieDatum;
+    }
+
+    @Override
+    public List<LidSessie> getLedenlijst() {
+        return ledenlijst;
     }
 }
