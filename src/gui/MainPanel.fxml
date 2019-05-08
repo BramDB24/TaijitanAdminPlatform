@@ -6,31 +6,30 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1108.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" maxWidth="295.20001220703125" minWidth="10.0" prefWidth="205.99996337890627" />
     <ColumnConstraints hgrow="ALWAYS" maxWidth="1058.0" minWidth="10.0" prefWidth="513.6000366210938" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="451.1999870300293" minHeight="10.0" prefHeight="406.4" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="leden" mnemonicParsing="false" onAction="#toonLedenlijst" prefWidth="140.0" text="Beheren leden" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Button fx:id="leden" mnemonicParsing="false" onAction="#toonLedenlijst" prefWidth="140.0" text="Beheren leden" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="20.0" />
          </GridPane.margin></Button>
-      <Button fx:id="activiteiten" mnemonicParsing="false" prefWidth="140.0" text="Beheren activiteiten" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Button fx:id="activiteiten" mnemonicParsing="false" prefWidth="140.0" text="Beheren activiteiten" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="60.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonOverzichtenlijst" prefWidth="140.0" text="Overzicht opvragen" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonOverzichtenlijst" prefWidth="140.0" text="Overzicht opvragen" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="100.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="lesmateriaal" mnemonicParsing="false" onAction="#toonToonmateriaal" prefWidth="140.0" text="Lesmateriaal" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Button fx:id="lesmateriaal" mnemonicParsing="false" onAction="#toonToonmateriaal" prefWidth="140.0" text="Lesmateriaal" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="140.0" />
          </GridPane.margin>

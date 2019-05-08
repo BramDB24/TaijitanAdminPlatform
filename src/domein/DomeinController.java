@@ -11,7 +11,7 @@ public abstract class DomeinController<E> implements Subject {
     private final Set<Observer> observerlist;
 
     public DomeinController() {
-        taijitan = new Taijitan(new GenericDaoJpa<>(Object.class));
+        taijitan = new Taijitan(/*new GenericDaoJpa<>(Object.class)*/);
         observerlist = new HashSet<>();
     }
 

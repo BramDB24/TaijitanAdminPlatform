@@ -1,6 +1,7 @@
 package domein;
 
 import domein.DTO.GebruikerDTO;
+import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import repository.GenericDao;
@@ -8,15 +9,17 @@ import repository.GenericDaoJpa;
 
 public class Taijitan<E> {
 
-    private ObservableList<Oefeningen> oefening;
+    private ObservableList<Oefening> oefeningen;
     private ObservableList<Gebruiker> gebruikers;
-    private Activiteit activiteiten;
+    private ObservableList<Activiteit> activiteiten;
+    private ObservableList<Sessie> sessies;
     private final  GenericDaoJpa<Gebruiker> userDao;
-    private final GenericDaoJpa<Oefeningen> lesmateriaalDaoJpa;
+    private final GenericDaoJpa<Oefening> lesmateriaalDaoJpa;
+    private final GenericDaoJpa<Sessie> sessieDaoJpa;
 
-    public Taijitan(GenericDao<E> dao) {
-        this.lesmateriaalDaoJpa = new GenericDaoJpa<>(Oefeningen.class);
-
+    public Taijitan(/*GenericDao<E> dao*/) {
+        this.lesmateriaalDaoJpa = new GenericDaoJpa<>(Oefening.class);
+        this.sessieDaoJpa = new GenericDaoJpa<>(Sessie.class);
         this.userDao = new GenericDaoJpa<>(Gebruiker.class);
     }
 
@@ -47,23 +50,28 @@ public class Taijitan<E> {
     public void initUsers() {
         gebruikers = FXCollections.observableArrayList(this.userDao.getAll());
     }
-
-    public void initOefening() {
-        oefening = FXCollections.observableArrayList(this.lesmateriaalDaoJpa.getAll());
+    
+    public void initOefeningen(){
+        oefeningen = FXCollections.observableArrayList(this.lesmateriaalDaoJpa.getAll());
     }
+    
+    public void initSessies(){
+        sessies = FXCollections.observableArrayList(this.sessieDaoJpa.getAll());
+    }
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getters">
 
     public ObservableList<OefeningInterface> getOefening() {
-        return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefening);
+        return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen);
     }
 
     public ObservableList<GebruikerInterface> getGebruikers() {
         return FXCollections.unmodifiableObservableList((ObservableList<GebruikerInterface>) (Object) gebruikers);
     }
 
-    public Activiteit getActiviteiten() {
-        return activiteiten;
+    public ObservableList<ActiviteitInterface> getActiviteiten() {
+        return FXCollections.unmodifiableObservableList((ObservableList<ActiviteitInterface>) (Object) activiteiten);
     }
     //</editor-fold>
 

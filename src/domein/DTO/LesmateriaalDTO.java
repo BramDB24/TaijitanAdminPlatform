@@ -5,15 +5,13 @@
  */
 package domein.DTO;
 
-import domein.Oefeningen;
-
 /**
  *
  * @author Jonah
  */
 public class LesmateriaalDTO {
 
-
+//weg
     private String naam;
     private String type;
     private byte[] image;

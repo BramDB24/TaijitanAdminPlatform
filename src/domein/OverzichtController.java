@@ -47,5 +47,23 @@ public class OverzichtController<E> extends DomeinController<E> {
     public void notifyObservers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public ObservableList<E> toonActiviteitenOverzicht(){
+        return getTaijitan().getActiviteiten();
+    }
+    
+    public ObservableList<E> toonInschrijvingenOverzicht(){
+        return null;
+    }
+    
+    public ObservableList<E> toonAanwezighedenOverzicht(){
+        return null;
+    }
+    public ObservableList<E> toonClubkampioenschapOverzicht(){
+        return null;
+    }
+    public ObservableList<E> toonRaadplegingenLesmateriaalOverzicht(){
+        return null;
+    }
 
 }

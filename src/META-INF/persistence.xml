@@ -5,7 +5,12 @@
     <class>domein.Gebruiker</class>
     <class>domein.Lid</class>
     <class>domein.Lesmateriaal</class>
-    <class>domein.Oefeningen</class>
+    <class>domein.Foto</class>
+    <class>domein.Oefening</class>
+    <class>domein.Tekst</class>
+    <class>domein.Video</class>
+    <class>domein.LidSessie</class>
+    <class>domein.Sessie</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=G07Taijitan"/>
       <property name="javax.persistence.jdbc.user" value="Taijitan"/>
