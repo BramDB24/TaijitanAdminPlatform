@@ -7,7 +7,6 @@ package gui;
 
 import domein.DomeinController;
 import domein.GebruikerController;
-import domein.LidSessie;
 
 import domein.OefeningController;
 import domein.OverzichtController;

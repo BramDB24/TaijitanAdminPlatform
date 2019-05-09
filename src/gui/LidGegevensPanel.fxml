@@ -9,32 +9,36 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="639.0" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root hgap="15.0" minHeight="-Infinity" minWidth="-Infinity" scaleShape="false" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="162.20001220703125" minWidth="10.0" prefWidth="123.40001220703124" />
-    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="271.6" minWidth="10.0" prefWidth="179.39998779296877" />
-      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="199.19997558593752" minWidth="10.0" prefWidth="141.80001220703127" />
-      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="186.20001220703125" minWidth="10.0" prefWidth="150.80001220703127" />
+    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Lid gegevens:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <Label text="Lid gegevens:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
       <Label text="Familienaam" GridPane.rowIndex="2" />
       <Label text="Voornaam" GridPane.rowIndex="3" />
       <Label text="Geslacht" GridPane.rowIndex="4" />
@@ -73,7 +77,7 @@
       <TextField fx:id="txtGraad" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <DatePicker fx:id="dateGeboorte" prefHeight="26.0" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <DatePicker fx:id="dateInschrijving" prefWidth="148.8" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <TextField fx:id="txtGebruikersnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="txtGebruikersnaam" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Gebruikersnaam" GridPane.rowIndex="1" />
    </children>
    <padding>
