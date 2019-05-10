@@ -81,7 +81,7 @@ public class Oefening implements OefeningInterface, Serializable {
 
     @Override
     public String toString(){
-        return String.format("%s %s", getOefeningType(), getLesmateriaal());
+        return String.format("%s", getNaam());
     }
 
     @Override

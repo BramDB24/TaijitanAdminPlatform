@@ -77,7 +77,7 @@
       <TextField fx:id="txtGraad" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <DatePicker fx:id="dateGeboorte" prefHeight="26.0" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <DatePicker fx:id="dateInschrijving" prefWidth="148.8" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <TextField fx:id="txtGebruikersnaam" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="txtGebruikersnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Gebruikersnaam" GridPane.rowIndex="1" />
    </children>
    <padding>

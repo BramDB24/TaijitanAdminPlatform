@@ -52,5 +52,9 @@ public class LidSessie implements Serializable {
     public LidSessieDTO getLidSessieDTO(){
         return createLidSessieDTO();
     }
+    
+    public boolean getAanwezigheid(){
+        return this.aanwezigheid;
+    }
 
 }

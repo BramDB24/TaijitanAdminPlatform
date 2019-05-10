@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Gebruiker;
 import domein.GebruikerController;
 
 import domein.OefeningController;
@@ -13,6 +14,7 @@ import domein.OverzichtController;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,6 +74,7 @@ public class MainPanelController extends GridPane {
         dc = new GebruikerController();
         overzichtPanel = new OverzichtPanelController(dc, this);
         this.add(overzichtPanel, 1, 1);
+        //this.add(new AddLidButtonPanelController(dc, this), 1, 2);
     }
 
     /*private void toonAanwezigheden(ActionEvent event) {
@@ -132,5 +135,4 @@ public class MainPanelController extends GridPane {
         overzichtPanel = new OverzichtPanelController(dc, this);
         this.add(overzichtPanel, 1, 1);
     }
-
 }

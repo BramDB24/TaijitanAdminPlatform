@@ -39,12 +39,12 @@ public class OefeningController extends DomeinController<Oefening>{
     }
 
     @Override
-    public ObservableList<Oefening> toonOverzicht() {
-        return getTaijitan().getOefening();
+    public void notifyObservers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void notifyObservers() {
+    public ObservableList<Oefening> toonOverzicht() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -28,9 +28,9 @@ public class GebruikerController<E> extends DomeinController<E> {
         notifyObservers();
     }
 
-    @Override
+    
     public ObservableList<E> toonOverzicht() {
-        return getTaijitan().getGebruikers();
+        return (ObservableList<E>)(Object)getTaijitan().getGebruikers();
     }
 
     @Override

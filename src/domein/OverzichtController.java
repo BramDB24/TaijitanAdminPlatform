@@ -5,6 +5,9 @@
  */
 package domein;
 
+import domein.DTO.ActiviteitDTO;
+import domein.DTO.GebruikerpuntenDTO;
+import domein.DTO.LidSessieDTO;
 import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 
@@ -38,19 +41,15 @@ public class OverzichtController<E> extends DomeinController<E>{
     public void toonItem(E object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public ObservableList<E> toonOverzicht() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public void notifyObservers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public ObservableList<E> toonActiviteitenOverzicht(){
-        return getTaijitan().getGebruikers();
+    public ObservableList<Object> toonActiviteitenOverzicht(){
+        return (ObservableList<Object>) (Object) getTaijitan().getActiviteitenOverzicht();
+        //return getTaijitan().getGebruikers();
     }
     
     public ObservableList<E> toonInschrijvingenOverzicht(){
@@ -58,14 +57,19 @@ public class OverzichtController<E> extends DomeinController<E>{
     }
     
     public ObservableList<Object> toonAanwezighedenOverzicht(LocalDateTime date){
-        return getTaijitan().getAanwezigheden(date);
+        return (ObservableList<Object>) (Object) getTaijitan().getAanwezigheden(date);
     }
     
-    public ObservableList<E> toonClubkampioenschapOverzicht(){
-        return getTaijitan().getClubkampioenschapOverzicht();
+    public ObservableList<Object> toonClubkampioenschapOverzicht(){
+        return (ObservableList<Object>) (Object) getTaijitan().getClubkampioenschapOverzicht();
     }
-    public ObservableList<E> toonRaadplegingenLesmateriaalOverzicht(){
+    public ObservableList<OefeningInterface> toonRaadplegingenLesmateriaalOverzicht(){
         return getTaijitan().getOefening();
+    }
+
+    @Override
+    public ObservableList<E> toonOverzicht() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

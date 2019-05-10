@@ -14,8 +14,8 @@ and open the template in the editor.
 }
 
 .root{
-    -fx-font-size: 15;
-    -fx-font-family: 'monospace';
+    -fx-font-size: 14;
+    -fx-font-family: 'Courier New';
     -fx-background: #C5D7D1
 }
 

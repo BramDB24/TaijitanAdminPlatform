@@ -5,6 +5,7 @@
  */
 package domein;
 
+import domein.DTO.SessieDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,5 +41,17 @@ public class Sessie implements SessieInterface, Serializable {
     @Override
     public ObservableList<LidSessie> getLedenlijst() {
         return FXCollections.observableArrayList(ledenlijst);
+    }
+    
+    public SessieDTO getSessieDTO(){
+        return createSessieDTO();
+    }
+    
+    private SessieDTO createSessieDTO(){
+        SessieDTO dto = new SessieDTO();
+        dto.setDatum(sessieDatum);
+        dto.setType(this.getClass().getSimpleName());
+        dto.setAanwezigen((int)ledenlijst.stream().filter(l -> l.getAanwezigheid() == true).count());
+        return dto;
     }
 }
