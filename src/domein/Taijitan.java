@@ -5,14 +5,10 @@ import domein.DTO.GebruikerDTO;
 import domein.DTO.GebruikerpuntenDTO;
 import domein.DTO.LidSessieDTO;
 import domein.DTO.SessieDTO;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import repository.GenericDao;
 import repository.GenericDaoJpa;
 
 public class Taijitan{
@@ -24,11 +20,13 @@ public class Taijitan{
     private final GenericDaoJpa<Gebruiker> userDao;
     private final GenericDaoJpa<Oefening> lesmateriaalDaoJpa;
     private final GenericDaoJpa<Sessie> sessieDaoJpa;
+    private final GenericDaoJpa<Activiteit> activiteitDaoJpa;
 
     public Taijitan(/*GenericDao<E> dao*/) {
         this.lesmateriaalDaoJpa = new GenericDaoJpa<>(Oefening.class);
         this.sessieDaoJpa = new GenericDaoJpa<>(Sessie.class);
         this.userDao = new GenericDaoJpa<>(Gebruiker.class);
+        this.activiteitDaoJpa = new GenericDaoJpa<>(Activiteit.class);
     }
 
     //<editor-fold desc="UserActions">
@@ -66,6 +64,10 @@ public class Taijitan{
     public void initSessies() {
         sessies = FXCollections.observableArrayList(this.sessieDaoJpa.getAll());
     }
+    
+    private void initActiviteiten(){
+        activiteiten = FXCollections.observableArrayList(this.activiteitDaoJpa.getAll());
+    }
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getters">
@@ -102,11 +104,15 @@ public class Taijitan{
         return FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getGebruikerPuntenDTO()).collect(Collectors.toList()));
     }
 
-    public ObservableList<SessieDTO> getActiviteitenOverzicht() {
-        if (sessies == null) {
-            initSessies();
+    public ObservableList<ActiviteitDTO/*SessieDTO*/> getActiviteitenOverzicht() {
+//        if (sessies == null) {
+//            initSessies();
+//        }
+//        return FXCollections.observableArrayList(sessies.stream().map(s -> s.getSessieDTO()).collect(Collectors.toList()));
+        if(activiteiten == null) {
+            initActiviteiten();
         }
-        return FXCollections.observableArrayList(sessies.stream().map(s -> s.getSessieDTO()).collect(Collectors.toList()));
+        return FXCollections.observableArrayList(activiteiten.stream().map(a -> a.getActiviteitDTO()).collect(Collectors.toList()));
     }
 
     //</editor-fold>

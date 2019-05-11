@@ -5,7 +5,6 @@
  */
 package gui;
 
-import domein.DomeinController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +25,6 @@ import javafx.scene.layout.VBox;
  */
 public class TableOverzichtPanelController extends VBox {
 
-    private Class<?> klasse;
     @FXML
     private TableView<Object> tableView;
 

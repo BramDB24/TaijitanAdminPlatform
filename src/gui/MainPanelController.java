@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domein.ActiviteitController;
 import domein.DomeinController;
 import domein.Gebruiker;
 import domein.GebruikerController;
@@ -134,5 +135,14 @@ public class MainPanelController extends GridPane {
         dc = new OefeningController();
         overzichtPanel = new OverzichtPanelController(dc, this);
         this.add(overzichtPanel, 1, 1);
+    }
+
+    @FXML
+    private void beheerActiviteiten(ActionEvent event) {
+        this.clearScreen();
+        dc = new ActiviteitController();
+        tableOverzichtPanel = new TableOverzichtPanelController();
+        tableOverzichtPanel.setObservableList(dc.toonOverzicht());
+        this.add(tableOverzichtPanel, 1, 1);
     }
 }

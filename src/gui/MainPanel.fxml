@@ -21,7 +21,7 @@
          <children>
             <Button fx:id="leden" mnemonicParsing="false" onAction="#toonLedenlijst" prefHeight="26.0" prefWidth="200.0" text="Beheren leden" />
             <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonOverzichtenlijst" prefHeight="26.0" prefWidth="200.0" text="Overzicht opvragen" />
-            <Button fx:id="activiteiten" minWidth="125.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="200.0" text="Beheren activiteiten" />
+            <Button fx:id="activiteiten" minWidth="125.0" mnemonicParsing="false" onAction="#beheerActiviteiten" prefHeight="26.0" prefWidth="200.0" text="Beheren activiteiten" />
             <Button fx:id="lesmateriaal" minWidth="125.0" mnemonicParsing="false" onAction="#toonMateriaal" prefHeight="26.0" prefWidth="200.0" text="Lesmateriaal" />
          </children>
       </VBox>
