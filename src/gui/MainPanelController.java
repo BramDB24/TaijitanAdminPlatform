@@ -64,17 +64,25 @@ public class MainPanelController extends GridPane {
         }
     }
 
-    public void clearScreen()
-    {
-        this.getChildren().removeAll(lidGegevensPanel, parametersPanel,tableOverzichtPanel,opc,overzichtPanel);
+    public void clearScreen() {
+        this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel);
     }
-    
+
     @FXML
     public void toonLedenlijst(ActionEvent event) {
         this.clearScreen();
-        dc = new GebruikerController();
-        overzichtPanel = new OverzichtPanelController(dc, this);
-        this.add(overzichtPanel, 1, 1);
+        OverzichtController<Object> oc = new OverzichtController<>();
+        if (tableOverzichtPanel == null) {
+            tableOverzichtPanel = new TableOverzichtPanelController();
+        }
+        if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
+            this.add(tableOverzichtPanel, 1, 1);
+        }
+        tableOverzichtPanel.setObservableList(oc.toonGebruikers());
+
+//        dc = new GebruikerController();
+//        overzichtPanel = new OverzichtPanelController(dc, this);
+//        this.add(overzichtPanel, 1, 1);
         //this.add(new AddLidButtonPanelController(dc, this), 1, 2);
     }
 
@@ -93,8 +101,9 @@ public class MainPanelController extends GridPane {
 
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
         OverzichtController<Object> oc = new OverzichtController<>();
-        if(tableOverzichtPanel == null)
+        if (tableOverzichtPanel == null) {
             tableOverzichtPanel = new TableOverzichtPanelController();
+        }
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
             this.add(tableOverzichtPanel, 1, 1);
         }
@@ -113,7 +122,6 @@ public class MainPanelController extends GridPane {
             case "Raadplegingen lesmateriaal":
                 break;
         }
-        
 
         //parametersPanel = new ParametersPanelController(dc, this);
         //dc.addObserver(parametersPanel);

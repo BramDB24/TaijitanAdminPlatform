@@ -260,7 +260,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     @Override
     public String toString(){
         //fieldsize klopt niet helemaal in gui omdat bepaalde chars minder plek in nemen dan andere. Bv: i < w
-        return String.format("%-25s | %-15s %s", gebruikersnaam, naam, voornaam) ; 
+        return String.format("%-25s | %-15s %s %s", gebruikersnaam, naam, voornaam, graad) ; 
     }
 
     public void setAttributes(GebruikerDTO dto) {
