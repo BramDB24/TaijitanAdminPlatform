@@ -2,6 +2,7 @@ package domein;
 
 import domein.DTO.ActiviteitDTO;
 import domein.DTO.GebruikerDTO;
+import domein.DTO.GebruikerKenmerkenDTO;
 import domein.DTO.GebruikerpuntenDTO;
 import domein.DTO.LidSessieDTO;
 import domein.DTO.SessieDTO;
@@ -11,7 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import repository.GenericDaoJpa;
 
-public class Taijitan{
+public class Taijitan {
 
     private ObservableList<Oefening> oefeningen;
     private ObservableList<Gebruiker> gebruikers;
@@ -64,8 +65,8 @@ public class Taijitan{
     public void initSessies() {
         sessies = FXCollections.observableArrayList(this.sessieDaoJpa.getAll());
     }
-    
-    private void initActiviteiten(){
+
+    private void initActiviteiten() {
         activiteiten = FXCollections.observableArrayList(this.activiteitDaoJpa.getAll());
     }
 
@@ -75,11 +76,11 @@ public class Taijitan{
         return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen);
     }
 
-    public ObservableList<GebruikerInterface> getGebruikers() {
+    public ObservableList<GebruikerKenmerkenDTO> getGebruikers() {
         if (gebruikers == null) {
             initUsers();
         }
-        return FXCollections.unmodifiableObservableList((ObservableList<GebruikerInterface>) (Object) gebruikers);
+        return FXCollections.observableArrayList(gebruikers.stream().map(e -> e.getGebruikerKenmerkenDTO()).collect(Collectors.toList()));
     }
 
     public ObservableList<ActiviteitInterface> getActiviteiten() {
@@ -94,7 +95,7 @@ public class Taijitan{
             initSessies();
         }
         Sessie sessie = sessies.stream().filter(s -> s.getSessieDatum().getYear() == date.getYear()).findFirst().get();
-        return FXCollections.observableArrayList(sessie.getLedenlijst().stream().map(s -> s.getLidSessieDTO()).collect(Collectors.toList())); 
+        return FXCollections.observableArrayList(sessie.getLedenlijst().stream().map(s -> s.getLidSessieDTO()).collect(Collectors.toList()));
     }
 
     public ObservableList<GebruikerpuntenDTO> getClubkampioenschapOverzicht() {
@@ -109,7 +110,7 @@ public class Taijitan{
 //            initSessies();
 //        }
 //        return FXCollections.observableArrayList(sessies.stream().map(s -> s.getSessieDTO()).collect(Collectors.toList()));
-        if(activiteiten == null) {
+        if (activiteiten == null) {
             initActiviteiten();
         }
         return FXCollections.observableArrayList(activiteiten.stream().map(a -> a.getActiviteitDTO()).collect(Collectors.toList()));

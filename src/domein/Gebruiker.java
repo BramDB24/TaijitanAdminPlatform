@@ -2,6 +2,7 @@ package domein;
 
 import domein.DTO.GebruikerDTO;
 import domein.DTO.GebruikerpuntenDTO;
+import domein.DTO.GebruikerKenmerkenDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Rol")
 @Table(name = "Gebruiker")
 public abstract class Gebruiker implements GebruikerInterface, Serializable {
@@ -188,16 +189,26 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     public int getScore() {
         return score;
     }
-    
+
     @Override
-    public GebruikerDTO getGebruikerDTO(){
+    public GebruikerDTO getGebruikerDTO() {
         return createGebruikerDTO();
     }
-    
-    public GebruikerpuntenDTO getGebruikerPuntenDTO(){
+
+    public GebruikerKenmerkenDTO getGebruikerKenmerkenDTO() {
+        GebruikerKenmerkenDTO dto = new GebruikerKenmerkenDTO();
+        dto.setVoornaam(voornaam);
+        dto.setNaam(naam);
+        dto.setGebruikersnaam(gebruikersnaam);
+        dto.setGraad(graad);
+        return dto;      
+    }
+
+    public GebruikerpuntenDTO getGebruikerPuntenDTO() {
         return createGebruikerPuntenDTO();
     }
-    private GebruikerDTO createGebruikerDTO(){
+
+    private GebruikerDTO createGebruikerDTO() {
         GebruikerDTO dto = new GebruikerDTO();
         dto.setGebruikersnaam(gebruikersnaam);
         dto.setNaam(naam);
@@ -222,7 +233,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         dto.setScore(score);
         return dto;
     }
-    
+
     private GebruikerpuntenDTO createGebruikerPuntenDTO() {
         GebruikerpuntenDTO dto = new GebruikerpuntenDTO();
         dto.setGebruikersnaam(gebruikersnaam);
@@ -258,9 +269,9 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     //</editor-fold>
 
     @Override
-    public String toString(){
+    public String toString() {
         //fieldsize klopt niet helemaal in gui omdat bepaalde chars minder plek in nemen dan andere. Bv: i < w
-        return String.format("%-25s | %-15s %s %s", gebruikersnaam, naam, voornaam, graad) ; 
+        return String.format("%-25s | %-15s %s %s", gebruikersnaam, naam, voornaam, graad);
     }
 
     public void setAttributes(GebruikerDTO dto) {
@@ -287,5 +298,4 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         score = dto.getScore();
     }
 
-    
 }

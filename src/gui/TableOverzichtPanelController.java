@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domein.Gebruiker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +51,7 @@ public class TableOverzichtPanelController extends VBox {
         Arrays.asList(klasse.getDeclaredFields()).stream()
                 .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
         
+
         fields.stream().map((field) -> {
             TableColumn<Object, String> column = new TableColumn<>((String) field);
             column.setCellValueFactory(new PropertyValueFactory<>((String) field));
