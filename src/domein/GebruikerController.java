@@ -1,6 +1,7 @@
 package domein;
 
 import domein.DTO.GebruikerDTO;
+import domein.DTO.GebruikerKenmerkenDTO;
 import javafx.collections.ObservableList;
 
 public class GebruikerController<E> extends DomeinController<E> {
@@ -24,7 +25,7 @@ public class GebruikerController<E> extends DomeinController<E> {
 
     @Override
     public void toonItem(E gebruiker) {
-        huidigeGebruiker = getTaijitan().getUser((Gebruiker) gebruiker);
+        huidigeGebruiker = getTaijitan().getUser(((GebruikerKenmerkenDTO) gebruiker).getGebruikersnaam());
         notifyObservers();
     }
 

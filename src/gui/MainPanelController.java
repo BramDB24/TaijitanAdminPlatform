@@ -71,14 +71,16 @@ public class MainPanelController extends GridPane {
     @FXML
     public void toonLedenlijst(ActionEvent event) {
         this.clearScreen();
+        dc = new GebruikerController();
         OverzichtController<Object> oc = new OverzichtController<>();
         if (tableOverzichtPanel == null) {
-            tableOverzichtPanel = new TableOverzichtPanelController();
+            tableOverzichtPanel = new TableOverzichtPanelController(this);
         }
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
             this.add(tableOverzichtPanel, 1, 1);
         }
         tableOverzichtPanel.setObservableList(oc.toonGebruikers());
+        tableOverzichtPanel.enableListener();
 
 //        dc = new GebruikerController();
 //        overzichtPanel = new OverzichtPanelController(dc, this);
@@ -102,7 +104,7 @@ public class MainPanelController extends GridPane {
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
         OverzichtController<Object> oc = new OverzichtController<>();
         if (tableOverzichtPanel == null) {
-            tableOverzichtPanel = new TableOverzichtPanelController();
+            tableOverzichtPanel = new TableOverzichtPanelController(this);
         }
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
             this.add(tableOverzichtPanel, 1, 1);
@@ -122,6 +124,7 @@ public class MainPanelController extends GridPane {
             case "Raadplegingen lesmateriaal":
                 break;
         }
+        tableOverzichtPanel.disableListener();
 
         //parametersPanel = new ParametersPanelController(dc, this);
         //dc.addObserver(parametersPanel);
@@ -135,6 +138,7 @@ public class MainPanelController extends GridPane {
         dc = new OverzichtController();
         opc = new OverzichttypesPanelController(dc, this);
         this.add(opc, 1, 0);
+        tableOverzichtPanel.disableListener();
     }
 
     @FXML
@@ -149,8 +153,9 @@ public class MainPanelController extends GridPane {
     private void beheerActiviteiten(ActionEvent event) {
         this.clearScreen();
         dc = new ActiviteitController();
-        tableOverzichtPanel = new TableOverzichtPanelController();
+        tableOverzichtPanel = new TableOverzichtPanelController(this);
         tableOverzichtPanel.setObservableList(dc.toonOverzicht());
+        tableOverzichtPanel.disableListener();
         this.add(tableOverzichtPanel, 1, 1);
     }
 }

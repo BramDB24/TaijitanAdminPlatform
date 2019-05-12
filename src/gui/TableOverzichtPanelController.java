@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,10 +28,13 @@ import javafx.scene.layout.VBox;
  */
 public class TableOverzichtPanelController extends VBox {
 
+    private final ChangeListener listener;
+    private MainPanelController mainPanel;
     @FXML
     private TableView<Object> tableView;
 
-    public TableOverzichtPanelController() {
+    public TableOverzichtPanelController(MainPanelController mainPanel) {
+        this.mainPanel = mainPanel;
         System.out.println(getClass().getResource("TableOverzichtPanel.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TableOverzichtPanel.fxml"));
         loader.setRoot(this);
@@ -39,6 +44,12 @@ public class TableOverzichtPanelController extends VBox {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+
+        listener = (ChangeListener) (ObservableValue observable, Object oldValue, Object newValue) -> {
+            if (newValue != null) {
+                mainPanel.toonItem(newValue);
+            }
+        };
     }
 
     private void setFields(Class<?> klasse) {
@@ -50,7 +61,6 @@ public class TableOverzichtPanelController extends VBox {
         }
         Arrays.asList(klasse.getDeclaredFields()).stream()
                 .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
-        
 
         fields.stream().map((field) -> {
             TableColumn<Object, String> column = new TableColumn<>((String) field);
@@ -59,12 +69,19 @@ public class TableOverzichtPanelController extends VBox {
         }).forEachOrdered((column) -> {
             tableView.getColumns().add(column);
         });
-        
+
     }
-    
-    public void setObservableList(ObservableList<Object> list){
+
+    public void setObservableList(ObservableList<Object> list) {
         setFields(list.get(0).getClass());
         tableView.setItems(list);
-        
+    }
+
+    public void enableListener() {
+        tableView.getSelectionModel().selectedItemProperty().addListener(listener);
+    }
+
+    public void disableListener() {
+        tableView.getSelectionModel().selectedItemProperty().removeListener(listener);
     }
 }

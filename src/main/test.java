@@ -21,11 +21,11 @@ public class test extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        DomeinController dc = new GebruikerController();
-        Scene scene = new Scene(new TableOverzichtPanelController()); //hier moet startpagina komen ofc.
-        primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
-        primaryStage.show();
+//        DomeinController dc = new GebruikerController();
+//        Scene scene = new Scene(new TableOverzichtPanelController()); //hier moet startpagina komen ofc.
+//        primaryStage.setScene(scene);
+//        primaryStage.setMaximized(true);
+//        primaryStage.show();
     }
 
     /**

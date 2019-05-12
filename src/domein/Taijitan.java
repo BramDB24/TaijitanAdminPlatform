@@ -48,8 +48,8 @@ public class Taijitan {
         userDao.update(user);
     }
 
-    public Gebruiker getUser(Gebruiker gebruiker) {
-        return gebruikers.stream().filter(g -> g.equals(gebruiker)).findFirst().get();
+    public Gebruiker getUser(String gebruikersnaam) {
+        return gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().get();
     }
     //</editor-fold>
 
