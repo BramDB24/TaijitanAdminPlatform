@@ -21,7 +21,7 @@ public class StartUp extends Application {
     public void start(Stage primaryStage) {
         //DomeinController dc = new DomeinController();
         Scene scene = new Scene(new MainPanelController(/*dc*/)); //hier moet startpagina komen ofc.
-        scene.getStylesheets().add(getClass().getResource("../css/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
         Image appIcon = new Image("/images/logomini.png");
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);

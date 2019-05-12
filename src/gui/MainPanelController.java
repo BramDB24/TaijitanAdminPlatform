@@ -15,6 +15,10 @@ import domein.OverzichtController;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,10 +53,7 @@ public class MainPanelController extends GridPane {
     private Button lesmateriaal;
 
     public MainPanelController(/*DomeinController dc*/) {
-        //this.dc = dc;
-        //gebruikerController = new GebruikerController();
-        //LesmateriaalController = new LesmateriaalController();
-        //OefeningController = new OefeningController();
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPanel.fxml"));
 
         loader.setRoot(this);
@@ -79,20 +80,10 @@ public class MainPanelController extends GridPane {
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
             this.add(tableOverzichtPanel, 1, 1);
         }
-        tableOverzichtPanel.setObservableList(oc.toonGebruikers());
+        tableOverzichtPanel.setObservableList(((GebruikerController) dc).toonOverzicht());
         tableOverzichtPanel.enableListener();
-
-//        dc = new GebruikerController();
-//        overzichtPanel = new OverzichtPanelController(dc, this);
-//        this.add(overzichtPanel, 1, 1);
-        //this.add(new AddLidButtonPanelController(dc, this), 1, 2);
     }
-
-    /*private void toonAanwezigheden(ActionEvent event) {
-        dc = new ActiviteitController();
-        apc = new AanwezighedenPanelController(dc);
-        this.add(apc, 1, 2);
-    }*/
+    
     public void toonItem(Object object) {
         this.getChildren().remove(lidGegevensPanel);
         lidGegevensPanel = new LidGegevensPanelController(dc);
@@ -102,7 +93,7 @@ public class MainPanelController extends GridPane {
     }
 
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
-        OverzichtController<Object> oc = new OverzichtController<>();
+        dc = new OverzichtController<>();
         if (tableOverzichtPanel == null) {
             tableOverzichtPanel = new TableOverzichtPanelController(this);
         }
@@ -111,29 +102,28 @@ public class MainPanelController extends GridPane {
         }
         switch (keuze) {
             case "Activiteiten":
-                tableOverzichtPanel.setObservableList(oc.toonActiviteitenOverzicht());
+                ((OverzichtController) dc).toonActiviteitenOverzicht();
                 break;
             case "Inschrijvingen":
                 break;
             case "Aanwezigheden":
-                tableOverzichtPanel.setObservableList(oc.toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0)));
+                ((OverzichtController) dc).toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0));
                 break;
             case "Clubkampioenschap":
-                tableOverzichtPanel.setObservableList(oc.toonClubkampioenschapOverzicht());
+                ((OverzichtController) dc).toonClubkampioenschapOverzicht();
                 break;
             case "Raadplegingen lesmateriaal":
                 break;
         }
+        tableOverzichtPanel.setObservableList(dc.toonOverzicht());
         tableOverzichtPanel.disableListener();
-
-        //parametersPanel = new ParametersPanelController(dc, this);
-        //dc.addObserver(parametersPanel);
-        //dc.toonItem(object); //Moet geïmplementeerd worden in de activiteitcontroller denk ikkk oof
-        //this.add(parametersPanel, 1, 1);
     }
 
     @FXML
     private void toonOverzichtenlijst(ActionEvent event) {
+        if (tableOverzichtPanel == null) {
+            tableOverzichtPanel = new TableOverzichtPanelController(this);
+        }
         this.clearScreen();
         dc = new OverzichtController();
         opc = new OverzichttypesPanelController(dc, this);
@@ -157,5 +147,31 @@ public class MainPanelController extends GridPane {
         tableOverzichtPanel.setObservableList(dc.toonOverzicht());
         tableOverzichtPanel.disableListener();
         this.add(tableOverzichtPanel, 1, 1);
+    }
+
+    public List<String> getFieldNames(Class<?> klasse) {
+        List<String> fieldnames = new ArrayList<>();
+        switch (klasse.getSimpleName()) {
+            case "Lid":
+                fieldnames.add("gebruikersnaam");
+                fieldnames.add("naam");
+                fieldnames.add("voornaam");
+                fieldnames.add("graad");
+                break;
+            default:
+                return getAllFields(klasse);
+        }
+        return fieldnames;
+    }
+
+    private List<String> getAllFields(Class<?> klasse) {
+        List<String> fields = new ArrayList<>();
+        if (klasse.getSuperclass() != null) {
+            Arrays.asList(klasse.getSuperclass().getDeclaredFields()).stream()
+                    .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
+        }
+        Arrays.asList(klasse.getDeclaredFields()).stream()
+                .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
+        return fields;
     }
 }

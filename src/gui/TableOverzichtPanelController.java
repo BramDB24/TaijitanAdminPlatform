@@ -5,7 +5,6 @@
  */
 package gui;
 
-import domein.Gebruiker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +29,7 @@ import javafx.scene.layout.VBox;
 public class TableOverzichtPanelController extends VBox {
 
     private final ChangeListener listener;
+    private Class<?> klasse;
     private MainPanelController mainPanel;
     @FXML
     private TableView<Object> tableView;
@@ -52,29 +53,23 @@ public class TableOverzichtPanelController extends VBox {
         };
     }
 
-    private void setFields(Class<?> klasse) {
+    public void setFields(List<String> fieldnames) {
         tableView.getColumns().clear();
-        List<String> fields = new ArrayList<>();
-        if (klasse.getSuperclass() != null) {
-            Arrays.asList(klasse.getSuperclass().getDeclaredFields()).stream()
-                    .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
-        }
-        Arrays.asList(klasse.getDeclaredFields()).stream()
-                .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
-
-        fields.stream().map((field) -> {
+        fieldnames.stream().map((field) -> {
             TableColumn<Object, String> column = new TableColumn<>((String) field);
             column.setCellValueFactory(new PropertyValueFactory<>((String) field));
             return column;
         }).forEachOrdered((column) -> {
             tableView.getColumns().add(column);
         });
-
     }
 
     public void setObservableList(ObservableList<Object> list) {
-        setFields(list.get(0).getClass());
+
+        klasse = list.get(0).getClass();
+        setFields(mainPanel.getFieldNames(klasse));
         tableView.setItems(list);
+
     }
 
     public void enableListener() {

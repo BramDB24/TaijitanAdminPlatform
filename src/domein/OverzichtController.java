@@ -5,11 +5,11 @@
  */
 package domein;
 
-import domein.DTO.ActiviteitDTO;
-import domein.DTO.GebruikerpuntenDTO;
-import domein.DTO.LidSessieDTO;
 import java.time.LocalDateTime;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  *
@@ -18,6 +18,8 @@ import javafx.collections.ObservableList;
  */
 public class OverzichtController<E> extends DomeinController<E> {
 
+    private ObservableList<E> overzichtslijst;
+    private FilteredList<E> filteredOverzichtslijst;
     public OverzichtController() {
         super();
     }
@@ -47,33 +49,38 @@ public class OverzichtController<E> extends DomeinController<E> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public ObservableList<Object> toonActiviteitenOverzicht() {
-        return (ObservableList<Object>) (Object) getTaijitan().getActiviteitenOverzicht();
+    public void toonActiviteitenOverzicht() {
+        overzichtslijst = (ObservableList<E>) getTaijitan().getActiviteitenOverzicht();
         //return getTaijitan().getGebruikers();
     }
 
-    public ObservableList<E> toonInschrijvingenOverzicht() {
-        return null;
+    public void toonInschrijvingenOverzicht() {
+        
     }
 
-    public ObservableList<Object> toonAanwezighedenOverzicht(LocalDateTime date) {
-        return (ObservableList<Object>) (Object) getTaijitan().getAanwezigheden(date);
+    public void toonAanwezighedenOverzicht(LocalDateTime date) {
+        veranderOverzicht((ObservableList<E>) (Object) getTaijitan().getAanwezigheden(date));
     }
 
-    public ObservableList<Object> toonClubkampioenschapOverzicht() {
-        return (ObservableList<Object>) (Object) getTaijitan().getClubkampioenschapOverzicht();
+    public void toonClubkampioenschapOverzicht() {
+        veranderOverzicht((ObservableList<E>) getTaijitan().getClubkampioenschapOverzicht());
     }
 
-    public ObservableList<OefeningInterface> toonRaadplegingenLesmateriaalOverzicht() {
-        return getTaijitan().getOefening();
+    public void toonRaadplegingenLesmateriaalOverzicht() {
+        veranderOverzicht((ObservableList<E>) getTaijitan().getOefening());
     }
     
-    public ObservableList<Object> toonGebruikers(){
-        return (ObservableList<Object>) (Object) getTaijitan().getGebruikers();
+    public void toonGebruikers(){
+        veranderOverzicht((ObservableList<E>) getTaijitan().getGebruikers());
     }
+    
+    private void veranderOverzicht(ObservableList<E> list){
+        overzichtslijst = list;
+        filteredOverzichtslijst = new FilteredList<>(overzichtslijst, p->true);
+    }
+    
     @Override
     public ObservableList<E> toonOverzicht() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return overzichtslijst;
     }
-
 }

@@ -25,7 +25,8 @@ public class GebruikerController<E> extends DomeinController<E> {
 
     @Override
     public void toonItem(E gebruiker) {
-        huidigeGebruiker = getTaijitan().getUser(((GebruikerKenmerkenDTO) gebruiker).getGebruikersnaam());
+        //huidigeGebruiker = getTaijitan().getUser((Gebruiker)gebruiker);
+        huidigeGebruiker = (Gebruiker)gebruiker;
         notifyObservers();
     }
 

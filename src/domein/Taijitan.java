@@ -48,8 +48,8 @@ public class Taijitan {
         userDao.update(user);
     }
 
-    public Gebruiker getUser(String gebruikersnaam) {
-        return gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().get();
+    public Gebruiker getUser(Gebruiker gebruiker) {
+        return gebruikers.stream().filter(g -> g.equals(gebruiker)).findFirst().get();
     }
     //</editor-fold>
 
@@ -76,11 +76,13 @@ public class Taijitan {
         return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen);
     }
 
-    public ObservableList<GebruikerKenmerkenDTO> getGebruikers() {
+    public ObservableList<Gebruiker> getGebruikers() {
         if (gebruikers == null) {
             initUsers();
         }
-        return FXCollections.observableArrayList(gebruikers.stream().map(e -> e.getGebruikerKenmerkenDTO()).collect(Collectors.toList()));
+        //return FXCollections.observableArrayList(gebruikers.stream().map(e -> e.getGebruikerKenmerkenDTO()).collect(Collectors.toList()));
+        //return FXCollections.unmodifiableObservableList(gebruikers);
+        return gebruikers;
     }
 
     public ObservableList<ActiviteitInterface> getActiviteiten() {
