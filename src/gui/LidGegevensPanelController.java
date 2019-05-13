@@ -81,7 +81,7 @@ public class LidGegevensPanelController extends GridPane implements Observer{
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        cbGeslacht.setPromptText("M");
+        //cbGeslacht.setPromptText("M");
         cbGeslacht.getItems().addAll('M', 'V', 'O');
     }
 
@@ -142,7 +142,8 @@ public class LidGegevensPanelController extends GridPane implements Observer{
         txtEmailOuders.setText(gebruikerDTO.getEmailouders());
         txtGeboorteplaats.setText(gebruikerDTO.getGeboorteplek());
         txtNationaliteit.setText(gebruikerDTO.getNationaliteit());
-        cbGeslacht.setPromptText(gebruikerDTO.getGeslacht());
+        String geslachtHelp = gebruikerDTO.getGeslacht();
+        cbGeslacht.setValue(geslachtHelp.charAt(0));
     }
 
 }
