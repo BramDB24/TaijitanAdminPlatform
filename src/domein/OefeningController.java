@@ -47,5 +47,10 @@ public class OefeningController extends DomeinController<Oefening>{
     public ObservableList<Oefening> toonOverzicht() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void changeFilter(String fieldname, String filterValue) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

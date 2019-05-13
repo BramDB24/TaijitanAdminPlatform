@@ -25,6 +25,8 @@ public abstract class DomeinController<E> implements Subject {
     
     public abstract ObservableList<E> toonOverzicht();
     
+    public abstract void changeFilter(String fieldname, String filterValue);
+    
     @Override
     public void addObserver(Observer observer) {
         observerlist.add(observer);

@@ -53,7 +53,7 @@ public class MainPanelController extends GridPane {
     private Button lesmateriaal;
 
     public MainPanelController(/*DomeinController dc*/) {
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPanel.fxml"));
 
         loader.setRoot(this);
@@ -83,7 +83,7 @@ public class MainPanelController extends GridPane {
         tableOverzichtPanel.setObservableList(((GebruikerController) dc).toonOverzicht());
         tableOverzichtPanel.enableListener();
     }
-    
+
     public void toonItem(Object object) {
         this.getChildren().remove(lidGegevensPanel);
         lidGegevensPanel = new LidGegevensPanelController(dc);
@@ -93,13 +93,17 @@ public class MainPanelController extends GridPane {
     }
 
     public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
-        dc = new OverzichtController<>();
+        //dc = new OverzichtController<>();
         if (tableOverzichtPanel == null) {
             tableOverzichtPanel = new TableOverzichtPanelController(this);
         }
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
             this.add(tableOverzichtPanel, 1, 1);
         }
+        if (!tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
+            tableOverzichtPanel.getChildren().add(0, new FilterPanelController(dc, this));
+        }
+        
         switch (keuze) {
             case "Activiteiten":
                 ((OverzichtController) dc).toonActiviteitenOverzicht();

@@ -5,11 +5,12 @@
  */
 package domein;
 
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
-import javafx.collections.FXCollections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 /**
  *
@@ -20,6 +21,7 @@ public class OverzichtController<E> extends DomeinController<E> {
 
     private ObservableList<E> overzichtslijst;
     private FilteredList<E> filteredOverzichtslijst;
+
     public OverzichtController() {
         super();
     }
@@ -50,12 +52,13 @@ public class OverzichtController<E> extends DomeinController<E> {
     }
 
     public void toonActiviteitenOverzicht() {
-        overzichtslijst = (ObservableList<E>) getTaijitan().getActiviteitenOverzicht();
+        veranderOverzicht((ObservableList<E>) getTaijitan().getActiviteitenOverzicht());
+
         //return getTaijitan().getGebruikers();
     }
 
     public void toonInschrijvingenOverzicht() {
-        
+
     }
 
     public void toonAanwezighedenOverzicht(LocalDateTime date) {
@@ -69,18 +72,41 @@ public class OverzichtController<E> extends DomeinController<E> {
     public void toonRaadplegingenLesmateriaalOverzicht() {
         veranderOverzicht((ObservableList<E>) getTaijitan().getOefening());
     }
-    
-    public void toonGebruikers(){
+
+    public void toonGebruikers() {
         veranderOverzicht((ObservableList<E>) getTaijitan().getGebruikers());
     }
-    
-    private void veranderOverzicht(ObservableList<E> list){
+
+    private void veranderOverzicht(ObservableList<E> list) {
         overzichtslijst = list;
-        filteredOverzichtslijst = new FilteredList<>(overzichtslijst, p->true);
+        filteredOverzichtslijst = new FilteredList<>(overzichtslijst, p -> true);
     }
-    
+
     @Override
     public ObservableList<E> toonOverzicht() {
-        return overzichtslijst;
+        return filteredOverzichtslijst;
+    }
+
+    @Override
+    public void changeFilter(String fieldname, String filterValue) {
+        filteredOverzichtslijst.setPredicate(val -> {
+            boolean filterLeeg = filterValue == null || filterValue.isEmpty();
+            if (filterLeeg) {
+                return true;
+            }
+            try {
+                Field field = val.getClass().getDeclaredField(fieldname);
+                field.setAccessible(true);
+                var fieldvalue = field.get(val);
+                if (fieldvalue instanceof String) {
+                    boolean stringfilter = filterLeeg ? false : ((String) ((String) fieldvalue).toLowerCase()).startsWith(filterValue.toLowerCase());
+                    return stringfilter;
+                }
+            } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException ex) {
+                return false;
+            }
+            return true;
+        }
+        );
     }
 }
