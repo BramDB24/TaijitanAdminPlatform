@@ -49,6 +49,7 @@ public class OverzichtPanelController extends GridPane {
         enableListener(); //gaat nog weg, test for tableview
     }
 
+
     public void enableListener() {
         listView.getSelectionModel().selectedItemProperty()
                 .addListener(listener);

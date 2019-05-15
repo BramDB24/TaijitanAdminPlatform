@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "lid")
 public class Lid extends Gebruiker implements Serializable{
 
-    protected Lid() {
+    public Lid() {
         super();
     }
 

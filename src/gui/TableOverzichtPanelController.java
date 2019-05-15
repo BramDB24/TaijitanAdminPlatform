@@ -11,8 +11,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -68,9 +71,13 @@ public class TableOverzichtPanelController extends VBox {
         klasse = list.get(0).getClass();
         setFields(mainPanel.getFieldNames(klasse));
         tableView.setItems(list);
-
     }
 
+    public void switchSelection(){
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+    
+    
     public void enableListener() {
         tableView.getSelectionModel().selectedItemProperty().addListener(listener);
     }
@@ -78,4 +85,5 @@ public class TableOverzichtPanelController extends VBox {
     public void disableListener() {
         tableView.getSelectionModel().selectedItemProperty().removeListener(listener);
     }
+
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -43,6 +44,7 @@ public class MainPanelController extends GridPane {
     private ParametersPanelController parametersPanel;
     private TableOverzichtPanelController tableOverzichtPanel;
     private FilterPanelController filterPanel;
+    private AddItemButtonPanelController addItemButtonPanelController;
 
     @FXML
     private Button leden;
@@ -67,8 +69,8 @@ public class MainPanelController extends GridPane {
     }
 
     private void clearScreen() {
-        this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel);
-    }
+        this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel, addItemButtonPanelController);
+    }//bram is hot big pp
 
     @FXML
     public void toonLedenlijst(ActionEvent event) {
@@ -83,6 +85,7 @@ public class MainPanelController extends GridPane {
         }
         tableOverzichtPanel.setObservableList(((GebruikerController) dc).toonOverzicht());
         tableOverzichtPanel.enableListener();
+
     }
 
     public void toonItem(Object object) {
@@ -121,6 +124,7 @@ public class MainPanelController extends GridPane {
             case "Raadplegingen lesmateriaal":
                 break;
         }
+
         tableOverzichtPanel.setObservableList(dc.toonOverzicht());
         tableOverzichtPanel.disableListener();
     }
@@ -150,9 +154,11 @@ public class MainPanelController extends GridPane {
         this.clearScreen();
         dc = new ActiviteitController();
         tableOverzichtPanel = new TableOverzichtPanelController(this);
+        addItemButtonPanelController = new AddItemButtonPanelController((ActiviteitController) dc, this);
         tableOverzichtPanel.setObservableList(dc.toonOverzicht());
         tableOverzichtPanel.disableListener();
         this.add(tableOverzichtPanel, 1, 1);
+        this.add(addItemButtonPanelController, 1, 1);
     }
 
     public List<String> getFieldNames(Class<?> klasse) {
@@ -163,6 +169,9 @@ public class MainPanelController extends GridPane {
                 fieldnames.add("naam");
                 fieldnames.add("voornaam");
                 fieldnames.add("graad");
+                break;
+            case "ActiviteitDTO":
+                fieldnames = getAllFields(klasse);
                 break;
             default:
                 fieldnames = getAllFields(klasse);

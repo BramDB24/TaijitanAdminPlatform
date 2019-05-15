@@ -24,17 +24,23 @@ public class Activiteit implements ActiviteitInterface, Serializable {
             name = "LidActiviteit",
             joinColumns = @JoinColumn(name = "activiteitid"),
             inverseJoinColumns = @JoinColumn(name = "gebruikersnaam"))
+
     private List<Gebruiker> aanwezigen;
 
-    public Activiteit() {
+    public Activiteit(ActiviteitDTO dto) {
+        this.naam = dto.getNaam();
+        this.datum = dto.getDatum();
+    }
+
+    protected Activiteit() {
 
     }
-    
-    public ActiviteitDTO getActiviteitDTO(){
+
+    public ActiviteitDTO getActiviteitDTO() {
         return createDTO();
     }
-    
-    private ActiviteitDTO createDTO(){
+
+    private ActiviteitDTO createDTO() {
         ActiviteitDTO dto = new ActiviteitDTO();
         dto.setDatum(datum);
         dto.setNaam(naam);

@@ -49,6 +49,12 @@ public class Taijitan {
     public Gebruiker getUser(Gebruiker gebruiker) {
         return gebruikers.stream().filter(g -> g.equals(gebruiker)).findFirst().get();
     }
+    
+    public void createActiviteit(ActiviteitDTO dto){
+        Activiteit a = new Activiteit(dto);
+        activiteiten.add(a);
+        activiteitDaoJpa.save(a);
+    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">

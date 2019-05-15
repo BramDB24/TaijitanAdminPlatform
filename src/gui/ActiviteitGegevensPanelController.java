@@ -6,13 +6,17 @@
 package gui;
 
 import domein.DomeinController;
+import domein.GebruikerController;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -36,8 +40,10 @@ public class ActiviteitGegevensPanelController extends GridPane {
 
     private MainPanelController mainPanel;
     private DomeinController dc;
-    
-    public ActiviteitGegevensPanelController(DomeinController dc, MainPanelController mainPanel){
+    @FXML
+    private Button btnVerwijder;
+
+    public ActiviteitGegevensPanelController(DomeinController dc, MainPanelController mainPanel) {
         this.dc = dc;
         this.mainPanel = mainPanel;
 
@@ -48,14 +54,30 @@ public class ActiviteitGegevensPanelController extends GridPane {
             loader.load();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
-        } 
+        }
     }
+
     @FXML
     private void annuleer(ActionEvent event) {
     }
 
     @FXML
     private void slaOp(ActionEvent event) {
+        TableOverzichtPanelController op = new TableOverzichtPanelController(mainPanel);
+        GebruikerController g = new GebruikerController();
+        final Stage scene = new Stage();
+        VBox box = new VBox();
+        op.setObservableList(g.toonOverzicht());
+        box.getChildren().add(op);
+        Scene s = new Scene(box, 400, 600); //Bram is een beestje :333
+        scene.setScene(s);
+        scene.show();
+        Stage s2 = (Stage)this.getScene().getWindow();
+        s2.close(); 
     }
-    
+
+    @FXML
+    private void verwijder(ActionEvent event) {
+    }
+
 }
