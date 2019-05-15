@@ -73,7 +73,7 @@ public class Taijitan {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getters">
     public ObservableList<OefeningInterface> getOefening() {
-        return FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen);
+        return FXCollections.unmodifiableObservableList(FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen));
     }
 
     public ObservableList<Gebruiker> getGebruikers() {
@@ -81,8 +81,8 @@ public class Taijitan {
             initUsers();
         }
         //return FXCollections.observableArrayList(gebruikers.stream().map(e -> e.getGebruikerKenmerkenDTO()).collect(Collectors.toList()));
-        //return FXCollections.unmodifiableObservableList(gebruikers);
-        return gebruikers;
+        return FXCollections.unmodifiableObservableList(gebruikers);
+        //return gebruikers;
     }
 
     public ObservableList<ActiviteitInterface> getActiviteiten() {
@@ -97,14 +97,14 @@ public class Taijitan {
             initSessies();
         }
         Sessie sessie = sessies.stream().filter(s -> s.getSessieDatum().getYear() == date.getYear()).findFirst().get();
-        return FXCollections.observableArrayList(sessie.getLedenlijst().stream().map(s -> s.getLidSessieDTO()).collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(sessie.getLedenlijst().stream().map(s -> s.getLidSessieDTO()).collect(Collectors.toList())));
     }
 
     public ObservableList<GebruikerpuntenDTO> getClubkampioenschapOverzicht() {
         if (gebruikers == null) {
             initUsers();
         }
-        return FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getGebruikerPuntenDTO()).collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getGebruikerPuntenDTO()).collect(Collectors.toList())));
     }
 
     public ObservableList<ActiviteitDTO/*SessieDTO*/> getActiviteitenOverzicht() {
@@ -115,7 +115,7 @@ public class Taijitan {
         if (activiteiten == null) {
             initActiviteiten();
         }
-        return FXCollections.observableArrayList(activiteiten.stream().map(a -> a.getActiviteitDTO()).collect(Collectors.toList()));
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(activiteiten.stream().map(a -> a.getActiviteitDTO()).collect(Collectors.toList())));
     }
 
     //</editor-fold>

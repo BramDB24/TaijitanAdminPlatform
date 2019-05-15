@@ -9,6 +9,7 @@ import domein.DomeinController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class FilterPanelController extends HBox {
             throw new RuntimeException(ex);
         }
         
-        cbFilter.setValue("gebruikersnaam"); //wip
+        //cbFilter.setValue("gebruikersnaam"); //wip
     }
 
     @FXML
@@ -53,8 +54,10 @@ public class FilterPanelController extends HBox {
         dc.changeFilter(cbFilter.getValue(), txtFilter.getText());
     }
     
-    public void setValues(String[] fields){
-        cbFilter.getItems().addAll(Arrays.asList(fields));
+    public void setValues(List<String> fields){
+        cbFilter.getItems().clear();
+        cbFilter.getItems().addAll(fields);
+        cbFilter.setValue(cbFilter.getItems().get(0));
     }
     
 }

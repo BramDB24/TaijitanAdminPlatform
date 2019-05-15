@@ -1,7 +1,6 @@
 package domein;
 
 import domein.DTO.GebruikerDTO;
-import domein.DTO.GebruikerKenmerkenDTO;
 import javafx.collections.ObservableList;
 
 public class GebruikerController<E> extends DomeinController<E> {

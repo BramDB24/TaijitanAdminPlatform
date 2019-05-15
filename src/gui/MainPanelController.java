@@ -42,6 +42,7 @@ public class MainPanelController extends GridPane {
     private LidGegevensPanelController lidGegevensPanel;
     private ParametersPanelController parametersPanel;
     private TableOverzichtPanelController tableOverzichtPanel;
+    private FilterPanelController filterPanel;
 
     @FXML
     private Button leden;
@@ -65,7 +66,7 @@ public class MainPanelController extends GridPane {
         }
     }
 
-    public void clearScreen() {
+    private void clearScreen() {
         this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel);
     }
 
@@ -92,7 +93,7 @@ public class MainPanelController extends GridPane {
         this.add(lidGegevensPanel, 2, 1);
     }
 
-    public void toonNogItem(String keuze, OverzichttypesPanelController scherm) {
+    public void toonOverzicht(String keuze, OverzichttypesPanelController scherm) {
         //dc = new OverzichtController<>();
         if (tableOverzichtPanel == null) {
             tableOverzichtPanel = new TableOverzichtPanelController(this);
@@ -101,9 +102,10 @@ public class MainPanelController extends GridPane {
             this.add(tableOverzichtPanel, 1, 1);
         }
         if (!tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
-            tableOverzichtPanel.getChildren().add(0, new FilterPanelController(dc, this));
+            filterPanel = new FilterPanelController(dc, this);
+            tableOverzichtPanel.getChildren().add(0, filterPanel);
         }
-        
+
         switch (keuze) {
             case "Activiteiten":
                 ((OverzichtController) dc).toonActiviteitenOverzicht();
@@ -163,8 +165,10 @@ public class MainPanelController extends GridPane {
                 fieldnames.add("graad");
                 break;
             default:
-                return getAllFields(klasse);
+                fieldnames = getAllFields(klasse);
+                updateFilterValues(fieldnames);
         }
+
         return fieldnames;
     }
 
@@ -177,5 +181,9 @@ public class MainPanelController extends GridPane {
         Arrays.asList(klasse.getDeclaredFields()).stream()
                 .map(field -> field.getName()).collect(Collectors.toList()).forEach(x -> fields.add((String) x));
         return fields;
+    }
+
+    private void updateFilterValues(List<String> values) {
+        filterPanel.setValues(values);
     }
 }

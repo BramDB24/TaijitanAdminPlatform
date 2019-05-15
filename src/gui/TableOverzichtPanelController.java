@@ -6,14 +6,11 @@
 package gui;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
@@ -65,7 +62,9 @@ public class TableOverzichtPanelController extends VBox {
     }
 
     public void setObservableList(ObservableList<Object> list) {
-
+        if (list instanceof SortedList) {
+            ((SortedList) list).comparatorProperty().bind(tableView.comparatorProperty());
+        }
         klasse = list.get(0).getClass();
         setFields(mainPanel.getFieldNames(klasse));
         tableView.setItems(list);

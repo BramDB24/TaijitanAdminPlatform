@@ -48,7 +48,7 @@ public class OverzichttypesPanelController extends VBox {
 
     @FXML
     private void overzichtklik(ActionEvent event) {
-        mainPanel.toonNogItem(cbOverzicht.getSelectionModel().selectedItemProperty().getValue(), this);
+        mainPanel.toonOverzicht(cbOverzicht.getSelectionModel().selectedItemProperty().getValue(), this);
     }
 
 }
