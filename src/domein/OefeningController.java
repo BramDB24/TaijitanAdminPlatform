@@ -15,7 +15,6 @@ public class OefeningController extends DomeinController<Oefening>{
 
     public OefeningController() {
         super();
-        getTaijitan().initOefeningen();
     }
     
     @Override

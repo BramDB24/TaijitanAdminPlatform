@@ -2,10 +2,8 @@ package domein;
 
 import domein.DTO.ActiviteitDTO;
 import domein.DTO.GebruikerDTO;
-import domein.DTO.GebruikerKenmerkenDTO;
 import domein.DTO.GebruikerpuntenDTO;
 import domein.DTO.LidSessieDTO;
-import domein.DTO.SessieDTO;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -54,15 +52,15 @@ public class Taijitan {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
-    public void initUsers() {
+    private void initUsers() {
         gebruikers = FXCollections.observableArrayList(this.userDao.getAll());
     }
 
-    public void initOefeningen() {
+    private void initOefeningen() {
         oefeningen = FXCollections.observableArrayList(this.lesmateriaalDaoJpa.getAll());
     }
 
-    public void initSessies() {
+    private void initSessies() {
         sessies = FXCollections.observableArrayList(this.sessieDaoJpa.getAll());
     }
 
@@ -107,11 +105,7 @@ public class Taijitan {
         return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getGebruikerPuntenDTO()).collect(Collectors.toList())));
     }
 
-    public ObservableList<ActiviteitDTO/*SessieDTO*/> getActiviteitenOverzicht() {
-//        if (sessies == null) {
-//            initSessies();
-//        }
-//        return FXCollections.observableArrayList(sessies.stream().map(s -> s.getSessieDTO()).collect(Collectors.toList()));
+    public ObservableList<ActiviteitDTO> getActiviteitenOverzicht() {
         if (activiteiten == null) {
             initActiviteiten();
         }

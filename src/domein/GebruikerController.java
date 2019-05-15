@@ -9,7 +9,6 @@ public class GebruikerController<E> extends DomeinController<E> {
 
     public GebruikerController() {
         super();
-        getTaijitan().initUsers();
     }
 
     @Override
