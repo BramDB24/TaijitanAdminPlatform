@@ -5,6 +5,10 @@
  */
 package main;
 
+import domein.ActiviteitController;
+import domein.GebruikerController;
+import domein.OefeningController;
+import domein.OverzichtController;
 import gui.MainPanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,8 +23,11 @@ public class StartUp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        //DomeinController dc = new DomeinController();
-        Scene scene = new Scene(new MainPanelController(/*dc*/)); //hier moet startpagina komen ofc.
+        GebruikerController gc = new GebruikerController();
+        OefeningController oefc = new OefeningController();
+        ActiviteitController ac = new ActiviteitController();
+        OverzichtController oc = new OverzichtController();
+        Scene scene = new Scene(new MainPanelController(gc, oefc, oc, ac)); //hier moet startpagina komen ofc.
         scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
         Image appIcon = new Image("/images/logomini.png");
         primaryStage.setScene(scene);

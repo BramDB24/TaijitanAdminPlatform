@@ -28,16 +28,14 @@ import javafx.stage.Stage;
  * @author bramd
  */
 public class AddItemButtonPanelController extends HBox {
-
-    private DomeinController dc;
     private MainPanelController mainPanel;
     private ActiviteitGegevensPanelController activiteitGegevensPanelController;
     
     @FXML
     private Button btnAddItem;
 
-    public AddItemButtonPanelController(DomeinController dc, MainPanelController mainPanel){
-        this.dc = dc;
+    public AddItemButtonPanelController(MainPanelController mainPanel){
+        
         this.mainPanel = mainPanel;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddItemButtonPanel.fxml"));
@@ -58,7 +56,7 @@ public class AddItemButtonPanelController extends HBox {
     private void addItem(ActionEvent event) {
         final Stage scene = new Stage();
         VBox box = new VBox();
-        box.getChildren().add(new ActiviteitGegevensPanelController(dc, mainPanel));
+        box.getChildren().add(new ActiviteitGegevensPanelController(mainPanel));
         Scene s = new Scene(box,300,300);
         scene.setScene(s);
         scene.show();

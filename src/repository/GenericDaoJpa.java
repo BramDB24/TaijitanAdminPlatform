@@ -23,7 +23,7 @@ public class GenericDaoJpa<E> implements GenericDao<E> {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("TaijitanPU");
     private final EntityManager entityManager = emf.createEntityManager();
 
-    private final Class<E> type;
+    private Class<E> type;
 
     public GenericDaoJpa(Class<E> type) {
         this.type = type;
@@ -52,6 +52,10 @@ public class GenericDaoJpa<E> implements GenericDao<E> {
     @Override
     public void save(E object) {
         executeInsideTransaction(e -> e.persist(object));
+    }
+    
+    public void setType(Class<E> type){
+        this.type = type;
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

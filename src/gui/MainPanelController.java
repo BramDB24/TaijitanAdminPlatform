@@ -7,7 +7,6 @@ package gui;
 
 import domein.ActiviteitController;
 import domein.DomeinController;
-import domein.Gebruiker;
 import domein.GebruikerController;
 
 import domein.OefeningController;
@@ -19,9 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -34,10 +31,13 @@ import javafx.scene.layout.GridPane;
  */
 public class MainPanelController extends GridPane {
 
-    private DomeinController dc;
-    private DomeinController gebruikerController;
-    private DomeinController LesmateriaalController;
-    private DomeinController OefeningController;
+    //dc's
+    private GebruikerController gebruikerController;
+    private OefeningController oefeningController;
+    private OverzichtController overzichtController;
+    private ActiviteitController activiteitController;
+    
+    //panels
     private OverzichtPanelController overzichtPanel;
     private OverzichttypesPanelController opc;
     private LidGegevensPanelController lidGegevensPanel;
@@ -55,8 +55,11 @@ public class MainPanelController extends GridPane {
     @FXML
     private Button lesmateriaal;
 
-    public MainPanelController(/*DomeinController dc*/) {
-
+    public MainPanelController(GebruikerController gebruikerController, OefeningController oefeningController, OverzichtController overzichtController, ActiviteitController activiteitController) {
+            this.gebruikerController = gebruikerController;
+            this.oefeningController = oefeningController;
+            this.overzichtController = overzichtController;
+            this.activiteitController = activiteitController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPanel.fxml"));
 
         loader.setRoot(this);
@@ -67,7 +70,7 @@ public class MainPanelController extends GridPane {
             throw new RuntimeException(ex);
         }
     }
-
+    
     private void clearScreen() {
         this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel, addItemButtonPanelController);
     }//bram is hot big pp
@@ -75,7 +78,6 @@ public class MainPanelController extends GridPane {
     @FXML
     public void toonLedenlijst(ActionEvent event) {
         this.clearScreen();
-        dc = new GebruikerController();
         OverzichtController<Object> oc = new OverzichtController<>();
         if (tableOverzichtPanel == null) {
             tableOverzichtPanel = new TableOverzichtPanelController(this);
@@ -83,21 +85,20 @@ public class MainPanelController extends GridPane {
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
             this.add(tableOverzichtPanel, 1, 1);
         }
-        tableOverzichtPanel.setObservableList(((GebruikerController) dc).toonOverzicht());
+        tableOverzichtPanel.setObservableList(gebruikerController.toonOverzicht());
         tableOverzichtPanel.enableListener();
 
     }
 
     public void toonItem(Object object) {
         this.getChildren().remove(lidGegevensPanel);
-        lidGegevensPanel = new LidGegevensPanelController(dc);
-        dc.addObserver(lidGegevensPanel);
-        dc.toonItem(object);
+        lidGegevensPanel = new LidGegevensPanelController(gebruikerController);
+        gebruikerController.addObserver(lidGegevensPanel);
+        gebruikerController.toonItem(object);
         this.add(lidGegevensPanel, 2, 1);
     }
 
     public void toonOverzicht(String keuze, OverzichttypesPanelController scherm) {
-        //dc = new OverzichtController<>();
         if (tableOverzichtPanel == null) {
             tableOverzichtPanel = new TableOverzichtPanelController(this);
         }
@@ -105,27 +106,27 @@ public class MainPanelController extends GridPane {
             this.add(tableOverzichtPanel, 1, 1);
         }
         if (!tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
-            filterPanel = new FilterPanelController(dc, this);
+            filterPanel = new FilterPanelController(overzichtController, this);
             tableOverzichtPanel.getChildren().add(0, filterPanel);
         }
 
         switch (keuze) {
             case "Activiteiten":
-                ((OverzichtController) dc).toonActiviteitenOverzicht();
+                overzichtController.toonActiviteitenOverzicht();
                 break;
             case "Inschrijvingen":
                 break;
             case "Aanwezigheden":
-                ((OverzichtController) dc).toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0));
+                overzichtController.toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0));
                 break;
             case "Clubkampioenschap":
-                ((OverzichtController) dc).toonClubkampioenschapOverzicht();
+                overzichtController.toonClubkampioenschapOverzicht();
                 break;
             case "Raadplegingen lesmateriaal":
                 break;
         }
 
-        tableOverzichtPanel.setObservableList(dc.toonOverzicht());
+        tableOverzichtPanel.setObservableList(overzichtController.toonOverzicht());
         tableOverzichtPanel.disableListener();
     }
 
@@ -135,8 +136,7 @@ public class MainPanelController extends GridPane {
             tableOverzichtPanel = new TableOverzichtPanelController(this);
         }
         this.clearScreen();
-        dc = new OverzichtController();
-        opc = new OverzichttypesPanelController(dc, this);
+        opc = new OverzichttypesPanelController(this);
         this.add(opc, 1, 0);
         tableOverzichtPanel.disableListener();
     }
@@ -144,18 +144,16 @@ public class MainPanelController extends GridPane {
     @FXML
     private void toonMateriaal(ActionEvent event) {
         this.clearScreen();
-        dc = new OefeningController();
-        overzichtPanel = new OverzichtPanelController(dc, this);
+        overzichtPanel = new OverzichtPanelController(oefeningController, this);
         this.add(overzichtPanel, 1, 1);
     }
 
     @FXML
     private void beheerActiviteiten(ActionEvent event) {
         this.clearScreen();
-        dc = new ActiviteitController();
         tableOverzichtPanel = new TableOverzichtPanelController(this);
-        addItemButtonPanelController = new AddItemButtonPanelController((ActiviteitController) dc, this);
-        tableOverzichtPanel.setObservableList(dc.toonOverzicht());
+        addItemButtonPanelController = new AddItemButtonPanelController(this);
+        tableOverzichtPanel.setObservableList(activiteitController.toonOverzicht());
         tableOverzichtPanel.disableListener();
         this.add(tableOverzichtPanel, 1, 1);
         this.add(addItemButtonPanelController, 1, 1);

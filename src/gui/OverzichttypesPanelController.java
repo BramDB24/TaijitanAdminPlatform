@@ -5,13 +5,11 @@
  */
 package gui;
 
-import domein.DomeinController;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -20,15 +18,11 @@ import javafx.scene.layout.VBox;
  * @author Johanna
  */
 public class OverzichttypesPanelController extends VBox {
-
-    private DomeinController dc;
     private MainPanelController mainPanel;
-
     @FXML
     private ComboBox<String> cbOverzicht;
 
-    public OverzichttypesPanelController(DomeinController dc, MainPanelController mainPanel) {
-        this.dc = dc;
+    public OverzichttypesPanelController(MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OverzichttypesPanel.fxml"));
         loader.setRoot(this);

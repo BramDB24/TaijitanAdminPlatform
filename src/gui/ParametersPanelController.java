@@ -8,11 +8,8 @@ package gui;
 import domein.DomeinController;
 import domein.Observer;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
@@ -23,7 +20,6 @@ import javafx.scene.layout.GridPane;
  * @author Johanna
  */
 public class ParametersPanelController extends GridPane implements Observer{
-    private DomeinController dc;
     private MainPanelController mainPanel;
     
     @FXML
@@ -31,8 +27,7 @@ public class ParametersPanelController extends GridPane implements Observer{
     @FXML
     private Button toonOverzicht;
     
-    public ParametersPanelController (DomeinController dc, MainPanelController mainPanel) {
-        this.dc = dc;
+    public ParametersPanelController (MainPanelController mainPanel) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ParametersPanel.fxml"));
         loader.setRoot(this);
         loader.setController(this);

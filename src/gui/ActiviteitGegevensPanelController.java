@@ -39,12 +39,10 @@ public class ActiviteitGegevensPanelController extends GridPane {
     private Button btnOpslaan;
 
     private MainPanelController mainPanel;
-    private DomeinController dc;
     @FXML
     private Button btnVerwijder;
 
-    public ActiviteitGegevensPanelController(DomeinController dc, MainPanelController mainPanel) {
-        this.dc = dc;
+    public ActiviteitGegevensPanelController(MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiviteitGegevensPanel.fxml"));

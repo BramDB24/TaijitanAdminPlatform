@@ -8,24 +8,42 @@ import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import repository.GenericDaoJpa;
 
 public class Taijitan {
 
+    //oefeningen
     private ObservableList<Oefening> oefeningen;
+    private FilteredList<Oefening> oefeningenFiltered;
+    private SortedList<Oefening> oefeningenSorted;
+    
+    //gebruikers;
     private ObservableList<Gebruiker> gebruikers;
+    private FilteredList<Gebruiker> gebruikersFiltered;
+    private SortedList<Gebruiker> gebruikersSorted;
+    
+    //activiteiten;
     private ObservableList<Activiteit> activiteiten;
+    private FilteredList<Activiteit> activiteitenFiltered;
+    private SortedList<Activiteit> activiteitenSorted;
+    
+    //sessies
     private ObservableList<Sessie> sessies;
+    private FilteredList<Sessie> sessiesFiltered;
+    private SortedList<Sessie> sessiesSorted;
+    
     private final GenericDaoJpa<Gebruiker> userDao;
-    private final GenericDaoJpa<Oefening> lesmateriaalDaoJpa;
+    private final GenericDaoJpa<Oefening> oefeningDaoJpa;
     private final GenericDaoJpa<Sessie> sessieDaoJpa;
     private final GenericDaoJpa<Activiteit> activiteitDaoJpa;
 
-    public Taijitan(/*GenericDao<E> dao*/) {
-        this.lesmateriaalDaoJpa = new GenericDaoJpa<>(Oefening.class);
-        this.sessieDaoJpa = new GenericDaoJpa<>(Sessie.class);
-        this.userDao = new GenericDaoJpa<>(Gebruiker.class);
-        this.activiteitDaoJpa = new GenericDaoJpa<>(Activiteit.class);
+    public Taijitan(GenericDaoJpa<Gebruiker> daoGebruiker, GenericDaoJpa<Oefening> daoOefening, GenericDaoJpa<Sessie> daoSessie, GenericDaoJpa<Activiteit> daoActiviteit) {
+        this.oefeningDaoJpa = daoOefening;
+        this.sessieDaoJpa = daoSessie;
+        this.userDao = daoGebruiker;
+        this.activiteitDaoJpa = daoActiviteit;
     }
 
     //<editor-fold desc="UserActions">
@@ -58,20 +76,28 @@ public class Taijitan {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
-    private void initUsers() {
+    public void initUsers() {
         gebruikers = FXCollections.observableArrayList(this.userDao.getAll());
+        gebruikersFiltered = new FilteredList<>(gebruikers, g -> true);
+        gebruikersSorted = new SortedList<>(gebruikersFiltered);
     }
 
     private void initOefeningen() {
-        oefeningen = FXCollections.observableArrayList(this.lesmateriaalDaoJpa.getAll());
+        oefeningen = FXCollections.observableArrayList(this.oefeningDaoJpa.getAll());
+        oefeningenFiltered = new FilteredList<>(oefeningen, o -> true);
+        oefeningenSorted = new SortedList<>(oefeningenFiltered);
     }
 
     private void initSessies() {
         sessies = FXCollections.observableArrayList(this.sessieDaoJpa.getAll());
+        sessiesFiltered = new FilteredList<>(sessies, s -> true);
+        sessiesSorted = new SortedList<>(sessiesFiltered);
     }
 
     private void initActiviteiten() {
         activiteiten = FXCollections.observableArrayList(this.activiteitDaoJpa.getAll());
+        activiteitenFiltered = new FilteredList<>(activiteiten, a -> true);
+        activiteitenSorted = new SortedList<>(activiteitenFiltered);
     }
 
     //</editor-fold>
