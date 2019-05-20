@@ -82,7 +82,7 @@ public class Taijitan {
 
     //<editor-fold defaultstate="collapsed" desc="Init">
     public void initUsers() {
-        gebruikers = FXCollections.observableArrayList(this.userDao.getAll());
+        gebruikers = FXCollections.observableArrayList(this.userDao.getAll()/*.stream().filter(g -> g instanceof Lid).collect(Collectors.toList())*/);
         gebruikersFiltered = new FilteredList<>(gebruikers, g -> true);
         gebruikersSorted = new SortedList<>(gebruikersFiltered);
     }

@@ -1,9 +1,10 @@
 package domein;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name = "Lesgever")
+@Table(name = "Lesgever")
 public class Lesgever extends Gebruiker {
 
-    @Override
-    public String getGebruikersnaam() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
