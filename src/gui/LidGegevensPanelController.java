@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -56,7 +57,7 @@ public class LidGegevensPanelController extends GridPane implements Observer{
     @FXML
     private TextField txtGsm;
     @FXML
-    private ComboBox<Character> cbGeslacht;
+    private ComboBox<String> cbGeslacht;
     @FXML
     private Button btnOpslaan;
     @FXML
@@ -69,6 +70,10 @@ public class LidGegevensPanelController extends GridPane implements Observer{
     private DatePicker dateInschrijving;
     @FXML
     private TextField txtGebruikersnaam;
+    @FXML
+    private Label lblWachtwoord;
+    @FXML
+    private TextField txtWachtwoord;
 
     public LidGegevensPanelController(DomeinController dc) {
         this.dc = dc;
@@ -82,7 +87,7 @@ public class LidGegevensPanelController extends GridPane implements Observer{
             throw new RuntimeException(ex);
         }
         //cbGeslacht.setPromptText("M");
-        cbGeslacht.getItems().addAll('M', 'V', 'O');
+        cbGeslacht.getItems().addAll("Man", "Vrouw", "Onbepaald");
     }
 
     @FXML
@@ -105,9 +110,10 @@ public class LidGegevensPanelController extends GridPane implements Observer{
             dto.setNationaliteit(txtNationaliteit.getText());
             dto.setEmailouders(txtEmailOuders.getText());
             dto.setGsm(txtGsm.getText());
-            dto.setGeslacht(Character.toString(cbGeslacht.getValue())); ///char of string?
+            dto.setGeslacht(cbGeslacht.getValue()); ///char of string?
             dto.setGraad(Integer.parseInt(txtGraad.getText()));
             dto.setInschrijvingsdatum(dateInschrijving.getValue());
+            dto.setWachtwoord(txtWachtwoord.getText());
             dc.editItem(dto);
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
@@ -142,8 +148,15 @@ public class LidGegevensPanelController extends GridPane implements Observer{
         txtEmailOuders.setText(gebruikerDTO.getEmailouders());
         txtGeboorteplaats.setText(gebruikerDTO.getGeboorteplek());
         txtNationaliteit.setText(gebruikerDTO.getNationaliteit());
-        String geslachtHelp = gebruikerDTO.getGeslacht();
-        cbGeslacht.setValue(geslachtHelp.charAt(0));
+        cbGeslacht.setValue(gebruikerDTO.getGeslacht());
+        String password = gebruikerDTO.getWachtwoord();
+        setPasswordVisibility(password==null);
+        txtWachtwoord.setText(password);
+    }
+    
+    private void setPasswordVisibility(boolean visibility){
+        lblWachtwoord.setVisible(visibility);
+        txtWachtwoord.setVisible(visibility);
     }
 
 }

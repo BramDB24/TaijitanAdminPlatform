@@ -79,6 +79,8 @@
       <DatePicker fx:id="dateInschrijving" prefWidth="148.8" GridPane.columnIndex="3" GridPane.rowIndex="3" />
       <TextField fx:id="txtGebruikersnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Gebruikersnaam" GridPane.rowIndex="1" />
+      <Label fx:id="lblWachtwoord" text="Wachtwoord" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="txtWachtwoord" GridPane.columnIndex="3" GridPane.rowIndex="1" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" />

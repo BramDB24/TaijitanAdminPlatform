@@ -48,17 +48,18 @@ public class AddItemButtonPanelController extends HBox {
         }
     }
 
-    private void addLid(ActionEvent event) {
+    private void addLid() {
         mainPanel.toonItem(new Lid(new GebruikerDTO()));
     }
 
     @FXML
     private void addItem(ActionEvent event) {
-        final Stage scene = new Stage();
-        VBox box = new VBox();
-        box.getChildren().add(new ActiviteitGegevensPanelController(mainPanel));
-        Scene s = new Scene(box,300,300);
-        scene.setScene(s);
-        scene.show();
+//        final Stage scene = new Stage();
+//        VBox box = new VBox();
+//        box.getChildren().add(new ActiviteitGegevensPanelController(mainPanel));
+//        Scene s = new Scene(box,300,300);
+//        scene.setScene(s);
+//        scene.show();
+        addLid();
     }
 }

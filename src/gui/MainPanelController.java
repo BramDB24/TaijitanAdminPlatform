@@ -6,7 +6,6 @@
 package gui;
 
 import domein.ActiviteitController;
-import domein.DomeinController;
 import domein.GebruikerController;
 
 import domein.OefeningController;
@@ -60,6 +59,7 @@ public class MainPanelController extends GridPane {
             this.oefeningController = oefeningController;
             this.overzichtController = overzichtController;
             this.activiteitController = activiteitController;
+            lidGegevensPanel = new LidGegevensPanelController(gebruikerController);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPanel.fxml"));
 
         loader.setRoot(this);
@@ -79,36 +79,39 @@ public class MainPanelController extends GridPane {
     public void toonLedenlijst(ActionEvent event) {
         this.clearScreen();
         OverzichtController<Object> oc = new OverzichtController<>();
-        if (tableOverzichtPanel == null) {
-            tableOverzichtPanel = new TableOverzichtPanelController(this);
-        }
-        if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
-            this.add(tableOverzichtPanel, 1, 1);
-        }
+//        if (tableOverzichtPanel == null) {
+//            tableOverzichtPanel = new TableOverzichtPanelController(this);
+//        }
+//        if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
+//            this.add(tableOverzichtPanel, 1, 1);
+//        }
+        ensureTableCreated();
         tableOverzichtPanel.setObservableList(gebruikerController.toonOverzicht());
         tableOverzichtPanel.enableListener();
-
+        addItemButtonPanelController = new AddItemButtonPanelController(this);
+        tableOverzichtPanel.getChildren().add(addItemButtonPanelController);
     }
 
     public void toonItem(Object object) {
-        this.getChildren().remove(lidGegevensPanel);
-        lidGegevensPanel = new LidGegevensPanelController(gebruikerController);
+        //this.getChildren().remove(lidGegevensPanel);
+        //lidGegevensPanel = new LidGegevensPanelController(gebruikerController);
         gebruikerController.addObserver(lidGegevensPanel);
         gebruikerController.toonItem(object);
         this.add(lidGegevensPanel, 2, 1);
     }
 
     public void toonOverzicht(String keuze, OverzichttypesPanelController scherm) {
-        if (tableOverzichtPanel == null) {
-            tableOverzichtPanel = new TableOverzichtPanelController(this);
-        }
-        if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
-            this.add(tableOverzichtPanel, 1, 1);
-        }
-        if (!tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
-            filterPanel = new FilterPanelController(overzichtController, this);
-            tableOverzichtPanel.getChildren().add(0, filterPanel);
-        }
+//        if (tableOverzichtPanel == null) {
+//            tableOverzichtPanel = new TableOverzichtPanelController(this);
+//        }
+//        if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
+//            this.add(tableOverzichtPanel, 1, 1);
+//        }
+//        if (!tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
+//            filterPanel = new FilterPanelController(overzichtController, this);
+//            tableOverzichtPanel.getChildren().add(0, filterPanel);
+//        }
+        ensureTableCreated();
 
         switch (keuze) {
             case "Activiteiten":
@@ -132,9 +135,10 @@ public class MainPanelController extends GridPane {
 
     @FXML
     private void toonOverzichtenlijst(ActionEvent event) {
-        if (tableOverzichtPanel == null) {
-            tableOverzichtPanel = new TableOverzichtPanelController(this);
-        }
+        //if (tableOverzichtPanel == null) {
+        //    tableOverzichtPanel = new TableOverzichtPanelController(this);
+        //}
+        ensureTableCreated();
         this.clearScreen();
         opc = new OverzichttypesPanelController(this);
         this.add(opc, 1, 0);
@@ -151,11 +155,12 @@ public class MainPanelController extends GridPane {
     @FXML
     private void beheerActiviteiten(ActionEvent event) {
         this.clearScreen();
-        tableOverzichtPanel = new TableOverzichtPanelController(this);
+        //tableOverzichtPanel = new TableOverzichtPanelController(this);
+        ensureTableCreated();
         addItemButtonPanelController = new AddItemButtonPanelController(this);
         tableOverzichtPanel.setObservableList(activiteitController.toonOverzicht());
         tableOverzichtPanel.disableListener();
-        this.add(tableOverzichtPanel, 1, 1);
+        //this.add(tableOverzichtPanel, 1, 1);
         this.add(addItemButtonPanelController, 1, 1);
     }
 
@@ -173,9 +178,9 @@ public class MainPanelController extends GridPane {
                 break;
             default:
                 fieldnames = getAllFields(klasse);
-                updateFilterValues(fieldnames);
+                
         }
-
+        updateFilterValues(fieldnames);
         return fieldnames;
     }
 
@@ -192,5 +197,18 @@ public class MainPanelController extends GridPane {
 
     private void updateFilterValues(List<String> values) {
         filterPanel.setValues(values);
+    }
+    
+    private void ensureTableCreated(){
+        if (tableOverzichtPanel == null) {
+            tableOverzichtPanel = new TableOverzichtPanelController(this);
+        }
+        if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
+            this.add(tableOverzichtPanel, 1, 1);
+        }
+        if (!tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
+            filterPanel = new FilterPanelController(overzichtController, this);
+            tableOverzichtPanel.getChildren().add(0, filterPanel);
+        }
     }
 }

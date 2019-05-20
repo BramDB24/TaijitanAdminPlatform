@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity(name = "Lid")
-@Table(name = "lid")
+@Table(name = "Lid")
 public class Lid extends Gebruiker implements Serializable{
 
     public Lid() {
@@ -15,6 +15,6 @@ public class Lid extends Gebruiker implements Serializable{
     }
 
     public Lid(GebruikerDTO dto) {
-        
+        super(dto);
     }
 }

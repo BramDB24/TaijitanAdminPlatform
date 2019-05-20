@@ -47,10 +47,10 @@ public class Taijitan {
     }
 
     //<editor-fold desc="UserActions">
-    public void createUser(GebruikerDTO dto) {
-        Gebruiker user = new Lid(dto);
-        gebruikers.add(user);
-        userDao.save(user);
+    public void addUser(Gebruiker gebruiker) {
+        //Gebruiker user = new Lid(dto);
+        gebruikers.add(gebruiker);
+        userDao.save(gebruiker);
     }
 
     public void removeUser(Gebruiker huidigeGebruiker) {
@@ -58,10 +58,15 @@ public class Taijitan {
         userDao.delete(huidigeGebruiker);
     }
 
-    public void updateUser(GebruikerDTO dto) {
-        Gebruiker user = (Gebruiker) gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(dto.getGebruikersnaam())).findFirst().get();
+    public void updateUser(GebruikerDTO dto, Gebruiker user) {
+        //Gebruiker user = (Gebruiker) gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(dto.getGebruikersnaam())).findFirst().get();
         user.setAttributes(dto);
-        userDao.update(user);
+        if(!gebruikers.contains(user)){
+            addUser(user);
+        }
+        else{
+            userDao.update(user);
+        }
     }
 
     public Gebruiker getUser(Gebruiker gebruiker) {

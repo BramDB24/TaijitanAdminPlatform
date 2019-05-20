@@ -60,7 +60,7 @@ public class NeedsACleverName {
         GebruikerDTO dto = new GebruikerDTO();
         dto.setGebruikersnaam("unit.test");
         dto.setNaam("new.name");
-        t.updateUser(dto);
+        t.updateUser(dto, user);
         Assert.assertEquals("new.name", user.getNaam());
     }
 }

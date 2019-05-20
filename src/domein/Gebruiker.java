@@ -211,6 +211,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     private GebruikerDTO createGebruikerDTO() {
         GebruikerDTO dto = new GebruikerDTO();
         dto.setGebruikersnaam(gebruikersnaam);
+        dto.setWachtwoord(wachtwoord);
         dto.setNaam(naam);
         dto.setVoornaam(voornaam);
         dto.setTelefoonnummer(telefoonnummer);
@@ -268,15 +269,16 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
     //</editor-fold>
 
-    @Override
-    public String toString() {
+    //@Override
+    //public String toString() {
         //fieldsize klopt niet helemaal in gui omdat bepaalde chars minder plek in nemen dan andere. Bv: i < w
-        return String.format("%-25s | %-15s %s %s", gebruikersnaam, naam, voornaam, graad);
-    }
+      //  return String.format("%-25s | %-15s %s %s", gebruikersnaam, naam, voornaam, graad);
+    //}
 
     public void setAttributes(GebruikerDTO dto) {
         gebruikersnaam = dto.getGebruikersnaam();
         naam = dto.getNaam();
+        wachtwoord = dto.getWachtwoord();
         voornaam = dto.getVoornaam();
         telefoonnummer = dto.getTelefoonnummer();
         geboortedatum = dto.getGeboortedatum();

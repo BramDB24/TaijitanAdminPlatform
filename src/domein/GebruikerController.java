@@ -13,7 +13,9 @@ public class GebruikerController<E> extends DomeinController<E> {
 
     @Override
     public void newItem(E object) {
-        getTaijitan().createUser((GebruikerDTO) object);
+        //getTaijitan().createUser((GebruikerDTO) object);
+        huidigeGebruiker = new Lid();
+        getTaijitan().addUser(huidigeGebruiker);
     }
 
     @Override
@@ -23,15 +25,13 @@ public class GebruikerController<E> extends DomeinController<E> {
 
     @Override
     public void toonItem(E gebruiker) {
-        //huidigeGebruiker = getTaijitan().getUser((Gebruiker)gebruiker);
-        huidigeGebruiker = (Gebruiker)gebruiker;
+        huidigeGebruiker = (Gebruiker) gebruiker;
         notifyObservers();
     }
 
-    
     @Override
     public ObservableList<E> toonOverzicht() {
-        return (ObservableList<E>)(Object)getTaijitan().getGebruikers();
+        return (ObservableList<E>) (Object) getTaijitan().getGebruikers();
     }
 
     @Override
@@ -41,7 +41,13 @@ public class GebruikerController<E> extends DomeinController<E> {
 
     @Override
     public void editItem(E dto) {
-        getTaijitan().updateUser((GebruikerDTO) dto);
+        //if (huidigeGebruiker != null) {
+            getTaijitan().updateUser((GebruikerDTO) dto, huidigeGebruiker);
+        //}
+        //else{
+          //  huidigeGebruiker = new Lid((GebruikerDTO) dto);
+            //getTaijitan().addUser(huidigeGebruiker);
+        //}
     }
 
     @Override
