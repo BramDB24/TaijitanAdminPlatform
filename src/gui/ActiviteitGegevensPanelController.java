@@ -5,14 +5,16 @@
  */
 package gui;
 
-import domein.DomeinController;
+import domein.DTO.ActiviteitDTO;
 import domein.GebruikerController;
+import domein.Observer;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -23,13 +25,11 @@ import javafx.stage.Stage;
  *
  * @author bramd
  */
-public class ActiviteitGegevensPanelController extends GridPane {
+public class ActiviteitGegevensPanelController extends GridPane implements Observer{
 
     @FXML
     private TextField txtNaam;
-    @FXML
     private TextField txtStartdatum;
-    @FXML
     private TextField txtEinddatum;
     @FXML
     private TextField txtMaxAantal;
@@ -41,6 +41,10 @@ public class ActiviteitGegevensPanelController extends GridPane {
     private MainPanelController mainPanel;
     @FXML
     private Button btnVerwijder;
+    @FXML
+    private DatePicker dpStartDatum;
+    @FXML
+    private DatePicker dpEindDatum;
 
     public ActiviteitGegevensPanelController(MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
@@ -76,6 +80,15 @@ public class ActiviteitGegevensPanelController extends GridPane {
 
     @FXML
     private void verwijder(ActionEvent event) {
+    }
+
+    @Override
+    public void update(Object activiteit) {
+        ActiviteitDTO dto = (ActiviteitDTO)activiteit;
+        txtNaam.setText(dto.getNaam());
+        dpStartDatum.setValue(dto.getStartDatum());
+        dpEindDatum.setValue(dto.getEindDatum());
+        txtMaxAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
     }
 
 }

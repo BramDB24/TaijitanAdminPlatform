@@ -142,11 +142,12 @@ public class Taijitan {
         return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getGebruikerPuntenDTO()).collect(Collectors.toList())));
     }
 
-    public ObservableList<ActiviteitDTO> getActiviteitenOverzicht() {
+    public ObservableList<Activiteit> getActiviteitenOverzicht() {
         if (activiteiten == null) {
             initActiviteiten();
         }
-        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(activiteiten.stream().map(a -> a.getActiviteitDTO()).collect(Collectors.toList())));
+        //return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(activiteiten.stream().map(a -> a.getActiviteitDTO()).collect(Collectors.toList())));
+        return activiteitenSorted;
     }
 
     //</editor-fold>

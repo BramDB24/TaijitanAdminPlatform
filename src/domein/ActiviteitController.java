@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
  * @author bramd
  */
 public class ActiviteitController<E> extends DomeinController<E> {
+    private Activiteit huidigeActiviteit;
     
     @Override
     public void newItem(E object) {
@@ -30,8 +31,9 @@ public class ActiviteitController<E> extends DomeinController<E> {
     }
     
     @Override
-    public void toonItem(E object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void toonItem(E activiteit) {
+        huidigeActiviteit = (Activiteit) activiteit;
+        notifyObservers();
     }
     
     @Override
@@ -41,7 +43,7 @@ public class ActiviteitController<E> extends DomeinController<E> {
     
     @Override
     public void notifyObservers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getObservers().forEach(o -> o.update(huidigeActiviteit.getActiviteitDTO()));
     }
     
     @Override

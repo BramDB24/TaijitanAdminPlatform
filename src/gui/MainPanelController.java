@@ -9,14 +9,15 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-
 
 public class MainPanelController extends GridPane {
 
@@ -25,7 +26,7 @@ public class MainPanelController extends GridPane {
     private OefeningController oefeningController;
     private OverzichtController overzichtController;
     private ActiviteitController activiteitController;
-    
+
     //panels
     private OverzichtPanelController overzichtPanel;
     private OverzichttypesPanelController opc;
@@ -34,6 +35,8 @@ public class MainPanelController extends GridPane {
     private TableOverzichtPanelController tableOverzichtPanel;
     private FilterPanelController filterPanel;
     private AddItemButtonPanelController addItemButtonPanelController;
+    private AddActiviteitButtonPanelController addActiviteitButtonPanelController;
+    private ActiviteitGegevensPanelController activiteitGegevensPanel;
 
     @FXML
     private Button leden;
@@ -45,11 +48,10 @@ public class MainPanelController extends GridPane {
     private Button lesmateriaal;
 
     public MainPanelController(GebruikerController gebruikerController, OefeningController oefeningController, OverzichtController overzichtController, ActiviteitController activiteitController) {
-            this.gebruikerController = gebruikerController;
-            this.oefeningController = oefeningController;
-            this.overzichtController = overzichtController;
-            this.activiteitController = activiteitController;
-            lidGegevensPanel = new LidGegevensPanelController(gebruikerController);
+        this.gebruikerController = gebruikerController;
+        this.oefeningController = oefeningController;
+        this.overzichtController = overzichtController;
+        this.activiteitController = activiteitController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPanel.fxml"));
 
         loader.setRoot(this);
@@ -60,15 +62,14 @@ public class MainPanelController extends GridPane {
             throw new RuntimeException(ex);
         }
     }
-    
+
     private void clearScreen() {
-        this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel, addItemButtonPanelController);
+        this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel, addItemButtonPanelController, activiteitGegevensPanel);
     }
 
     @FXML
     public void toonLedenlijst(ActionEvent event) {
         this.clearScreen();
-        OverzichtController<Object> oc = new OverzichtController<>();
         ensureTableCreated();
         tableOverzichtPanel.setObservableList(gebruikerController.toonOverzicht());
         tableOverzichtPanel.enableListener();
@@ -77,9 +78,26 @@ public class MainPanelController extends GridPane {
     }
 
     public void toonItem(Object object) {
-        gebruikerController.addObserver(lidGegevensPanel);
-        gebruikerController.toonItem(object);
-        addLidGegevensPanel();
+        switch (object.getClass().getSimpleName()) {
+            case "Lid":
+                addLidGegevensPanel();
+                gebruikerController.addObserver(lidGegevensPanel);
+                gebruikerController.toonItem(object);
+                break;
+            case "Activiteit":
+                addActiviteitGegevensPanel();
+                activiteitController.addObserver(activiteitGegevensPanel);
+                activiteitController.toonItem(object);
+
+        }
+        //addLidGegevensPanel();
+        //gebruikerController.addObserver(lidGegevensPanel);
+        //gebruikerController.toonItem(object);
+    }
+
+    public void toonActiviteit(Object object) {
+        activiteitController.addObserver(activiteitGegevensPanel);
+        activiteitController.toonItem(object);
     }
 
     public void toonOverzicht(String keuze, OverzichttypesPanelController scherm) {
@@ -124,10 +142,10 @@ public class MainPanelController extends GridPane {
     private void beheerActiviteiten(ActionEvent event) {
         this.clearScreen();
         ensureTableCreated();
-        addItemButtonPanelController = new AddItemButtonPanelController(this);
+        addActiviteitButtonPanelController = new AddActiviteitButtonPanelController(this);
         tableOverzichtPanel.setObservableList(activiteitController.toonOverzicht());
-        tableOverzichtPanel.disableListener();
-        this.add(addItemButtonPanelController, 1, 1);
+        tableOverzichtPanel.getChildren().add(addActiviteitButtonPanelController);
+        tableOverzichtPanel.enableListener();
     }
 
     public List<String> getFieldNames(Class<?> klasse) {
@@ -139,15 +157,29 @@ public class MainPanelController extends GridPane {
                 fieldnames.add("voornaam");
                 fieldnames.add("graad");
                 break;
-            case "ActiviteitDTO":
-                fieldnames = getAllFields(klasse);
+            case "Activiteit":
+                fieldnames.add("naam");
+                fieldnames.add("startDatum");
+                fieldnames.add("eindDatum");
+                fieldnames.add("maxAantal");
                 break;
+                //fieldnames.add("aantalIngeschreven");
             default:
                 fieldnames = getAllFields(klasse);
-                
+
         }
         updateFilterValues(fieldnames);
         return fieldnames;
+    }
+    
+    public Map<String, String> getMethodNames(Class<?> klasse){
+        Map<String, String> methodnames = new HashMap<>();
+        switch(klasse.getSimpleName()){
+            case "Activiteit":
+                methodnames.put("getAantalAanwezigen", "Aantal aanwezigen");
+                break;
+        }
+        return methodnames;
     }
 
     private List<String> getAllFields(Class<?> klasse) {
@@ -164,8 +196,8 @@ public class MainPanelController extends GridPane {
     private void updateFilterValues(List<String> values) {
         filterPanel.setValues(values);
     }
-    
-    private void ensureTableCreated(){
+
+    private void ensureTableCreated() {
         if (tableOverzichtPanel == null) {
             tableOverzichtPanel = new TableOverzichtPanelController(this);
         }
@@ -178,16 +210,21 @@ public class MainPanelController extends GridPane {
         }
     }
 
-    public void toonActiviteit(Object object) {
-        activiteitController.toonItem(object);
-    }
-    
-    private void addLidGegevensPanel(){
-        if(lidGegevensPanel == null){
+    private void addLidGegevensPanel() {
+        if (lidGegevensPanel == null) {
             lidGegevensPanel = new LidGegevensPanelController(gebruikerController);
         }
         if (!this.getChildren().stream().anyMatch(o -> o instanceof LidGegevensPanelController)) {
             this.add(lidGegevensPanel, 2, 1);
+        }
+    }
+
+    private void addActiviteitGegevensPanel() {
+        if(activiteitGegevensPanel == null){
+            activiteitGegevensPanel = new ActiviteitGegevensPanelController(this);
+        }
+        if (!this.getChildren().stream().anyMatch(o -> o instanceof ActiviteitGegevensPanelController)) {
+            this.add(activiteitGegevensPanel, 2, 1);
         }
     }
 }

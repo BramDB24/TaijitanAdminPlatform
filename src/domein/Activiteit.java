@@ -2,8 +2,10 @@ package domein;
 
 import domein.DTO.ActiviteitDTO;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,7 +20,9 @@ public class Activiteit implements ActiviteitInterface, Serializable {
     @Id
     private int activiteitId;
     private String naam;
-    private LocalDateTime datum;
+    private LocalDate startDatum;
+    private LocalDate eindDatum;
+    private int maxAantal;
     @ManyToMany
     @JoinTable(
             name = "LidActiviteit",
@@ -29,7 +33,9 @@ public class Activiteit implements ActiviteitInterface, Serializable {
 
     public Activiteit(ActiviteitDTO dto) {
         this.naam = dto.getNaam();
-        this.datum = dto.getDatum();
+        this.startDatum = dto.getStartDatum();
+        this.eindDatum = dto.getEindDatum();
+        this.maxAantal = dto.getMaxAantal();
     }
 
     protected Activiteit() {
@@ -42,9 +48,31 @@ public class Activiteit implements ActiviteitInterface, Serializable {
 
     private ActiviteitDTO createDTO() {
         ActiviteitDTO dto = new ActiviteitDTO();
-        dto.setDatum(datum);
+        dto.setStartDatum(startDatum);
         dto.setNaam(naam);
         dto.setAantalAanwezigen(aanwezigen.size());
         return dto;
     }
+    
+    public String getNaam(){
+        return naam;
+    }
+    
+    public LocalDate getStartDatum(){
+        return startDatum;
+    }
+    
+    public LocalDate getEindDatum(){
+        return eindDatum;
+    }
+    
+    public ObservableValue<String> getAantalAanwezigen(){
+        return new SimpleObjectProperty<>(Integer.toString(aanwezigen.size()));
+    }
+    
+    public int getMaxAantal(){
+        return maxAantal;
+    }
+    
+    
 }

@@ -5,6 +5,7 @@
  */
 package domein.DTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +13,9 @@ import java.time.LocalDateTime;
  * @author bramd
  */
 public class ActiviteitDTO {
-    private LocalDateTime datum;
+    private LocalDate startDatum;
+    private LocalDate eindDatum;
+    private int maxAantal;
     private String naam;
     private int aantalAanwezigen;
     
@@ -27,15 +30,7 @@ public class ActiviteitDTO {
     public void setNaam(String naam) {
         this.naam = naam;
     }
-
-    public LocalDateTime getDatum() {
-        return datum;
-    }
-
-    public void setDatum(LocalDateTime datum) {
-        this.datum = datum;
-    }
-
+    
     public int getAantalAanwezigen() {
         return aantalAanwezigen;
     }
@@ -43,6 +38,32 @@ public class ActiviteitDTO {
     public void setAantalAanwezigen(int aantalAanwezigen) {
         this.aantalAanwezigen = aantalAanwezigen;
     }
+
+    public LocalDate getStartDatum() {
+        return startDatum;
+    }
+
+    public LocalDate getEindDatum() {
+        return eindDatum;
+    }
+
+    public int getMaxAantal() {
+        return maxAantal;
+    }
+
+    public void setStartDatum(LocalDate startDatum) {
+        this.startDatum = startDatum;
+    }
+
+    public void setEindDatum(LocalDate eindDatum) {
+        this.eindDatum = eindDatum;
+    }
+
+    public void setMaxAantal(int maxAantal) {
+        this.maxAantal = maxAantal;
+    }
+    
+    
     
     
 }

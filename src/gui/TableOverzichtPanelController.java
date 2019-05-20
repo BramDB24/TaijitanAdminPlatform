@@ -6,15 +6,16 @@
 package gui;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,13 +54,28 @@ public class TableOverzichtPanelController extends VBox {
         };
     }
 
-    public void setFields(List<String> fieldnames) {
+    public void setFields(List<String> fieldnames, Map<String, String> methodnames) { //methodnames is map met methodname als key en fieldname als value
         tableView.getColumns().clear();
         fieldnames.stream().map((field) -> {
             TableColumn<Object, String> column = new TableColumn<>((String) field);
             column.setCellValueFactory(new PropertyValueFactory<>((String) field));
             return column;
         }).forEachOrdered((column) -> {
+            tableView.getColumns().add(column);
+        });
+        
+        methodnames.forEach((key, val) -> {
+            TableColumn<Object, String> column = new TableColumn<>((String) val);
+            column.setCellValueFactory((x) -> {
+                ObservableValue<String> methodvalue = null;
+                try {
+                    methodvalue = (ObservableValue <String>)x.getValue().getClass().getMethod(key).invoke(x.getValue());
+                } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                    return new SimpleObjectProperty<>("/");
+                }
+                return methodvalue;
+            });
+                    //new PropertyValueFactory<>((String) key));
             tableView.getColumns().add(column);
         });
     }
@@ -69,7 +85,7 @@ public class TableOverzichtPanelController extends VBox {
             ((SortedList) list).comparatorProperty().bind(tableView.comparatorProperty());
         }
         klasse = list.get(0).getClass();
-        setFields(mainPanel.getFieldNames(klasse));
+        setFields(mainPanel.getFieldNames(klasse), mainPanel.getMethodNames(klasse));
         tableView.setItems(list);
     }
 
