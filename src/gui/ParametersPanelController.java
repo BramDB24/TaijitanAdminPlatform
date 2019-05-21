@@ -5,7 +5,6 @@
  */
 package gui;
 
-import domein.DomeinController;
 import domein.Observer;
 import java.io.IOException;
 import javafx.fxml.FXML;

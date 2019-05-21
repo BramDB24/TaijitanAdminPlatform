@@ -318,6 +318,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         return raadplegingen;
     }
     
+    @Override
     public String toString(){
         return gebruikersnaam;
     }

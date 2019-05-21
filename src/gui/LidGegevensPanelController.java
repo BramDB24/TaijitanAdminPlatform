@@ -9,11 +9,15 @@ import domein.DTO.GebruikerDTO;
 import domein.DomeinController;
 import domein.Observer;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -25,7 +29,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author bramd
  */
-public class LidGegevensPanelController extends GridPane implements Observer{
+public class LidGegevensPanelController extends GridPane implements Observer {
 
     private final DomeinController dc;
     @FXML
@@ -124,12 +128,20 @@ public class LidGegevensPanelController extends GridPane implements Observer{
 
     @FXML
     private void verwijder(ActionEvent event) {
-        dc.removeItem();
+        ButtonType ja = new ButtonType("Ja", ButtonBar.ButtonData.OK_DONE);
+        ButtonType annuleren = new ButtonType("Annuleren", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Verwijderen gebruiker", ja, annuleren);
+        alert.setTitle("Gebruiker verwijderen");
+        alert.setHeaderText("Ben je zeker dat je " + txtGebruikersnaam.getText() + " wilt verwijderen?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            dc.removeItem();
+        }
     }
 
     @Override
     public void update(Object gebruiker) { //DTO hier?
-        GebruikerDTO gebruikerDTO = (GebruikerDTO)gebruiker;
+        GebruikerDTO gebruikerDTO = (GebruikerDTO) gebruiker;
         txtGebruikersnaam.setText(gebruikerDTO.getGebruikersnaam());
         txtFamilienaam.setText(gebruikerDTO.getNaam());
         txtVoornaam.setText(gebruikerDTO.getVoornaam());
@@ -150,11 +162,11 @@ public class LidGegevensPanelController extends GridPane implements Observer{
         txtNationaliteit.setText(gebruikerDTO.getNationaliteit());
         cbGeslacht.setValue(gebruikerDTO.getGeslacht());
         String password = gebruikerDTO.getWachtwoord();
-        setPasswordVisibility(password==null);
+        setPasswordVisibility(password == null);
         txtWachtwoord.setText(password);
     }
-    
-    private void setPasswordVisibility(boolean visibility){
+
+    private void setPasswordVisibility(boolean visibility) {
         lblWachtwoord.setVisible(visibility);
         txtWachtwoord.setVisible(visibility);
     }

@@ -22,7 +22,7 @@ public class ActiviteitController<E> extends DomeinController<E> {
     
     @Override
     public void removeItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getTaijitan().removeActiviteit(huidigeActiviteit);
     }
     
     @Override

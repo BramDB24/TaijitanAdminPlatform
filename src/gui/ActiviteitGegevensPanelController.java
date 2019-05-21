@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domein.ActiviteitController;
 import domein.DTO.ActiviteitDTO;
 import domein.DomeinController;
 import domein.Gebruiker;
@@ -12,13 +13,17 @@ import domein.GebruikerController;
 import domein.Observer;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
@@ -36,6 +41,8 @@ import javafx.stage.Stage;
  */
 public class ActiviteitGegevensPanelController extends GridPane implements Observer{
     private GebruikerController gebruikerController;
+    
+    private ActiviteitController activiteitController;
     @FXML
     private TextField txtNaam;
     @FXML
@@ -65,9 +72,10 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     @FXML
     private ComboBox<String> cbStatus;
 
-    public ActiviteitGegevensPanelController(GebruikerController gebruikerController, MainPanelController mainPanel) {
+    public ActiviteitGegevensPanelController(GebruikerController gebruikerController, ActiviteitController activiteitController, MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
         this.gebruikerController = gebruikerController;
+        this.activiteitController = activiteitController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiviteitGegevensPanel.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -103,6 +111,15 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
 
     @FXML
     private void verwijder(ActionEvent event) {
+        ButtonType ja = new ButtonType("Ja", ButtonBar.ButtonData.OK_DONE);
+        ButtonType annuleren = new ButtonType("Annuleren", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Verwijderen gebruiker", ja, annuleren);
+        alert.setTitle("Gebruiker verwijderen");
+        alert.setHeaderText("Ben je zeker dat je " + txtNaam.getText() + " wilt verwijderen?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            activiteitController.removeItem();
+        }
     }
 
     @Override
@@ -112,7 +129,6 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         dpStartDatum.setValue(dto.getStartDatum());
         dpEindDatum.setValue(dto.getEindDatum());
         txtMaxAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
-        
     }
 
     @FXML

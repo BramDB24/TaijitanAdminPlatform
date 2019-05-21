@@ -231,7 +231,7 @@ public class MainPanelController extends GridPane {
 
     private void addActiviteitGegevensPanel() {
         if (activiteitGegevensPanel == null) {
-            activiteitGegevensPanel = new ActiviteitGegevensPanelController(gebruikerController, this);
+            activiteitGegevensPanel = new ActiviteitGegevensPanelController(gebruikerController, activiteitController, this);
         }
         if (!this.getChildren().stream().anyMatch(o -> o instanceof ActiviteitGegevensPanelController)) {
             this.add(activiteitGegevensPanel, 2, 1);

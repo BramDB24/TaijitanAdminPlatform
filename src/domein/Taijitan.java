@@ -213,4 +213,9 @@ public class Taijitan {
         };
     }
     //</editor-fold>
+
+    public void removeActiviteit(Activiteit huidigeActiviteit) {
+        activiteiten.remove(huidigeActiviteit);
+        activiteitDaoJpa.delete(huidigeActiviteit);
+    }
 }
