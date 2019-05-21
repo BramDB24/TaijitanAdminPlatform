@@ -50,7 +50,7 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         ActiviteitDTO dto = new ActiviteitDTO();
         dto.setStartDatum(startDatum);
         dto.setNaam(naam);
-        dto.setAantalAanwezigen(aanwezigen.size());
+       dto.setAantalAanwezigen(aanwezigen==null?0:aanwezigen.size());
         return dto;
     }
     

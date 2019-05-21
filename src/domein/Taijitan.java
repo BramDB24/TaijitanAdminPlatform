@@ -113,6 +113,14 @@ public class Taijitan {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="getters">
+    public ObservableList<Gebruiker> getusers(){
+        return gebruikers;
+    }
+    
+    public void setusers(ObservableList<Gebruiker> l){
+        gebruikers = l;
+    }
+    
     public ObservableList<OefeningInterface> getOefening() {
         return FXCollections.unmodifiableObservableList(FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen));
     }
