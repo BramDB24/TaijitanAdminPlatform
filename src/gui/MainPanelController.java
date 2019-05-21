@@ -110,6 +110,7 @@ public class MainPanelController extends GridPane {
                 overzichtController.toonActiviteitenOverzicht();
                 break;
             case "Inschrijvingen":
+                overzichtController.toonInschrijvingenOverzicht();
                 break;
             case "Aanwezigheden":
                 overzichtController.toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0));
@@ -118,6 +119,7 @@ public class MainPanelController extends GridPane {
                 overzichtController.toonClubkampioenschapOverzicht();
                 break;
             case "Raadplegingen lesmateriaal":
+                overzichtController.toonRaadplegingenLesmateriaalOverzicht();
                 break;
         }
         tableOverzichtPanel.setObservableList(overzichtController.toonOverzicht());

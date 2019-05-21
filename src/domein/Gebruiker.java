@@ -3,14 +3,17 @@ package domein;
 import domein.DTO.GebruikerDTO;
 import domein.DTO.GebruikerpuntenDTO;
 import domein.DTO.GebruikerKenmerkenDTO;
+import domein.DTO.InschrijvingenDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -44,6 +47,8 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     private String formulenaam;
     private int score;
 
+    @OneToMany(mappedBy = "gebruiker")
+    private List<GebruikerOefening> raadplegingen;
     // </editor-fold>
     protected Gebruiker() {
 
@@ -298,6 +303,19 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         geslacht = dto.getGeslacht();
         formulenaam = dto.getFormulenaam();
         score = dto.getScore();
+    }
+
+    public InschrijvingenDTO getInschrijvingenDTO() {
+        InschrijvingenDTO dto = new InschrijvingenDTO();
+        dto.setVoornaam(voornaam);
+        dto.setNaam(naam);
+        dto.setGebruikersnaam(gebruikersnaam);
+        dto.setFormule(formulenaam);
+        return dto;     
+    }
+    
+    public List<GebruikerOefening> getRaadplegingen() {
+        return raadplegingen;
     }
 
 }

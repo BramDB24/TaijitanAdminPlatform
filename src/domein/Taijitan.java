@@ -3,9 +3,13 @@ package domein;
 import domein.DTO.ActiviteitDTO;
 import domein.DTO.GebruikerDTO;
 import domein.DTO.GebruikerpuntenDTO;
+import domein.DTO.InschrijvingenDTO;
 import domein.DTO.LidSessieDTO;
+import domein.DTO.RaadplegingenDTO;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -107,6 +111,7 @@ public class Taijitan {
     }
 
     //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="getters">
     public ObservableList<OefeningInterface> getOefening() {
         return FXCollections.unmodifiableObservableList(FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen));
@@ -145,11 +150,33 @@ public class Taijitan {
         if (activiteiten == null) {
             initActiviteiten();
         }
-        //return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(activiteiten.stream().map(a -> a.getActiviteitDTO()).collect(Collectors.toList())));
         return activiteitenSorted;
+    }
+    
+    public ObservableList<InschrijvingenDTO> getInschrijvingen(){
+        if(gebruikers == null){
+            initUsers();
+        }
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getInschrijvingenDTO()).collect(Collectors.toList())));
+    }
+    
+    public ObservableList<RaadplegingenDTO> getRaadplegingenLesmateriaalOverzicht(){
+        if(gebruikers == null){
+            initUsers();
+        }
+        List<RaadplegingenDTO> raadplegingenoverzicht = new ArrayList<>();
+        List<List<GebruikerOefening>> raadplegingen = gebruikers.stream().map(g -> g.getRaadplegingen()).collect(Collectors.toList());
+        raadplegingen.forEach(r -> {
+            r.forEach(raadpleging -> {
+                raadplegingenoverzicht.add(raadpleging.getRaadplegingenDTO());
+            });
+        });
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(raadplegingenoverzicht));
     }
 
     //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="filters">
     public void filterGebruikers(String fieldname, String filterValue) {
         gebruikersFiltered.setPredicate(getFilterPredicate(fieldname, filterValue));
     }
@@ -185,4 +212,5 @@ public class Taijitan {
             }
         };
     }
+    //</editor-fold>
 }

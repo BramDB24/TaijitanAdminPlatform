@@ -1,5 +1,6 @@
 package domein;
 
+import domein.DTO.RaadplegingenDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
@@ -27,5 +28,19 @@ public class GebruikerOefening implements Serializable {
     
     public GebruikerOefening() {
         
+    }
+    
+    public LocalDateTime getRaadpleegTijdstip(){
+        return raadpleegTijdstip;
+    }
+    
+    public RaadplegingenDTO getRaadplegingenDTO(){
+        RaadplegingenDTO dto = new RaadplegingenDTO();
+        dto.setGebruikersnaam(gebruiker.getGebruikersnaam());
+        dto.setNaam(gebruiker.getNaam());
+        dto.setTijdstip(raadpleegTijdstip);
+        dto.setVoornaam(gebruiker.getVoornaam());
+        dto.setOefening(oefening.getNaam());
+        return dto;
     }
 }

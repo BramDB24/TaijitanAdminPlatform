@@ -53,12 +53,10 @@ public class OverzichtController<E> extends DomeinController<E> {
 
     public void toonActiviteitenOverzicht() {
         veranderOverzicht((ObservableList<E>) getTaijitan().getActiviteitenOverzicht());
-
-        //return getTaijitan().getGebruikers();
     }
 
     public void toonInschrijvingenOverzicht() {
-
+        veranderOverzicht((ObservableList<E>) (Object) getTaijitan().getInschrijvingen());
     }
 
     public void toonAanwezighedenOverzicht(LocalDateTime date) {
@@ -70,7 +68,7 @@ public class OverzichtController<E> extends DomeinController<E> {
     }
 
     public void toonRaadplegingenLesmateriaalOverzicht() {
-        veranderOverzicht((ObservableList<E>) getTaijitan().getOefening());
+        veranderOverzicht((ObservableList<E>) getTaijitan().getRaadplegingenLesmateriaalOverzicht());
     }
 
     public void toonGebruikers() {
