@@ -48,7 +48,7 @@ public class ActiviteitController<E> extends DomeinController<E> {
     
     @Override
     public void changeFilter(String fieldname, String filterValue) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getTaijitan().filterActiviteiten(fieldname, filterValue);
     }
     
 }

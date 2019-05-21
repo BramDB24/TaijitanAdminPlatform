@@ -41,17 +41,11 @@ public class GebruikerController<E> extends DomeinController<E> {
 
     @Override
     public void editItem(E dto) {
-        //if (huidigeGebruiker != null) {
             getTaijitan().updateUser((GebruikerDTO) dto, huidigeGebruiker);
-        //}
-        //else{
-          //  huidigeGebruiker = new Lid((GebruikerDTO) dto);
-            //getTaijitan().addUser(huidigeGebruiker);
-        //}
     }
 
     @Override
     public void changeFilter(String fieldname, String filterValue) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getTaijitan().filterGebruikers(fieldname, filterValue);
     }
 }

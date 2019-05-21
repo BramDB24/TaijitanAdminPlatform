@@ -4,7 +4,9 @@ import domein.DTO.ActiviteitDTO;
 import domein.DTO.GebruikerDTO;
 import domein.DTO.GebruikerpuntenDTO;
 import domein.DTO.LidSessieDTO;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,22 +20,22 @@ public class Taijitan {
     private ObservableList<Oefening> oefeningen;
     private FilteredList<Oefening> oefeningenFiltered;
     private SortedList<Oefening> oefeningenSorted;
-    
+
     //gebruikers;
     private ObservableList<Gebruiker> gebruikers;
     private FilteredList<Gebruiker> gebruikersFiltered;
     private SortedList<Gebruiker> gebruikersSorted;
-    
+
     //activiteiten;
     private ObservableList<Activiteit> activiteiten;
     private FilteredList<Activiteit> activiteitenFiltered;
     private SortedList<Activiteit> activiteitenSorted;
-    
+
     //sessies
     private ObservableList<Sessie> sessies;
     private FilteredList<Sessie> sessiesFiltered;
     private SortedList<Sessie> sessiesSorted;
-    
+
     private final GenericDaoJpa<Gebruiker> userDao;
     private final GenericDaoJpa<Oefening> oefeningDaoJpa;
     private final GenericDaoJpa<Sessie> sessieDaoJpa;
@@ -61,10 +63,9 @@ public class Taijitan {
     public void updateUser(GebruikerDTO dto, Gebruiker user) {
         //Gebruiker user = (Gebruiker) gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(dto.getGebruikersnaam())).findFirst().get();
         user.setAttributes(dto);
-        if(!gebruikers.contains(user)){
+        if (!gebruikers.contains(user)) {
             addUser(user);
-        }
-        else{
+        } else {
             userDao.update(user);
         }
     }
@@ -72,8 +73,8 @@ public class Taijitan {
     public Gebruiker getUser(Gebruiker gebruiker) {
         return gebruikers.stream().filter(g -> g.equals(gebruiker)).findFirst().get();
     }
-    
-    public void createActiviteit(ActiviteitDTO dto){
+
+    public void createActiviteit(ActiviteitDTO dto) {
         Activiteit a = new Activiteit(dto);
         activiteiten.add(a);
         activiteitDaoJpa.save(a);
@@ -115,9 +116,7 @@ public class Taijitan {
         if (gebruikers == null) {
             initUsers();
         }
-        //return FXCollections.observableArrayList(gebruikers.stream().map(e -> e.getGebruikerKenmerkenDTO()).collect(Collectors.toList()));
-        return FXCollections.unmodifiableObservableList(gebruikers);
-        //return gebruikers;
+        return gebruikersSorted;
     }
 
     public ObservableList<ActiviteitInterface> getActiviteiten() {
@@ -151,4 +150,39 @@ public class Taijitan {
     }
 
     //</editor-fold>
+    public void filterGebruikers(String fieldname, String filterValue) {
+        gebruikersFiltered.setPredicate(getFilterPredicate(fieldname, filterValue));
+    }
+
+    public void filterActiviteiten(String fieldname, String filterValue) {
+        activiteitenFiltered.setPredicate(getFilterPredicate(fieldname, filterValue));
+    }
+
+    private Predicate getFilterPredicate(String fieldname, String filterValue) {
+        return val -> {
+            boolean filterLeeg = filterValue == null || filterValue.isEmpty();
+            if (filterLeeg) {
+                return true;
+            }
+            try {
+                Field field;
+                switch (val.getClass().getSimpleName()) {
+                    case "Lid":
+                        field = val.getClass().getSuperclass().getDeclaredField(fieldname);
+                        break;
+                    default:
+                        field = val.getClass().getDeclaredField(fieldname);
+                }
+
+                field.setAccessible(true);
+                var fieldvalue = field.get(val);
+                fieldvalue = fieldvalue.toString();
+                boolean stringfilter = filterLeeg ? false : ((String) ((String) fieldvalue).toLowerCase()).startsWith(filterValue.toLowerCase());
+                return stringfilter;
+
+            } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException ex) {
+                return false;
+            }
+        };
+    }
 }

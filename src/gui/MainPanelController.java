@@ -1,6 +1,7 @@
 package gui;
 
 import domein.ActiviteitController;
+import domein.DomeinController;
 import domein.GebruikerController;
 import domein.OefeningController;
 import domein.OverzichtController;
@@ -71,6 +72,7 @@ public class MainPanelController extends GridPane {
     public void toonLedenlijst(ActionEvent event) {
         this.clearScreen();
         ensureTableCreated();
+        addFilterPanel(gebruikerController);
         tableOverzichtPanel.setObservableList(gebruikerController.toonOverzicht());
         tableOverzichtPanel.enableListener();
         addItemButtonPanelController = new AddItemButtonPanelController(this);
@@ -125,6 +127,7 @@ public class MainPanelController extends GridPane {
     @FXML
     private void toonOverzichtenlijst(ActionEvent event) {
         ensureTableCreated();
+        addFilterPanel(overzichtController);
         this.clearScreen();
         opc = new OverzichttypesPanelController(this);
         this.add(opc, 1, 0);
@@ -142,6 +145,7 @@ public class MainPanelController extends GridPane {
     private void beheerActiviteiten(ActionEvent event) {
         this.clearScreen();
         ensureTableCreated();
+        addFilterPanel(activiteitController);
         addActiviteitButtonPanelController = new AddActiviteitButtonPanelController(this);
         tableOverzichtPanel.setObservableList(activiteitController.toonOverzicht());
         tableOverzichtPanel.getChildren().add(addActiviteitButtonPanelController);
@@ -163,7 +167,7 @@ public class MainPanelController extends GridPane {
                 fieldnames.add("eindDatum");
                 fieldnames.add("maxAantal");
                 break;
-                //fieldnames.add("aantalIngeschreven");
+            //fieldnames.add("aantalIngeschreven");
             default:
                 fieldnames = getAllFields(klasse);
 
@@ -171,10 +175,10 @@ public class MainPanelController extends GridPane {
         updateFilterValues(fieldnames);
         return fieldnames;
     }
-    
-    public Map<String, String> getMethodNames(Class<?> klasse){
+
+    public Map<String, String> getMethodNames(Class<?> klasse) {
         Map<String, String> methodnames = new HashMap<>();
-        switch(klasse.getSimpleName()){
+        switch (klasse.getSimpleName()) {
             case "Activiteit":
                 methodnames.put("getAantalAanwezigen", "Aantal aanwezigen");
                 break;
@@ -204,10 +208,14 @@ public class MainPanelController extends GridPane {
         if (!this.getChildren().stream().anyMatch(o -> o instanceof TableOverzichtPanelController)) {
             this.add(tableOverzichtPanel, 1, 1);
         }
-        if (!tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
-            filterPanel = new FilterPanelController(overzichtController, this);
-            tableOverzichtPanel.getChildren().add(0, filterPanel);
+    }
+
+    private void addFilterPanel(DomeinController dc) {
+        if (tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)){
+            tableOverzichtPanel.getChildren().remove(filterPanel);
         }
+        filterPanel = new FilterPanelController(dc, this);
+        tableOverzichtPanel.getChildren().add(0, filterPanel);
     }
 
     private void addLidGegevensPanel() {
@@ -220,7 +228,7 @@ public class MainPanelController extends GridPane {
     }
 
     private void addActiviteitGegevensPanel() {
-        if(activiteitGegevensPanel == null){
+        if (activiteitGegevensPanel == null) {
             activiteitGegevensPanel = new ActiviteitGegevensPanelController(this);
         }
         if (!this.getChildren().stream().anyMatch(o -> o instanceof ActiviteitGegevensPanelController)) {
