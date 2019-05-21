@@ -6,16 +6,25 @@
 package gui;
 
 import domein.DTO.ActiviteitDTO;
+import domein.DomeinController;
+import domein.Gebruiker;
 import domein.GebruikerController;
 import domein.Observer;
 import java.io.IOException;
+import java.util.List;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -26,11 +35,9 @@ import javafx.stage.Stage;
  * @author bramd
  */
 public class ActiviteitGegevensPanelController extends GridPane implements Observer{
-
+    private GebruikerController gebruikerController;
     @FXML
     private TextField txtNaam;
-    private TextField txtStartdatum;
-    private TextField txtEinddatum;
     @FXML
     private TextField txtMaxAantal;
     @FXML
@@ -45,10 +52,22 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     private DatePicker dpStartDatum;
     @FXML
     private DatePicker dpEindDatum;
+    @FXML
+    private TextField txtHuidigAantal;
+    @FXML
+    private ListView<String> listLeden;
+    @FXML
+    private ListView<String> listAanwezigeLeden;
+    @FXML
+    private Button buttonAdd;
+    @FXML
+    private Button buttonDelete;
+    @FXML
+    private ComboBox<String> cbStatus;
 
-    public ActiviteitGegevensPanelController(MainPanelController mainPanel) {
+    public ActiviteitGegevensPanelController(GebruikerController gebruikerController, MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
-
+        this.gebruikerController = gebruikerController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiviteitGegevensPanel.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -57,6 +76,10 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        cbStatus.getItems().addAll("Volzet", "Niet volzet");
+        listLeden.setItems(gebruikerController.toonOverzicht());
+        listLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listAanwezigeLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
@@ -89,6 +112,22 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         dpStartDatum.setValue(dto.getStartDatum());
         dpEindDatum.setValue(dto.getEindDatum());
         txtMaxAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
+        
     }
+
+    @FXML
+    private void voegLidToe(ActionEvent event) {
+        ObservableList<String> ledenToevoegen = listLeden.getSelectionModel().getSelectedItems();
+        //listLeden.getItems().remove(ledenToevoegen);
+        listAanwezigeLeden.setItems(ledenToevoegen);
+    }
+
+    @FXML
+    private void verwijderLid(ActionEvent event) {
+        ObservableList<String> ledenVerwijderen = listAanwezigeLeden.getSelectionModel().getSelectedItems();
+        //listAanwezigeLeden.getItems().remove(ledenVerwijderen);
+        listLeden.setItems(ledenVerwijderen);
+    }
+
 
 }

@@ -317,5 +317,9 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     public List<GebruikerOefening> getRaadplegingen() {
         return raadplegingen;
     }
+    
+    public String toString(){
+        return gebruikersnaam;
+    }
 
 }
