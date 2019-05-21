@@ -12,8 +12,10 @@ import domein.Gebruiker;
 import domein.GebruikerController;
 import domein.Observer;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -72,6 +74,10 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     @FXML
     private ComboBox<String> cbStatus;
 
+    private final ObservableList<String> ledenLijst;
+    
+    private final ObservableList<String> aanwezigeLijst;
+    
     public ActiviteitGegevensPanelController(GebruikerController gebruikerController, ActiviteitController activiteitController, MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
         this.gebruikerController = gebruikerController;
@@ -85,7 +91,13 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
             throw new RuntimeException(ex);
         }
         cbStatus.getItems().addAll("Volzet", "Niet volzet");
-        listLeden.setItems(gebruikerController.toonOverzicht());
+        
+        ArrayList<String> aanwezig = new ArrayList();
+        ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());
+        aanwezigeLijst = FXCollections.observableArrayList(aanwezig);
+        
+        listLeden.setItems(ledenLijst);
+        listAanwezigeLeden.setItems(aanwezigeLijst);
         listLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         listAanwezigeLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
@@ -129,20 +141,27 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         dpStartDatum.setValue(dto.getStartDatum());
         dpEindDatum.setValue(dto.getEindDatum());
         txtMaxAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
+        
     }
 
     @FXML
     private void voegLidToe(ActionEvent event) {
         ObservableList<String> ledenToevoegen = listLeden.getSelectionModel().getSelectedItems();
-        //listLeden.getItems().remove(ledenToevoegen);
-        listAanwezigeLeden.setItems(ledenToevoegen);
+        aanwezigeLijst.addAll(ledenToevoegen);
+        ledenLijst.removeAll(ledenToevoegen);
+        listLeden.setItems(ledenLijst);
+        listAanwezigeLeden.setItems(aanwezigeLijst);
+        listLeden.getSelectionModel().clearSelection();
     }
 
     @FXML
     private void verwijderLid(ActionEvent event) {
         ObservableList<String> ledenVerwijderen = listAanwezigeLeden.getSelectionModel().getSelectedItems();
-        //listAanwezigeLeden.getItems().remove(ledenVerwijderen);
-        listLeden.setItems(ledenVerwijderen);
+        ledenLijst.addAll(ledenVerwijderen);
+        aanwezigeLijst.removeAll(ledenVerwijderen);
+        listAanwezigeLeden.setItems(aanwezigeLijst);
+        listLeden.setItems(ledenLijst);
+        listAanwezigeLeden.getSelectionModel().clearSelection();
     }
 
 
