@@ -117,7 +117,7 @@ public class MainPanelController extends GridPane {
                 overzichtController.toonInschrijvingenOverzicht();
                 break;
             case "Aanwezigheden":
-                overzichtController.toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0));
+                overzichtController.toonAanwezighedenOverzicht();
                 break;
             case "Clubkampioenschap":
                 overzichtController.toonClubkampioenschapOverzicht();
@@ -183,7 +183,6 @@ public class MainPanelController extends GridPane {
                 fieldnames.add("eindDatum");
                 fieldnames.add("maxAantal");
                 break;
-            //fieldnames.add("aantalIngeschreven");
             default:
                 fieldnames = getAllFields(klasse);
 

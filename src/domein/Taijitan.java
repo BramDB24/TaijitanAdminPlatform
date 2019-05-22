@@ -7,7 +7,6 @@ import domein.DTO.InschrijvingenDTO;
 import domein.DTO.LidSessieDTO;
 import domein.DTO.RaadplegingenDTO;
 import java.lang.reflect.Field;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -22,8 +21,6 @@ public class Taijitan {
 
     //oefeningen
     private ObservableList<Oefening> oefeningen;
-    private FilteredList<Oefening> oefeningenFiltered;
-    private SortedList<Oefening> oefeningenSorted;
 
     //gebruikers;
     private ObservableList<Gebruiker> gebruikers;
@@ -37,8 +34,6 @@ public class Taijitan {
 
     //sessies
     private ObservableList<Sessie> sessies;
-    private FilteredList<Sessie> sessiesFiltered;
-    private SortedList<Sessie> sessiesSorted;
 
     private final GenericDaoJpa<Gebruiker> userDao;
     private final GenericDaoJpa<Oefening> oefeningDaoJpa;
@@ -54,7 +49,6 @@ public class Taijitan {
 
     //<editor-fold desc="UserActions">
     public void addUser(Gebruiker gebruiker) {
-        //Gebruiker user = new Lid(dto);
         gebruikers.add(gebruiker);
         userDao.save(gebruiker);
     }
@@ -65,7 +59,6 @@ public class Taijitan {
     }
 
     public void updateUser(GebruikerDTO dto, Gebruiker user) {
-        //Gebruiker user = (Gebruiker) gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(dto.getGebruikersnaam())).findFirst().get();
         user.setAttributes(dto);
         if (!gebruikers.contains(user)) {
             addUser(user);
@@ -94,14 +87,10 @@ public class Taijitan {
 
     private void initOefeningen() {
         oefeningen = FXCollections.observableArrayList(this.oefeningDaoJpa.getAll());
-        oefeningenFiltered = new FilteredList<>(oefeningen, o -> true);
-        oefeningenSorted = new SortedList<>(oefeningenFiltered);
     }
 
     private void initSessies() {
         sessies = FXCollections.observableArrayList(this.sessieDaoJpa.getAll());
-        sessiesFiltered = new FilteredList<>(sessies, s -> true);
-        sessiesSorted = new SortedList<>(sessiesFiltered);
     }
 
     private void initActiviteiten() {
@@ -111,16 +100,15 @@ public class Taijitan {
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="getters">
-    public ObservableList<Gebruiker> getusers(){
+    public ObservableList<Gebruiker> getusers() {
         return gebruikers;
     }
-    
-    public void setusers(ObservableList<Gebruiker> l){
+
+    public void setusers(ObservableList<Gebruiker> l) {
         gebruikers = l;
     }
-    
+
     public ObservableList<OefeningInterface> getOefening() {
         return FXCollections.unmodifiableObservableList(FXCollections.unmodifiableObservableList((ObservableList<OefeningInterface>) (Object) oefeningen));
     }
@@ -139,12 +127,18 @@ public class Taijitan {
         return FXCollections.unmodifiableObservableList((ObservableList<ActiviteitInterface>) (Object) activiteiten);
     }
 
-    public ObservableList<LidSessieDTO> getAanwezigheden(LocalDateTime date) {
+    public ObservableList<LidSessieDTO> getAanwezigheden(/*LocalDateTime date*/) {
         if (sessies == null) {
             initSessies();
         }
-        Sessie sessie = sessies.stream().filter(s -> s.getSessieDatum().getYear() == date.getYear()).findFirst().get();
-        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(sessie.getLedenlijst().stream().map(s -> s.getLidSessieDTO()).collect(Collectors.toList())));
+        List<LidSessieDTO> aanwezighedenlijst = new ArrayList<>();
+        sessies.stream().forEach((Sessie s) -> {
+            var aanwezigen = s.getLedenlijst().stream().filter(l -> l.getAanwezigheid()).collect(Collectors.toList());
+            aanwezigen.forEach(a -> aanwezighedenlijst.add(a.getLidSessieDTO()));
+        });
+        //Sessie sessie = sessies.stream().filter(s -> s.getSessieDatum().getYear() == date.getYear()).findFirst().get();
+        //return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(sessie.getLedenlijst().stream().map(s -> s.getLidSessieDTO()).collect(Collectors.toList())));
+        return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(aanwezighedenlijst));
     }
 
     public ObservableList<GebruikerpuntenDTO> getClubkampioenschapOverzicht() {
@@ -160,16 +154,16 @@ public class Taijitan {
         }
         return activiteitenSorted;
     }
-    
-    public ObservableList<InschrijvingenDTO> getInschrijvingen(){
-        if(gebruikers == null){
+
+    public ObservableList<InschrijvingenDTO> getInschrijvingen() {
+        if (gebruikers == null) {
             initUsers();
         }
         return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(gebruikers.stream().map(g -> g.getInschrijvingenDTO()).collect(Collectors.toList())));
     }
-    
-    public ObservableList<RaadplegingenDTO> getRaadplegingenLesmateriaalOverzicht(){
-        if(gebruikers == null){
+
+    public ObservableList<RaadplegingenDTO> getRaadplegingenLesmateriaalOverzicht() {
+        if (gebruikers == null) {
             initUsers();
         }
         List<RaadplegingenDTO> raadplegingenoverzicht = new ArrayList<>();
@@ -183,7 +177,6 @@ public class Taijitan {
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="filters">
     public void filterGebruikers(String fieldname, String filterValue) {
         gebruikersFiltered.setPredicate(getFilterPredicate(fieldname, filterValue));
@@ -202,7 +195,7 @@ public class Taijitan {
             try {
                 Field field;
                 switch (val.getClass().getSimpleName()) {
-                    case "Lid":
+                    case "Lid" : case "Lesgever":
                         field = val.getClass().getSuperclass().getDeclaredField(fieldname);
                         break;
                     default:

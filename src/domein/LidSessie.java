@@ -45,7 +45,7 @@ public class LidSessie implements Serializable {
     private LidSessieDTO createLidSessieDTO(){
         LidSessieDTO dto = new LidSessieDTO();
         dto.setGebruikersnaam(lid.getGebruikersnaam());
-        dto.setAanwezig(aanwezigheid);
+        dto.setDatum(sessie.getSessieDatum().toLocalDate());
         return dto;
     }
     

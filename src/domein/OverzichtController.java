@@ -59,8 +59,8 @@ public class OverzichtController<E> extends DomeinController<E> {
         veranderOverzicht((ObservableList<E>) (Object) getTaijitan().getInschrijvingen());
     }
 
-    public void toonAanwezighedenOverzicht(LocalDateTime date) {
-        veranderOverzicht((ObservableList<E>) (Object) getTaijitan().getAanwezigheden(date));
+    public void toonAanwezighedenOverzicht() {
+        veranderOverzicht((ObservableList<E>) (Object) getTaijitan().getAanwezigheden());
     }
 
     public void toonClubkampioenschapOverzicht() {
