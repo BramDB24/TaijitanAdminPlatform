@@ -84,5 +84,12 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         this.aanwezigen = aanwezigen;
     }
 
+    public void setAttributes(ActiviteitDTO activiteitDTO) {
+        this.naam = activiteitDTO.getNaam();
+        this.startDatum = activiteitDTO.getStartDatum();
+        this.eindDatum = activiteitDTO.getEindDatum();
+        this.maxAantal = activiteitDTO.getMaxAantal();
+    }
+
     
 }

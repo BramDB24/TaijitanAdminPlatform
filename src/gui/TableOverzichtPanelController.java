@@ -97,10 +97,6 @@ public class TableOverzichtPanelController extends VBox {
         }
     }
 
-    public void switchSelection() {
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    }
-
     public void enableListener() {
         tableView.getSelectionModel().selectedItemProperty().addListener(listener);
     }

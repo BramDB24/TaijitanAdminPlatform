@@ -219,4 +219,18 @@ public class Taijitan {
         activiteiten.remove(huidigeActiviteit);
         activiteitDaoJpa.delete(huidigeActiviteit);
     }
+
+    public void updateActiviteit(ActiviteitDTO activiteitDTO, Activiteit activiteit) {
+        activiteit.setAttributes(activiteitDTO);
+        if (!activiteiten.contains(activiteit)) {
+            addActiviteit(activiteit);
+        } else {
+            activiteitDaoJpa.update(activiteit);
+        }
+    }
+    
+    private void addActiviteit(Activiteit activiteit){
+        activiteiten.add(activiteit);
+        activiteitDaoJpa.save(activiteit);
+    }
 }

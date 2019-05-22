@@ -315,25 +315,41 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     public void setGebruikersnaam(String gebruikersnaam) {
-        this.gebruikersnaam = gebruikersnaam;
+        if (gebruikersnaam != null && !gebruikersnaam.isEmpty()) {
+            this.gebruikersnaam = gebruikersnaam;
+        } else {
+            throw new IllegalArgumentException("Er is geen gebruikersnaam ingevuld");
+        }
     }
 
     public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
+        if (wachtwoord != null && !wachtwoord.isEmpty()) {
+            this.wachtwoord = wachtwoord;
+        } else {
+            throw new IllegalArgumentException("Er is geen wachtwoord ingevuld");
+        }
     }
 
     public void setNaam(String naam) {
-        this.naam = naam;
+        if (naam != null && !naam.isEmpty()) {
+            this.naam = naam;
+        } else {
+            throw new IllegalArgumentException("Er is geen naam ingevuld");
+        }
     }
 
     public void setVoornaam(String voornaam) {
-        this.voornaam = voornaam;
+        if (voornaam != null && !voornaam.isEmpty()) {
+            this.voornaam = voornaam;
+        } else {
+            throw new IllegalArgumentException("Er is geen voornaam ingevuld");
+        }
     }
 
     public void setTelefoonnummer(String telefoonnummer) {
         Pattern pattern = Pattern.compile("[0,4|5]{2}[0-9]{7,8}");
         Matcher m = pattern.matcher(telefoonnummer);
-        if (m.matches()) {
+        if (telefoonnummer == null || m.matches()) {
             this.telefoonnummer = telefoonnummer;
         } else {
             throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor de telefoonnummer");
@@ -341,48 +357,55 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     public void setGeboortedatum(LocalDate geboortedatum) {
-        if (!LocalDate.now().isBefore(geboortedatum)) {
+        if (geboortedatum == null || !LocalDate.now().isBefore(geboortedatum)) {
             this.geboortedatum = geboortedatum;
         } else {
             throw new IllegalArgumentException("Geboortedatum kan niet in de toekomst liggen");
-
         }
     }
 
     public void setEmail(String email) {
         Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
         Matcher m = pattern.matcher(email);
-        if (m.matches()) {
+        if (email != null || m.matches()) {
             this.email = email;
         } else {
             throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor het emailadres");
-
         }
     }
 
     public void setGraad(String graad) {
-        for (Graad g : Graad.values()) {
-            if (g.name().equals(graad)) {
-                this.graad = String.format("%s", g.getvalue());
+        if (graad != null && !graad.isEmpty()) {
+            for (Graad g : Graad.values()) {
+                if (g.name().equals(graad)) {
+                    this.graad = String.format("%s", g.getvalue());
+                }
             }
+        }else {
+            throw new IllegalArgumentException("Er is een ongeldige graad ingegeven");
         }
     }
 
     public void setInschrijvingsdatum(LocalDate inschrijvingsdatum) {
-        if (!LocalDate.now().isBefore(inschrijvingsdatum)) {
+        if (inschrijvingsdatum != null && !LocalDate.now().isBefore(inschrijvingsdatum)) {
             this.inschrijvingsdatum = inschrijvingsdatum;
         } else {
             throw new IllegalArgumentException("Inschrijvingsdatum kan niet in de toekomst liggen");
-
         }
     }
 
     public void setStraatnaam(String straatnaam) {
-        this.straatnaam = straatnaam;
+        if (straatnaam != null && !straatnaam.isEmpty()) {
+            this.straatnaam = straatnaam;
+        }else {
+            throw new IllegalArgumentException("Er is geen straatnaam ingevuld");
+        }
     }
 
     public void setHuisnummer(String huisnummer) {
-        this.huisnummer = huisnummer;
+        if (huisnummer != null && !huisnummer.isEmpty()) {
+            this.huisnummer = huisnummer;
+        }
     }
 
     public void setPostcode(String postcode) {
@@ -396,15 +419,27 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     public void setStad(String stad) {
-        this.stad = stad;
+        if (stad != null && !stad.isEmpty()) {
+            this.stad = stad;
+        }else {
+            throw new IllegalArgumentException("Er is geen stad ingevuld");
+        }
     }
 
     public void setLand(String land) {
-        this.land = land;
+        if (land != null && !land.isEmpty()) {
+            this.land = land;
+        }else {
+            throw new IllegalArgumentException("Er is geen land ingevuld");
+        }
     }
 
     public void setRijksregisternummer(String rijksregisternummer) {
-        this.rijksregisternummer = rijksregisternummer;
+        if (rijksregisternummer != null && rijksregisternummer.isEmpty()) {
+            this.rijksregisternummer = rijksregisternummer;
+        }else {
+            throw new IllegalArgumentException("Er is geen rijksregisternummer ingevuld");
+        }
     }
 
     public void setGsm(String gsm) {
@@ -413,34 +448,48 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
             this.gsm = gsm;
         } else {
             throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor het gsmnummer");
-
         }
     }
 
     public void setEmailouders(String emailouders) {
         String pattern = "^[A-Za-z0-9+_.-]+@(.+)$";
-        if (emailouders.matches(pattern)) {
+        if (emailouders != null && emailouders.matches(pattern)) {
             this.emailouders = emailouders;
         } else {
             throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor het emailadres van de ouders");
-
         }
     }
 
     public void setGeboorteplek(String geboorteplek) {
-        this.geboorteplek = geboorteplek;
+        if (geboorteplek != null && !geboorteplek.isEmpty()) {
+            this.geboorteplek = geboorteplek;
+        }else {
+            throw new IllegalArgumentException("Er is geen geboorteplek ingevuld");
+        }
     }
 
     public void setNationaliteit(String nationaliteit) {
-        this.nationaliteit = nationaliteit;
+        if (nationaliteit != null && !nationaliteit.isEmpty()) {
+            this.nationaliteit = nationaliteit;
+        }else {
+            throw new IllegalArgumentException("Er is geen nationaliteit ingevuld");
+        }
     }
 
     public void setGeslacht(String geslacht) {
-        this.geslacht = geslacht;
+        if (geslacht != null && !geslacht.isEmpty()) {
+            this.geslacht = geslacht;
+        }else {
+            throw new IllegalArgumentException("Er is geen geslacht gekozen");
+        }
     }
 
     public void setFormulenaam(String formulenaam) {
-        this.formulenaam = formulenaam;
+        if (formulenaam != null && !formulenaam.isEmpty()) {
+            this.formulenaam = formulenaam;
+        }else {
+            throw new IllegalArgumentException("Er is geen formule meegegeven");
+        }
     }
 
     public void setScore(int score) {

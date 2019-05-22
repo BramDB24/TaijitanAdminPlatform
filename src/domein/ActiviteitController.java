@@ -29,7 +29,7 @@ public class ActiviteitController<E> extends DomeinController<E> {
     
     @Override
     public void editItem(E dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getTaijitan().updateActiviteit((ActiviteitDTO) dto, huidigeActiviteit);
     }
     
     @Override

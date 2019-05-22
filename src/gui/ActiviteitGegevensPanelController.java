@@ -123,6 +123,7 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         List<Gebruiker> l = new ArrayList<>();
         aanwezigeLijst.forEach(a -> l.add(a));
         activiteitController.pasAanwezigenAan(l);
+        activiteitController.editItem(dto);
     }
 
     @FXML
