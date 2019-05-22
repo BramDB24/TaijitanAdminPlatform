@@ -95,12 +95,14 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         }
         cbGeslacht.getItems().addAll("Man", "Vrouw", "Onbepaald");
         cbGraad.getItems().addAll("Kyu6", "Kyu5", "Kyu4", "Kyu3", "Kyu2", "Kyu1", "Dan1", "Dan2", "Dan3", "Dan4", "Dan5", "Dan6", "Dan7", "Dan8");
+        txtGebruikersnaam.setDisable(true);
     }
 
     @FXML
     private void slaOp(ActionEvent event) {
         GebruikerDTO dto = new GebruikerDTO();
-        dto.setGebruikersnaam(txtGebruikersnaam.getText());
+        String gebruikersnaam = txtVoornaam.getText() + "." + txtFamilienaam.getText();
+        dto.setGebruikersnaam(gebruikersnaam);
         dto.setNaam(txtFamilienaam.getText());
         dto.setVoornaam(txtVoornaam.getText());
         dto.setGeboortedatum(dateGeboorte.getValue());
@@ -127,6 +129,10 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         } catch (IllegalArgumentException exception) {    
               new Alert(Alert.AlertType.ERROR, exception.getMessage()).showAndWait();
         }
+        txtGebruikersnaam.setText(dto.getGebruikersnaam());
+        String password = dto.getWachtwoord();
+        setPasswordVisibility(password == null);
+        txtWachtwoord.setText(password);
     }
 
     @FXML

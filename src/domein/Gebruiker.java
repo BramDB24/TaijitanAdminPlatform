@@ -347,7 +347,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     public void setTelefoonnummer(String telefoonnummer) {
-        Pattern pattern = Pattern.compile("[0,4|5]{2}[0-9]{7,8}");
+        Pattern pattern = Pattern.compile("[0,9|5]{2}[0-9]{7,8}");
         Matcher m = pattern.matcher(telefoonnummer);
         if (telefoonnummer != null && m.matches()) {
             this.telefoonnummer = telefoonnummer;
