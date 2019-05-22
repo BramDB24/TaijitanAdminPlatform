@@ -51,7 +51,7 @@ public class AddItemButtonPanelController extends HBox {
         if (dc instanceof ActiviteitController) {
             mainPanel.toonItem(new Activiteit(new ActiviteitDTO()));
         } else if (dc instanceof GebruikerController) {
-            mainPanel.toonItem(new Lid(new GebruikerDTO()));
+            mainPanel.toonItem(new Lid());
 
         }
     }

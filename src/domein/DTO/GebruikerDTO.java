@@ -16,7 +16,7 @@ public class GebruikerDTO {
     private String telefoonnummer;
     private LocalDate geboortedatum;
     private String email;
-    private int graad;
+    private String graad;
     private LocalDate inschrijvingsdatum;
     private String straat;
     private String huisnummer;
@@ -62,7 +62,7 @@ public class GebruikerDTO {
         this.email = email;
     }
 
-    public void setGraad(int graad) {
+    public void setGraad(String graad) {
         this.graad = graad;
     }
 
@@ -156,7 +156,7 @@ public class GebruikerDTO {
         return email;
     }
 
-    public int getGraad() {
+    public String getGraad() {
         return graad;
     }
 

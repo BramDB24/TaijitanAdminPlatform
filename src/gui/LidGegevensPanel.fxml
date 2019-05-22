@@ -81,6 +81,7 @@
       <Label text="Gebruikersnaam" GridPane.rowIndex="1" />
       <Label fx:id="lblWachtwoord" text="Wachtwoord" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <TextField fx:id="txtWachtwoord" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <ComboBox fx:id="cbGraad" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" />

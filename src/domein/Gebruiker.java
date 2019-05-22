@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -31,7 +33,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     private String telefoonnummer;
     private LocalDate geboortedatum;
     private String email;
-    private int graad;
+    private String graad;
     private LocalDate inschrijvingsdatum;
     private String straatnaam;
     private String huisnummer;
@@ -49,35 +51,42 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
 
     @OneToMany(mappedBy = "gebruiker")
     private List<GebruikerOefening> raadplegingen;
+
+    private enum Graad {
+        Kyu6(1),
+        Kyu5(2),
+        Kyu4(3),
+        Kyu3(4),
+        Kyu2(5),
+        Kyu1(6),
+        Dan1(7),
+        Dan2(8),
+        Dan3(9),
+        Dan4(10),
+        Dan5(11),
+        Dan6(12),
+        Dan7(13),
+        Dan8(14);
+
+        private final int value;
+
+        private Graad(int value) {
+            this.value = value;
+        }
+
+        public int getvalue() {
+            return this.value;
+        }
+
+    }
+
     // </editor-fold>
     protected Gebruiker() {
 
     }
 
     public Gebruiker(GebruikerDTO dto) { //validatie (setters) hier? of in dto
-        gebruikersnaam = dto.getGebruikersnaam();
-        wachtwoord = dto.getWachtwoord();
-        naam = dto.getNaam();
-        voornaam = dto.getVoornaam();
-        telefoonnummer = dto.getTelefoonnummer();
-        geboortedatum = dto.getGeboortedatum();
-        email = dto.getEmail();
-        graad = dto.getGraad();
-        inschrijvingsdatum = dto.getInschrijvingsdatum();
-        straatnaam = dto.getStraat();
-        huisnummer = dto.getHuisnummer();
-        postcode = dto.getPostcode();
-        stad = dto.getStad();
-        land = dto.getLand();
-        rijksregisternummer = dto.getRijksregisternummer();
-        gsm = dto.getGsm();
-        emailouders = dto.getEmailouders();
-        geboorteplek = dto.getGeboorteplek();
-        nationaliteit = dto.getNationaliteit();
-        geslacht = dto.getGeslacht();
-        formulenaam = dto.getFormulenaam();
-        score = dto.getScore();
-
+        setAttributes(dto);
     }
 
     // <editor-fold desc="overrides of interface">
@@ -118,8 +127,13 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     @Override
-    public int getGraad() {
-        return graad;
+    public String getGraad() {
+        for (Graad g : Graad.values()) {
+            if (Integer.valueOf(graad) == g.getvalue()) {
+                return g.name();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -206,7 +220,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         dto.setNaam(naam);
         dto.setGebruikersnaam(gebruikersnaam);
         dto.setGraad(graad);
-        return dto;      
+        return dto;
     }
 
     public GebruikerpuntenDTO getGebruikerPuntenDTO() {
@@ -222,7 +236,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
         dto.setTelefoonnummer(telefoonnummer);
         dto.setGeboortedatum(geboortedatum);
         dto.setEmail(email);
-        dto.setGraad(graad);
+        dto.setGraad(getGraad());
         dto.setInschrijvingsdatum(inschrijvingsdatum);
         dto.setStraat(straatnaam);
         dto.setHuisnummer(huisnummer);
@@ -274,52 +288,185 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
     //</editor-fold>
 
-    //@Override
-    //public String toString() {
-        //fieldsize klopt niet helemaal in gui omdat bepaalde chars minder plek in nemen dan andere. Bv: i < w
-      //  return String.format("%-25s | %-15s %s %s", gebruikersnaam, naam, voornaam, graad);
-    //}
-
-    public void setAttributes(GebruikerDTO dto) {
-        gebruikersnaam = dto.getGebruikersnaam();
-        naam = dto.getNaam();
-        wachtwoord = dto.getWachtwoord();
-        voornaam = dto.getVoornaam();
-        telefoonnummer = dto.getTelefoonnummer();
-        geboortedatum = dto.getGeboortedatum();
-        email = dto.getEmail();
-        graad = dto.getGraad();
-        inschrijvingsdatum = dto.getInschrijvingsdatum();
-        straatnaam = dto.getStraat();
-        huisnummer = dto.getHuisnummer();
-        postcode = dto.getPostcode();
-        stad = dto.getStad();
-        land = dto.getLand();
-        rijksregisternummer = dto.getRijksregisternummer();
-        gsm = dto.getGsm();
-        emailouders = dto.getEmailouders();
-        geboorteplek = dto.getGeboorteplek();
-        nationaliteit = dto.getNationaliteit();
-        geslacht = dto.getGeslacht();
-        formulenaam = dto.getFormulenaam();
-        score = dto.getScore();
+    //<editor-fold defaultstate="collapsed" desc="setters">
+    public final void setAttributes(GebruikerDTO dto) {
+        setGebruikersnaam(dto.getGebruikersnaam());
+        setNaam(dto.getNaam());
+        setWachtwoord(dto.getWachtwoord());
+        setVoornaam(dto.getVoornaam());
+        setTelefoonnummer(dto.getTelefoonnummer());
+        setGeboortedatum(dto.getGeboortedatum());
+        setEmail(dto.getEmail());
+        setGraad(dto.getGraad());
+        setInschrijvingsdatum(dto.getInschrijvingsdatum());
+        setStraatnaam(dto.getStraat());
+        setHuisnummer(dto.getHuisnummer());
+        setPostcode(dto.getPostcode());
+        setStad(dto.getStad());
+        setLand(dto.getLand());
+        setRijksregisternummer(dto.getRijksregisternummer());
+        setGsm(dto.getGsm());
+        setEmailouders(dto.getEmailouders());
+        setGeboorteplek(dto.getGeboorteplek());
+        setNationaliteit(dto.getNationaliteit());
+        setGeslacht(dto.getGeslacht());
+        setFormulenaam(dto.getFormulenaam());
+        setScore(dto.getScore());
     }
 
+    public void setGebruikersnaam(String gebruikersnaam) {
+        this.gebruikersnaam = gebruikersnaam;
+    }
+
+    public void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = wachtwoord;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    public void setVoornaam(String voornaam) {
+        this.voornaam = voornaam;
+    }
+
+    public void setTelefoonnummer(String telefoonnummer) {
+        Pattern pattern = Pattern.compile("[0,4|5]{2}[0-9]{7,8}");
+        Matcher m = pattern.matcher(telefoonnummer);
+        if (m.matches()) {
+            this.telefoonnummer = telefoonnummer;
+        } else {
+            throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor de telefoonnummer");
+        }
+    }
+
+    public void setGeboortedatum(LocalDate geboortedatum) {
+        if (!LocalDate.now().isBefore(geboortedatum)) {
+            this.geboortedatum = geboortedatum;
+        } else {
+            throw new IllegalArgumentException("Geboortedatum kan niet in de toekomst liggen");
+
+        }
+    }
+
+    public void setEmail(String email) {
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+        Matcher m = pattern.matcher(email);
+        if (m.matches()) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor het emailadres");
+
+        }
+    }
+
+    public void setGraad(String graad) {
+        for (Graad g : Graad.values()) {
+            if (g.name().equals(graad)) {
+                this.graad = String.format("%s", g.getvalue());
+            }
+        }
+    }
+
+    public void setInschrijvingsdatum(LocalDate inschrijvingsdatum) {
+        if (!LocalDate.now().isBefore(inschrijvingsdatum)) {
+            this.inschrijvingsdatum = inschrijvingsdatum;
+        } else {
+            throw new IllegalArgumentException("Inschrijvingsdatum kan niet in de toekomst liggen");
+
+        }
+    }
+
+    public void setStraatnaam(String straatnaam) {
+        this.straatnaam = straatnaam;
+    }
+
+    public void setHuisnummer(String huisnummer) {
+        this.huisnummer = huisnummer;
+    }
+
+    public void setPostcode(String postcode) {
+        String pattern = "[a-zA-Z]{1,}";
+        if (!postcode.matches(pattern)) {
+            this.postcode = postcode;
+        } else {
+            throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor de postcode");
+
+        }
+    }
+
+    public void setStad(String stad) {
+        this.stad = stad;
+    }
+
+    public void setLand(String land) {
+        this.land = land;
+    }
+
+    public void setRijksregisternummer(String rijksregisternummer) {
+        this.rijksregisternummer = rijksregisternummer;
+    }
+
+    public void setGsm(String gsm) {
+        String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
+        if (gsm.matches(pattern)) {
+            this.gsm = gsm;
+        } else {
+            throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor het gsmnummer");
+
+        }
+    }
+
+    public void setEmailouders(String emailouders) {
+        String pattern = "^[A-Za-z0-9+_.-]+@(.+)$";
+        if (emailouders.matches(pattern)) {
+            this.emailouders = emailouders;
+        } else {
+            throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor het emailadres van de ouders");
+
+        }
+    }
+
+    public void setGeboorteplek(String geboorteplek) {
+        this.geboorteplek = geboorteplek;
+    }
+
+    public void setNationaliteit(String nationaliteit) {
+        this.nationaliteit = nationaliteit;
+    }
+
+    public void setGeslacht(String geslacht) {
+        this.geslacht = geslacht;
+    }
+
+    public void setFormulenaam(String formulenaam) {
+        this.formulenaam = formulenaam;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setRaadplegingen(List<GebruikerOefening> raadplegingen) {
+        this.raadplegingen = raadplegingen;
+    }
+
+    //</editor-fold>
     public InschrijvingenDTO getInschrijvingenDTO() {
         InschrijvingenDTO dto = new InschrijvingenDTO();
         dto.setVoornaam(voornaam);
         dto.setNaam(naam);
         dto.setGebruikersnaam(gebruikersnaam);
         dto.setFormule(formulenaam);
-        return dto;     
+        return dto;
     }
-    
+
     public List<GebruikerOefening> getRaadplegingen() {
         return raadplegingen;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return gebruikersnaam;
     }
 

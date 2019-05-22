@@ -7,8 +7,11 @@ package gui;
 
 import domein.DTO.GebruikerDTO;
 import domein.DomeinController;
+import domein.GebruikerController;
 import domein.Observer;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,6 +81,8 @@ public class LidGegevensPanelController extends GridPane implements Observer {
     private Label lblWachtwoord;
     @FXML
     private TextField txtWachtwoord;
+    @FXML
+    private ComboBox<String> cbGraad;
 
     public LidGegevensPanelController(DomeinController dc) {
         this.dc = dc;
@@ -90,40 +95,41 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        //cbGeslacht.setPromptText("M");
         cbGeslacht.getItems().addAll("Man", "Vrouw", "Onbepaald");
+        cbGraad.getItems().addAll("Kyu6", "Kyu5", "Kyu4", "Kyu3", "Kyu2", "Kyu1", "Dan1", "Dan2", "Dan3", "Dan4", "Dan5", "Dan6", "Dan7", "Dan8");
     }
 
     @FXML
     private void slaOp(ActionEvent event) {
-        try { //betere errorhandling nodig                                       //nog datepicker ofzo implementeren
-            GebruikerDTO dto = new GebruikerDTO();
-            dto.setGebruikersnaam(txtGebruikersnaam.getText());
-            dto.setNaam(txtFamilienaam.getText());
-            dto.setVoornaam(txtVoornaam.getText());
-            dto.setGeboortedatum(dateGeboorte.getValue());
-            dto.setStraat(txtStraat.getText());
-            dto.setPostcode(txtPostcode.getText());
-            dto.setLand(txtLand.getText());
-            dto.setRijksregisternummer(txtRijksregisternummer.getText());
-            dto.setEmail(txtEmail.getText());
-            dto.setTelefoonnummer(txtTelefoon.getText());
-            dto.setGeboorteplek(txtGeboorteplaats.getText());
-            dto.setHuisnummer(txtHuisnummer.getText());
-            dto.setStad(txtStad.getText());
-            dto.setNationaliteit(txtNationaliteit.getText());
-            dto.setEmailouders(txtEmailOuders.getText());
-            dto.setGsm(txtGsm.getText());
-            dto.setGeslacht(cbGeslacht.getValue()); ///char of string?
-            dto.setGraad(Integer.parseInt(txtGraad.getText()));
-            dto.setInschrijvingsdatum(dateInschrijving.getValue());
-            dto.setWachtwoord(txtWachtwoord.getText());
+        GebruikerDTO dto = new GebruikerDTO();
+        dto.setGebruikersnaam(txtGebruikersnaam.getText());
+        dto.setNaam(txtFamilienaam.getText());
+        dto.setVoornaam(txtVoornaam.getText());
+        dto.setGeboortedatum(dateGeboorte.getValue());
+        dto.setStraat(txtStraat.getText());
+        dto.setPostcode(txtPostcode.getText());
+        dto.setLand(txtLand.getText());
+        dto.setRijksregisternummer(txtRijksregisternummer.getText());
+        dto.setEmail(txtEmail.getText());
+        dto.setTelefoonnummer(txtTelefoon.getText());
+        dto.setGeboorteplek(txtGeboorteplaats.getText());
+        dto.setHuisnummer(txtHuisnummer.getText());
+        dto.setStad(txtStad.getText());
+        dto.setNationaliteit(txtNationaliteit.getText());
+        dto.setEmailouders(txtEmailOuders.getText());
+        dto.setGsm(txtGsm.getText());
+        dto.setGeslacht(cbGeslacht.getValue());
+        dto.setGraad(cbGraad.getValue());
+        dto.setInschrijvingsdatum(dateInschrijving.getValue());
+        dto.setWachtwoord(txtWachtwoord.getText());
+        try {
             dc.editItem(dto);
         } catch (NumberFormatException exception) {
             new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
-        } catch (IllegalArgumentException exception) {
-            new Alert(Alert.AlertType.ERROR, exception.getMessage()).showAndWait();
+        } catch (IllegalArgumentException exception) {    
+              new Alert(Alert.AlertType.ERROR, exception.getMessage()).showAndWait();
         }
+       
     }
 
     @FXML
@@ -148,7 +154,8 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         txtTelefoon.setText(gebruikerDTO.getTelefoonnummer());
         dateGeboorte.setValue(gebruikerDTO.getGeboortedatum());
         txtEmail.setText(gebruikerDTO.getEmail());
-        txtGraad.setText(Integer.toString(gebruikerDTO.getGraad()));
+        //txtGraad.setText(Integer.toString(gebruikerDTO.getGraad()));
+        cbGraad.setValue(gebruikerDTO.getGraad());
         dateInschrijving.setValue(gebruikerDTO.getInschrijvingsdatum());
         txtStraat.setText(gebruikerDTO.getStraat());
         txtHuisnummer.setText(gebruikerDTO.getHuisnummer());

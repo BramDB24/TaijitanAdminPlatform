@@ -19,7 +19,7 @@ public interface GebruikerInterface {
 
     public String getEmail();
 
-    public int getGraad();
+    public String getGraad();
 
     public LocalDate getInschrijvingsdatum();
 

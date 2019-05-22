@@ -9,7 +9,7 @@ public class GebruikerKenmerkenDTO {
     private String naam;
     private String voornaam;
     private String gebruikersnaam;
-    private int graad;
+    private String graad;
 
     public GebruikerKenmerkenDTO() {
     }
@@ -39,11 +39,11 @@ public class GebruikerKenmerkenDTO {
         this.gebruikersnaam = gebruikersnaam;
     }
 
-    public int getGraad() {
+    public String getGraad() {
         return graad;
     }
 
-    public void setGraad(int graad) {
+    public void setGraad(String graad) {
         this.graad = graad;
     }
     
