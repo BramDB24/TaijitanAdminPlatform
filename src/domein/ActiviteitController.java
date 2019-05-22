@@ -6,6 +6,7 @@
 package domein;
 
 import domein.DTO.ActiviteitDTO;
+import java.util.List;
 import javafx.collections.ObservableList;
 
 /**
@@ -50,6 +51,10 @@ public class ActiviteitController<E> extends DomeinController<E> {
     @Override
     public void changeFilter(String fieldname, String filterValue) {
         getTaijitan().filterActiviteiten(fieldname, filterValue);
+    }
+    
+    public List<Gebruiker> geefAanwezigen() {
+        return huidigeActiviteit.getAanwezigen();
     }
     
 }

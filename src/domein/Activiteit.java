@@ -52,6 +52,7 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         dto.setEindDatum(eindDatum);
         dto.setNaam(naam);
         dto.setAantalAanwezigen(aanwezigen == null ? 0 : aanwezigen.size());
+        dto.setMaxAantal(maxAantal);
         return dto;
     }
 
@@ -75,4 +76,13 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         return maxAantal;
     }
 
+    public List<Gebruiker> getAanwezigen() {
+        return aanwezigen;
+    }
+
+    public void setAanwezigen(List<Gebruiker> aanwezigen) {
+        this.aanwezigen = aanwezigen;
+    }
+
+    
 }

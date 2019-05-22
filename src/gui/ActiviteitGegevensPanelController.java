@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domein.Activiteit;
 import domein.ActiviteitController;
 import domein.DTO.ActiviteitDTO;
 import domein.DomeinController;
@@ -23,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -41,9 +43,10 @@ import javafx.stage.Stage;
  *
  * @author bramd
  */
-public class ActiviteitGegevensPanelController extends GridPane implements Observer{
+public class ActiviteitGegevensPanelController extends GridPane implements Observer {
+
     private GebruikerController gebruikerController;
-    
+
     private ActiviteitController activiteitController;
     @FXML
     private TextField txtNaam;
@@ -74,10 +77,10 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     @FXML
     private ComboBox<String> cbStatus;
 
-    private final ObservableList<String> ledenLijst;
-    
+    private ObservableList<String> ledenLijst;
+
     private final ObservableList<String> aanwezigeLijst;
-    
+
     public ActiviteitGegevensPanelController(GebruikerController gebruikerController, ActiviteitController activiteitController, MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
         this.gebruikerController = gebruikerController;
@@ -91,34 +94,38 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
             throw new RuntimeException(ex);
         }
         cbStatus.getItems().addAll("Volzet", "Niet volzet");
-        
+
         ArrayList<String> aanwezig = new ArrayList();
-        ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());
+        //ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());
         aanwezigeLijst = FXCollections.observableArrayList(aanwezig);
-        
+
         listLeden.setItems(ledenLijst);
         listAanwezigeLeden.setItems(aanwezigeLijst);
         listLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         listAanwezigeLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        txtHuidigAantal.setDisable(true);
     }
 
     @FXML
     private void annuleer(ActionEvent event) {
+
     }
 
     @FXML
     private void slaOp(ActionEvent event) {
-        TableOverzichtPanelController op = new TableOverzichtPanelController(mainPanel);
+        /*TableOverzichtPanelController op = new TableOverzichtPanelController(mainPanel);
         GebruikerController g = new GebruikerController();
         final Stage scene = new Stage();
         VBox box = new VBox();
         op.setObservableList(g.toonOverzicht());
         box.getChildren().add(op);
-        Scene s = new Scene(box, 400, 600); //Bram is een beestje :333
+        Scene s = new Scene(box, 400, 600);
         scene.setScene(s);
         scene.show();
         Stage s2 = (Stage)this.getScene().getWindow();
-        s2.close(); 
+        s2.close(); */
+
     }
 
     @FXML
@@ -136,22 +143,48 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
 
     @Override
     public void update(Object activiteit) {
-        ActiviteitDTO dto = (ActiviteitDTO)activiteit;
+        listAanwezigeLeden.getItems().clear();
+        ActiviteitDTO dto = (ActiviteitDTO) activiteit;
         txtNaam.setText(dto.getNaam());
         dpStartDatum.setValue(dto.getStartDatum());
         dpEindDatum.setValue(dto.getEindDatum());
-        txtMaxAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
-        
+        txtMaxAantal.setText(Integer.toString(dto.getMaxAantal()));
+        txtHuidigAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
+        String status = checkStatus(dto.getMaxAantal(), dto.getAantalAanwezigen());
+        cbStatus.setValue(status);
+        List<Gebruiker> aanwezigheden = this.activiteitController.geefAanwezigen();
+        aanwezigheden.forEach(help -> aanwezigeLijst.add(help.getGebruikersnaam()));
+        listAanwezigeLeden.setItems(aanwezigeLijst);
+        ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());
+        ledenLijst.removeAll(aanwezigheden);
+        listLeden.setItems(ledenLijst);
+    }
+
+    public String checkStatus(int max, int huidig) {
+        if (huidig < max) {
+            return "Niet volzet";
+        } else {
+            return "Volzet";
+        }
     }
 
     @FXML
     private void voegLidToe(ActionEvent event) {
         ObservableList<String> ledenToevoegen = listLeden.getSelectionModel().getSelectedItems();
-        aanwezigeLijst.addAll(ledenToevoegen);
-        ledenLijst.removeAll(ledenToevoegen);
-        listLeden.setItems(ledenLijst);
-        listAanwezigeLeden.setItems(aanwezigeLijst);
-        listLeden.getSelectionModel().clearSelection();
+        int tijdelijk = ledenToevoegen.size() + aanwezigeLijst.size();
+        if (tijdelijk > Integer.parseInt(txtMaxAantal.getText())) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Er ging iets mis!");
+            alert.setHeaderText("Het maximum aantal deelnemers werd bereikt");
+            alert.showAndWait();
+        } else {
+            aanwezigeLijst.addAll(ledenToevoegen);
+            ledenLijst.removeAll(ledenToevoegen);
+            listLeden.setItems(ledenLijst);
+            listAanwezigeLeden.setItems(aanwezigeLijst);
+            listLeden.getSelectionModel().clearSelection();
+            txtHuidigAantal.setText(Integer.toString(aanwezigeLijst.size()));
+        }
     }
 
     @FXML
@@ -163,6 +196,5 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         listLeden.setItems(ledenLijst);
         listAanwezigeLeden.getSelectionModel().clearSelection();
     }
-
 
 }
