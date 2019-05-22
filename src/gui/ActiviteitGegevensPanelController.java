@@ -75,12 +75,13 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     private Button buttonAdd;
     @FXML
     private Button buttonDelete;
-    @FXML
     private ComboBox<String> cbStatus;
 
     private ObservableList<Gebruiker> ledenLijst;
 
     private ObservableList<Gebruiker> aanwezigeLijst;
+    @FXML
+    private TextField txtStatus;
 
     public ActiviteitGegevensPanelController(GebruikerController gebruikerController, ActiviteitController activiteitController, MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
@@ -94,7 +95,7 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        cbStatus.getItems().addAll("Volzet", "Niet volzet");
+        //cbStatus.getItems().addAll("Volzet", "Niet volzet");
 
         ArrayList<Gebruiker> aanwezig = new ArrayList();
         aanwezigeLijst = FXCollections.observableArrayList(aanwezig);
@@ -103,7 +104,7 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         listAanwezigeLeden.setItems(aanwezigeLijst);
         listLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         listAanwezigeLeden.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
+        txtStatus.setDisable(true);
         txtHuidigAantal.setDisable(true);
     }
 
@@ -149,7 +150,8 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         txtMaxAantal.setText(Integer.toString(dto.getMaxAantal()));
         txtHuidigAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
         String status = checkStatus(dto.getMaxAantal(), dto.getAantalAanwezigen());
-        cbStatus.setValue(status);
+        //cbStatus.setValue(status);
+        txtStatus.setText(status);
         List<Gebruiker> aanwezigheden = activiteitController.geefAanwezigen();
         aanwezigheden.forEach(help -> aanwezigeLijst.add(help));
         listAanwezigeLeden.setItems(aanwezigeLijst);

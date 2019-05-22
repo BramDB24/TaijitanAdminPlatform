@@ -11,7 +11,10 @@
       <HBox minHeight="20.0" prefHeight="50.0">
          <children>
             <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="27.0" text="Keuze van overzicht:" />
-            <ComboBox fx:id="cbOverzicht" maxWidth="1.7976931348623157E308" onAction="#overzichtklik" prefHeight="26.0" prefWidth="433.0" />
+            <ComboBox fx:id="cbOverzicht" maxWidth="1.7976931348623157E308" onAction="#overzichtklik" prefHeight="26.0" prefWidth="392.0">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin></ComboBox>
          </children>
          <VBox.margin>
             <Insets top="20.0" />

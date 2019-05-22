@@ -68,8 +68,6 @@ public class LidGegevensPanelController extends GridPane implements Observer {
     @FXML
     private Button btnOpslaan;
     @FXML
-    private TextField txtGraad;
-    @FXML
     private Button btnVerwijder;
     @FXML
     private DatePicker dateGeboorte;

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root focusTraversable="true" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root focusTraversable="true" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" percentWidth="15.0" />
     <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="50.0" />
@@ -23,7 +23,6 @@
             <Button fx:id="leden" mnemonicParsing="false" onAction="#toonLedenlijst" prefHeight="26.0" prefWidth="200.0" text="Beheren leden" />
             <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonOverzichtenlijst" prefHeight="26.0" prefWidth="200.0" text="Overzicht opvragen" />
             <Button fx:id="activiteiten" minWidth="125.0" mnemonicParsing="false" onAction="#beheerActiviteiten" prefHeight="26.0" prefWidth="200.0" text="Beheren activiteiten" />
-            <Button fx:id="lesmateriaal" minWidth="125.0" mnemonicParsing="false" onAction="#toonMateriaal" prefHeight="26.0" prefWidth="200.0" text="Lesmateriaal" />
          </children>
       </VBox>
    </children>

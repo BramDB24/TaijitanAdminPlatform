@@ -55,33 +55,32 @@
       <Label text="Gsm" GridPane.columnIndex="2" GridPane.rowIndex="11" />
       <Label text="Land" GridPane.rowIndex="8" />
       <Label text="Nationaliteit" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-      <TextField fx:id="txtFamilienaam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="txtVoornaam" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField fx:id="txtStraat" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField fx:id="txtPostcode" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <TextField fx:id="txtLand" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <TextField fx:id="txtRijksregisternummer" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-      <TextField fx:id="txtTelefoon" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-      <TextField fx:id="txtGeboorteplaats" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-      <TextField fx:id="txtHuisnummer" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-      <TextField fx:id="txtStad" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-      <TextField fx:id="txtNationaliteit" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-      <TextField fx:id="txtEmailOuders" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-      <TextField fx:id="txtGsm" GridPane.columnIndex="3" GridPane.rowIndex="11" />
-      <ComboBox fx:id="cbGeslacht" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <TextField fx:id="txtFamilienaam" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="txtVoornaam" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="txtStraat" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <TextField fx:id="txtPostcode" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="txtLand" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <TextField fx:id="txtRijksregisternummer" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <TextField fx:id="txtEmail" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <TextField fx:id="txtTelefoon" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <TextField fx:id="txtGeboorteplaats" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <TextField fx:id="txtHuisnummer" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <TextField fx:id="txtStad" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <TextField fx:id="txtNationaliteit" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+      <TextField fx:id="txtEmailOuders" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+      <TextField fx:id="txtGsm" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+      <ComboBox fx:id="cbGeslacht" prefHeight="26.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button fx:id="btnOpslaan" mnemonicParsing="false" onAction="#slaOp" text="Opslaan" GridPane.rowIndex="13" />
       <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#verwijder" text="Verwijder" GridPane.columnIndex="1" GridPane.rowIndex="13" />
       <Label text="Graad" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Label text="Inschrijvingsdatum" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <TextField fx:id="txtGraad" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <DatePicker fx:id="dateGeboorte" prefHeight="26.0" prefWidth="148.8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <DatePicker fx:id="dateInschrijving" prefWidth="148.8" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <TextField fx:id="txtGebruikersnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <DatePicker fx:id="dateGeboorte" prefHeight="26.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <DatePicker fx:id="dateInschrijving" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <TextField fx:id="txtGebruikersnaam" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Gebruikersnaam" GridPane.rowIndex="1" />
       <Label fx:id="lblWachtwoord" text="Wachtwoord" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TextField fx:id="txtWachtwoord" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <ComboBox fx:id="cbGraad" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <TextField fx:id="txtWachtwoord" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <ComboBox fx:id="cbGraad" prefHeight="26.0" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" />

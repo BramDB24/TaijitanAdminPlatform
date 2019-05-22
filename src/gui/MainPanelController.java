@@ -44,8 +44,6 @@ public class MainPanelController extends GridPane {
     private Button activiteiten;
     @FXML
     private Button aanwezigheden;
-    @FXML
-    private Button lesmateriaal;
 
     public MainPanelController(GebruikerController gebruikerController, OefeningController oefeningController, OverzichtController overzichtController, ActiviteitController activiteitController) {
         this.gebruikerController = gebruikerController;
@@ -140,12 +138,6 @@ public class MainPanelController extends GridPane {
         tableOverzichtPanel.disableListener();
     }
 
-    @FXML
-    private void toonMateriaal(ActionEvent event) {
-        this.clearScreen();
-        overzichtPanel = new OverzichtPanelController(oefeningController, this);
-        this.add(overzichtPanel, 1, 1);
-    }
 
     @FXML
     private void beheerActiviteiten(ActionEvent event) {
