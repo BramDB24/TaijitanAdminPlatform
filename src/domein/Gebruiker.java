@@ -129,7 +129,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     @Override
     public String getGraad() {
         for (Graad g : Graad.values()) {
-            if (Integer.valueOf(graad) == g.getvalue()) {
+            if (graad != null && Integer.valueOf(graad) == g.getvalue()) {
                 return g.name();
             }
         }
@@ -349,7 +349,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     public void setTelefoonnummer(String telefoonnummer) {
         Pattern pattern = Pattern.compile("[0,4|5]{2}[0-9]{7,8}");
         Matcher m = pattern.matcher(telefoonnummer);
-        if (telefoonnummer == null || m.matches()) {
+        if (telefoonnummer != null && m.matches()) {
             this.telefoonnummer = telefoonnummer;
         } else {
             throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor de telefoonnummer");
@@ -357,7 +357,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     public void setGeboortedatum(LocalDate geboortedatum) {
-        if (geboortedatum == null || !LocalDate.now().isBefore(geboortedatum)) {
+        if (geboortedatum != null && !LocalDate.now().isBefore(geboortedatum)) {
             this.geboortedatum = geboortedatum;
         } else {
             throw new IllegalArgumentException("Geboortedatum kan niet in de toekomst liggen");
@@ -367,7 +367,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     public void setEmail(String email) {
         Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
         Matcher m = pattern.matcher(email);
-        if (email != null || m.matches()) {
+        if (email != null && m.matches()) {
             this.email = email;
         } else {
             throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor het emailadres");
@@ -410,7 +410,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
 
     public void setPostcode(String postcode) {
         String pattern = "[a-zA-Z]{1,}";
-        if (!postcode.matches(pattern)) {
+        if (postcode != null && !postcode.matches(pattern)) {
             this.postcode = postcode;
         } else {
             throw new IllegalArgumentException("Er is een ongeldig formaat ingegeven voor de postcode");
@@ -435,7 +435,7 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     public void setRijksregisternummer(String rijksregisternummer) {
-        if (rijksregisternummer != null && rijksregisternummer.isEmpty()) {
+        if (rijksregisternummer != null && !rijksregisternummer.isEmpty()) {
             this.rijksregisternummer = rijksregisternummer;
         }else {
             throw new IllegalArgumentException("Er is geen rijksregisternummer ingevuld");
@@ -485,11 +485,11 @@ public abstract class Gebruiker implements GebruikerInterface, Serializable {
     }
 
     public void setFormulenaam(String formulenaam) {
-        if (formulenaam != null && !formulenaam.isEmpty()) {
+        //if (formulenaam != null && !formulenaam.isEmpty()) {
             this.formulenaam = formulenaam;
-        }else {
-            throw new IllegalArgumentException("Er is geen formule meegegeven");
-        }
+        //}else {
+        //    throw new IllegalArgumentException("Er is geen formule meegegeven");
+        //}
     }
 
     public void setScore(int score) {

@@ -153,10 +153,12 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         //cbStatus.setValue(status);
         txtStatus.setText(status);
         List<Gebruiker> aanwezigheden = activiteitController.geefAanwezigen();
-        aanwezigheden.forEach(help -> aanwezigeLijst.add(help));
-        listAanwezigeLeden.setItems(aanwezigeLijst);
         ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());
-        ledenLijst.removeAll(aanwezigheden);
+        if(aanwezigheden!=null){
+            aanwezigheden.forEach(help -> aanwezigeLijst.add(help));
+            ledenLijst.removeAll(aanwezigheden);
+        }
+        listAanwezigeLeden.setItems(aanwezigeLijst);
         listLeden.setItems(ledenLijst);
     }
 

@@ -122,12 +122,11 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         dto.setWachtwoord(txtWachtwoord.getText());
         try {
             dc.editItem(dto);
-        } catch (NumberFormatException exception) {
-            new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
+        //} catch (NumberFormatException exception) {
+        //    new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
         } catch (IllegalArgumentException exception) {    
               new Alert(Alert.AlertType.ERROR, exception.getMessage()).showAndWait();
         }
-       
     }
 
     @FXML

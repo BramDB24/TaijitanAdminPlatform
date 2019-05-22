@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "Activiteit")
 public class Activiteit implements ActiviteitInterface, Serializable {
 
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int activiteitId;
     private String naam;
     private LocalDate startDatum;
@@ -38,7 +40,7 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         this.maxAantal = dto.getMaxAantal();
     }
 
-    protected Activiteit() {
+    public Activiteit() {
 
     }
 
@@ -84,12 +86,50 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         this.aanwezigen = aanwezigen;
     }
 
-    public void setAttributes(ActiviteitDTO activiteitDTO) {
-        this.naam = activiteitDTO.getNaam();
-        this.startDatum = activiteitDTO.getStartDatum();
-        this.eindDatum = activiteitDTO.getEindDatum();
-        this.maxAantal = activiteitDTO.getMaxAantal();
+    public void setNaam(String naam) {
+        if (naam != null && !naam.isEmpty()) {
+            this.naam = naam;
+        } else {
+            throw new IllegalArgumentException("Er is geen naam meegegeven");
+        }
     }
 
-    
+    public void setStartDatum(LocalDate startDatum) {
+        if (startDatum != null) {
+            this.startDatum = startDatum;
+        } else {
+            throw new IllegalArgumentException("Gelieve een startdatum in te geven");
+        }
+    }
+
+    public void setEindDatum(LocalDate eindDatum) {
+        if (eindDatum != null) {
+            if (eindDatum.isAfter(startDatum)) {
+                this.eindDatum = eindDatum;
+            } else {
+                throw new IllegalArgumentException("De einddatum mag niet voor de begindatum liggen");
+            }
+        }
+    }
+
+    public void setMaxAantal(int maxAantal) {
+        if (maxAantal == 0) {
+            this.maxAantal = 9999;
+        } else {
+            if (maxAantal > 0) {
+                this.maxAantal = maxAantal;
+            } else {
+                throw new IllegalArgumentException("Max aantal mag niet onder nul liggen!");
+            }
+        }
+
+    }
+
+    public void setAttributes(ActiviteitDTO activiteitDTO) {
+        setNaam(activiteitDTO.getNaam());
+        setStartDatum(activiteitDTO.getStartDatum());
+        setEindDatum(activiteitDTO.getEindDatum());
+        setMaxAantal(activiteitDTO.getMaxAantal());
+    }
+
 }
