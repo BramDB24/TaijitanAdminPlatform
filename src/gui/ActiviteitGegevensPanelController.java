@@ -5,10 +5,8 @@
  */
 package gui;
 
-import domein.Activiteit;
 import domein.ActiviteitController;
 import domein.DTO.ActiviteitDTO;
-import domein.DomeinController;
 import domein.Gebruiker;
 import domein.GebruikerController;
 import domein.Observer;
@@ -16,14 +14,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -34,10 +29,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -95,7 +87,6 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        //cbStatus.getItems().addAll("Volzet", "Niet volzet");
 
         ArrayList<Gebruiker> aanwezig = new ArrayList();
         aanwezigeLijst = FXCollections.observableArrayList(aanwezig);
@@ -131,11 +122,11 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     private void verwijder(ActionEvent event) {
         ButtonType ja = new ButtonType("Ja", ButtonBar.ButtonData.OK_DONE);
         ButtonType annuleren = new ButtonType("Annuleren", ButtonBar.ButtonData.CANCEL_CLOSE);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Verwijderen gebruiker", ja, annuleren);
-        alert.setTitle("Gebruiker verwijderen");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Verwijderen activiteit", ja, annuleren);
+        alert.setTitle("Activiteit verwijderen");
         alert.setHeaderText("Ben je zeker dat je " + txtNaam.getText() + " wilt verwijderen?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (result.get() == ja) {
             activiteitController.removeItem();
         }
     }
@@ -150,7 +141,6 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         txtMaxAantal.setText(Integer.toString(dto.getMaxAantal()));
         txtHuidigAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
         String status = checkStatus(dto.getMaxAantal(), dto.getAantalAanwezigen());
-        //cbStatus.setValue(status);
         txtStatus.setText(status);
         List<Gebruiker> aanwezigheden = activiteitController.geefAanwezigen();
         ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());

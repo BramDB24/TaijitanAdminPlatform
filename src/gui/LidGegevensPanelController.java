@@ -34,7 +34,7 @@ import javafx.scene.layout.GridPane;
  */
 public class LidGegevensPanelController extends GridPane implements Observer {
 
-    private final DomeinController dc;
+    private final GebruikerController dc;
     @FXML
     private TextField txtFamilienaam;
     @FXML
@@ -82,7 +82,7 @@ public class LidGegevensPanelController extends GridPane implements Observer {
     @FXML
     private ComboBox<String> cbGraad;
 
-    public LidGegevensPanelController(DomeinController dc) {
+    public LidGegevensPanelController(GebruikerController dc) {
         this.dc = dc;
         System.out.println(getClass().getResource("LidGegevensPanel.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LidGegevensPanel.fxml"));
@@ -123,9 +123,7 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         dto.setInschrijvingsdatum(dateInschrijving.getValue());
         dto.setWachtwoord(txtWachtwoord.getText());
         try {
-            dc.editItem(dto);
-        //} catch (NumberFormatException exception) {
-        //    new Alert(Alert.AlertType.ERROR, "Geen geldig getal").showAndWait();
+            dc.editItem(dto);        
         } catch (IllegalArgumentException exception) {    
               new Alert(Alert.AlertType.ERROR, exception.getMessage()).showAndWait();
         }
@@ -143,7 +141,7 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         alert.setTitle("Gebruiker verwijderen");
         alert.setHeaderText("Ben je zeker dat je " + txtGebruikersnaam.getText() + " wilt verwijderen?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (result.get() == ja) {
             dc.removeItem();
         }
     }
@@ -157,7 +155,6 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         txtTelefoon.setText(gebruikerDTO.getTelefoonnummer());
         dateGeboorte.setValue(gebruikerDTO.getGeboortedatum());
         txtEmail.setText(gebruikerDTO.getEmail());
-        //txtGraad.setText(Integer.toString(gebruikerDTO.getGraad()));
         cbGraad.setValue(gebruikerDTO.getGraad());
         dateInschrijving.setValue(gebruikerDTO.getInschrijvingsdatum());
         txtStraat.setText(gebruikerDTO.getStraat());

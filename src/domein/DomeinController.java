@@ -16,13 +16,6 @@ public abstract class DomeinController<E> implements Subject {
     }
 
     //<editor-fold desc="methodes">
-    public abstract void newItem(E object);
-
-    public abstract void removeItem();
-
-    public abstract void editItem(E dto);    //STRATEGY VOOR WR ITEMS KUNNEN WORDEN AANGEPAST EN WAAR NIET? //of in elke controller zelfde?
-
-    public abstract void toonItem(E object);
 
     public abstract ObservableList<E> toonOverzicht();
 
@@ -37,8 +30,6 @@ public abstract class DomeinController<E> implements Subject {
     public void removeObserver(Observer observer) {
         observerlist.remove(observer);
     }
-
-    public abstract void notifyObservers();
 
     protected Set<Observer> getObservers() {
         return observerlist;
