@@ -5,14 +5,23 @@
  */
 package domein.DTO;
 
+import java.time.LocalDate;
 /**
  *
  * @author bramd
  */
 public class LidSessieDTO {
+    private LocalDate datum;
     private String gebruikersnaam;
-    private boolean aanwezig;
+    
 
+    public LocalDate getDatum(){
+        return datum;
+    }
+    
+    public void setDatum(LocalDate datum){
+        this.datum = datum;
+    }
     public String getGebruikersnaam() {
         return gebruikersnaam;
     }
@@ -20,13 +29,4 @@ public class LidSessieDTO {
     public void setGebruikersnaam(String gebruikersnaam) {
         this.gebruikersnaam = gebruikersnaam;
     }
-
-    public boolean isAanwezig() {
-        return aanwezig;
-    }
-
-    public void setAanwezig(boolean aanwezig) {
-        this.aanwezig = aanwezig;
-    }
-    
 }
