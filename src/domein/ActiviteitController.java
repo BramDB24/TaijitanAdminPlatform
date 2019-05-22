@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 /**
  *
  * @author bramd
+ * @param <E>
  */
 public class ActiviteitController<E> extends DomeinController<E> {
     private Activiteit huidigeActiviteit;

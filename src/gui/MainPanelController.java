@@ -35,8 +35,7 @@ public class MainPanelController extends GridPane {
     private ParametersPanelController parametersPanel;
     private TableOverzichtPanelController tableOverzichtPanel;
     private FilterPanelController filterPanel;
-    private AddItemButtonPanelController addItemButtonPanelController;
-    private AddActiviteitButtonPanelController addActiviteitButtonPanelController;
+    private AddItemButtonPanelController addItemButtonPanel;
     private ActiviteitGegevensPanelController activiteitGegevensPanel;
 
     @FXML
@@ -53,6 +52,7 @@ public class MainPanelController extends GridPane {
         this.oefeningController = oefeningController;
         this.overzichtController = overzichtController;
         this.activiteitController = activiteitController;
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPanel.fxml"));
 
         loader.setRoot(this);
@@ -65,7 +65,7 @@ public class MainPanelController extends GridPane {
     }
 
     private void clearScreen() {
-        this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel, addItemButtonPanelController, activiteitGegevensPanel);
+        this.getChildren().removeAll(lidGegevensPanel, parametersPanel, tableOverzichtPanel, opc, overzichtPanel, activiteitGegevensPanel);
     }
 
     @FXML
@@ -75,8 +75,18 @@ public class MainPanelController extends GridPane {
         addFilterPanel(gebruikerController);
         tableOverzichtPanel.setObservableList(gebruikerController.toonOverzicht());
         tableOverzichtPanel.enableListener();
-        addItemButtonPanelController = new AddItemButtonPanelController(this);
-        tableOverzichtPanel.getChildren().add(addItemButtonPanelController);
+
+        if (tableOverzichtPanel.getChildren().contains(addItemButtonPanel)) {
+            tableOverzichtPanel.getChildren().remove(addItemButtonPanel);
+            if (!tableOverzichtPanel.getChildren().contains(addItemButtonPanel)) {
+                addItemButtonPanel = new AddItemButtonPanelController(this, gebruikerController);
+                tableOverzichtPanel.getChildren().add(addItemButtonPanel);
+            }
+        } else {
+            addItemButtonPanel = new AddItemButtonPanelController(this, gebruikerController);
+            tableOverzichtPanel.getChildren().add(addItemButtonPanel);
+        }
+
     }
 
     public void toonItem(Object object) {
@@ -92,33 +102,33 @@ public class MainPanelController extends GridPane {
                 activiteitController.toonItem(object);
 
         }
-        //addLidGegevensPanel();
-        //gebruikerController.addObserver(lidGegevensPanel);
-        //gebruikerController.toonItem(object);
     }
 
-    public void toonActiviteit(Object object) {
-        activiteitController.addObserver(activiteitGegevensPanel);
-        activiteitController.toonItem(object);
-    }
+
 
     public void toonOverzicht(String keuze, OverzichttypesPanelController scherm) {
         ensureTableCreated();
 
         switch (keuze) {
             case "Activiteiten":
+
                 overzichtController.toonActiviteitenOverzicht();
                 break;
             case "Inschrijvingen":
+                clearScreen();
+
                 overzichtController.toonInschrijvingenOverzicht();
                 break;
             case "Aanwezigheden":
+
                 overzichtController.toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0));
                 break;
             case "Clubkampioenschap":
+
                 overzichtController.toonClubkampioenschapOverzicht();
                 break;
             case "Raadplegingen lesmateriaal":
+
                 overzichtController.toonRaadplegingenLesmateriaalOverzicht();
                 break;
         }
@@ -148,10 +158,20 @@ public class MainPanelController extends GridPane {
         this.clearScreen();
         ensureTableCreated();
         addFilterPanel(activiteitController);
-        addActiviteitButtonPanelController = new AddActiviteitButtonPanelController(this);
+
         tableOverzichtPanel.setObservableList(activiteitController.toonOverzicht());
-        tableOverzichtPanel.getChildren().add(addActiviteitButtonPanelController);
         tableOverzichtPanel.enableListener();
+
+        if (tableOverzichtPanel.getChildren().contains(addItemButtonPanel)) {
+            tableOverzichtPanel.getChildren().remove(addItemButtonPanel);
+            if (!tableOverzichtPanel.getChildren().contains(addItemButtonPanel)) {
+                addItemButtonPanel = new AddItemButtonPanelController(this, activiteitController);
+                tableOverzichtPanel.getChildren().add(addItemButtonPanel);
+            }
+        } else {
+            addItemButtonPanel = new AddItemButtonPanelController(this, activiteitController);
+            tableOverzichtPanel.getChildren().add(addItemButtonPanel);
+        }
     }
 
     public List<String> getFieldNames(Class<?> klasse) {
@@ -213,7 +233,7 @@ public class MainPanelController extends GridPane {
     }
 
     private void addFilterPanel(DomeinController dc) {
-        if (tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)){
+        if (tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
             tableOverzichtPanel.getChildren().remove(filterPanel);
         }
         filterPanel = new FilterPanelController(dc, this);

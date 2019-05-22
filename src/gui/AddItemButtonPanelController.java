@@ -5,22 +5,19 @@
  */
 package gui;
 
+import domein.Activiteit;
+import domein.ActiviteitController;
+import domein.DTO.ActiviteitDTO;
 import domein.DTO.GebruikerDTO;
 import domein.DomeinController;
 import domein.GebruikerController;
 import domein.Lid;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -28,15 +25,17 @@ import javafx.stage.Stage;
  * @author bramd
  */
 public class AddItemButtonPanelController extends HBox {
+
     private MainPanelController mainPanel;
-    private ActiviteitGegevensPanelController activiteitGegevensPanelController;
-    
+    private DomeinController dc;
+
     @FXML
     private Button btnAddItem;
 
-    public AddItemButtonPanelController(MainPanelController mainPanel){
-        
+    public AddItemButtonPanelController(MainPanelController mainPanel, DomeinController dc) {
+
         this.mainPanel = mainPanel;
+        this.dc = dc;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddItemButtonPanel.fxml"));
         loader.setRoot(this);
@@ -48,18 +47,17 @@ public class AddItemButtonPanelController extends HBox {
         }
     }
 
-    private void addLid() {
-        mainPanel.toonItem(new Lid(new GebruikerDTO()));
+    private void addElement() {
+        if (dc instanceof ActiviteitController) {
+            mainPanel.toonItem(new Activiteit(new ActiviteitDTO()));
+        } else if (dc instanceof GebruikerController) {
+            mainPanel.toonItem(new Lid(new GebruikerDTO()));
+
+        }
     }
 
     @FXML
     private void addItem(ActionEvent event) {
-//        final Stage scene = new Stage();
-//        VBox box = new VBox();
-//        box.getChildren().add(new ActiviteitGegevensPanelController(mainPanel));
-//        Scene s = new Scene(box,300,300);
-//        scene.setScene(s);
-//        scene.show();
-        addLid();
+        addElement();
     }
 }

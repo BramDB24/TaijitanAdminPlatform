@@ -49,30 +49,30 @@ public class Activiteit implements ActiviteitInterface, Serializable {
     private ActiviteitDTO createDTO() {
         ActiviteitDTO dto = new ActiviteitDTO();
         dto.setStartDatum(startDatum);
+        dto.setEindDatum(eindDatum);
         dto.setNaam(naam);
-       dto.setAantalAanwezigen(aanwezigen==null?0:aanwezigen.size());
+        dto.setAantalAanwezigen(aanwezigen == null ? 0 : aanwezigen.size());
         return dto;
     }
-    
-    public String getNaam(){
+
+    public String getNaam() {
         return naam;
     }
-    
-    public LocalDate getStartDatum(){
+
+    public LocalDate getStartDatum() {
         return startDatum;
     }
-    
-    public LocalDate getEindDatum(){
+
+    public LocalDate getEindDatum() {
         return eindDatum;
     }
-    
-    public ObservableValue<String> getAantalAanwezigen(){
+
+    public ObservableValue<String> getAantalAanwezigen() {
         return new SimpleObjectProperty<>(Integer.toString(aanwezigen.size()));
     }
-    
-    public int getMaxAantal(){
+
+    public int getMaxAantal() {
         return maxAantal;
     }
-    
-    
+
 }
