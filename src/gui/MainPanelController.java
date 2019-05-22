@@ -111,24 +111,18 @@ public class MainPanelController extends GridPane {
 
         switch (keuze) {
             case "Activiteiten":
-
                 overzichtController.toonActiviteitenOverzicht();
                 break;
             case "Inschrijvingen":
-                clearScreen();
-
                 overzichtController.toonInschrijvingenOverzicht();
                 break;
             case "Aanwezigheden":
-
                 overzichtController.toonAanwezighedenOverzicht(LocalDateTime.of(2019, Month.APRIL, 24, 0, 0));
                 break;
             case "Clubkampioenschap":
-
                 overzichtController.toonClubkampioenschapOverzicht();
                 break;
             case "Raadplegingen lesmateriaal":
-
                 overzichtController.toonRaadplegingenLesmateriaalOverzicht();
                 break;
         }
