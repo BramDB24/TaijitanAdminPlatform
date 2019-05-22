@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -67,9 +68,9 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     @FXML
     private TextField txtHuidigAantal;
     @FXML
-    private ListView<String> listLeden;
+    private ListView<Gebruiker> listLeden;
     @FXML
-    private ListView<String> listAanwezigeLeden;
+    private ListView<Gebruiker> listAanwezigeLeden;
     @FXML
     private Button buttonAdd;
     @FXML
@@ -77,9 +78,9 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
     @FXML
     private ComboBox<String> cbStatus;
 
-    private ObservableList<String> ledenLijst;
+    private ObservableList<Gebruiker> ledenLijst;
 
-    private final ObservableList<String> aanwezigeLijst;
+    private ObservableList<Gebruiker> aanwezigeLijst;
 
     public ActiviteitGegevensPanelController(GebruikerController gebruikerController, ActiviteitController activiteitController, MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
@@ -95,8 +96,7 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         }
         cbStatus.getItems().addAll("Volzet", "Niet volzet");
 
-        ArrayList<String> aanwezig = new ArrayList();
-        //ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());
+        ArrayList<Gebruiker> aanwezig = new ArrayList();
         aanwezigeLijst = FXCollections.observableArrayList(aanwezig);
 
         listLeden.setItems(ledenLijst);
@@ -109,23 +109,20 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
 
     @FXML
     private void annuleer(ActionEvent event) {
-
+        activiteitController.notifyObservers();
     }
 
     @FXML
     private void slaOp(ActionEvent event) {
-        /*TableOverzichtPanelController op = new TableOverzichtPanelController(mainPanel);
-        GebruikerController g = new GebruikerController();
-        final Stage scene = new Stage();
-        VBox box = new VBox();
-        op.setObservableList(g.toonOverzicht());
-        box.getChildren().add(op);
-        Scene s = new Scene(box, 400, 600);
-        scene.setScene(s);
-        scene.show();
-        Stage s2 = (Stage)this.getScene().getWindow();
-        s2.close(); */
-
+        ActiviteitDTO dto = new ActiviteitDTO();
+        dto.setNaam(txtNaam.getText());
+        dto.setStartDatum(dpStartDatum.getValue());
+        dto.setEindDatum(dpEindDatum.getValue());
+        dto.setMaxAantal(Integer.parseInt(txtMaxAantal.getText()));
+        dto.setAantalAanwezigen(Integer.parseInt(txtHuidigAantal.getText()));
+        List<Gebruiker> l = new ArrayList<>();
+        aanwezigeLijst.forEach(a -> l.add(a));
+        activiteitController.pasAanwezigenAan(l);
     }
 
     @FXML
@@ -152,8 +149,8 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
         txtHuidigAantal.setText(Integer.toString(dto.getAantalAanwezigen()));
         String status = checkStatus(dto.getMaxAantal(), dto.getAantalAanwezigen());
         cbStatus.setValue(status);
-        List<Gebruiker> aanwezigheden = this.activiteitController.geefAanwezigen();
-        aanwezigheden.forEach(help -> aanwezigeLijst.add(help.getGebruikersnaam()));
+        List<Gebruiker> aanwezigheden = activiteitController.geefAanwezigen();
+        aanwezigheden.forEach(help -> aanwezigeLijst.add(help));
         listAanwezigeLeden.setItems(aanwezigeLijst);
         ledenLijst = FXCollections.observableArrayList(gebruikerController.toonOverzicht());
         ledenLijst.removeAll(aanwezigheden);
@@ -170,7 +167,7 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
 
     @FXML
     private void voegLidToe(ActionEvent event) {
-        ObservableList<String> ledenToevoegen = listLeden.getSelectionModel().getSelectedItems();
+        ObservableList<Gebruiker> ledenToevoegen = listLeden.getSelectionModel().getSelectedItems();
         int tijdelijk = ledenToevoegen.size() + aanwezigeLijst.size();
         if (tijdelijk > Integer.parseInt(txtMaxAantal.getText())) {
             Alert alert = new Alert(AlertType.ERROR);
@@ -189,12 +186,13 @@ public class ActiviteitGegevensPanelController extends GridPane implements Obser
 
     @FXML
     private void verwijderLid(ActionEvent event) {
-        ObservableList<String> ledenVerwijderen = listAanwezigeLeden.getSelectionModel().getSelectedItems();
+        ObservableList<Gebruiker> ledenVerwijderen = listAanwezigeLeden.getSelectionModel().getSelectedItems();
         ledenLijst.addAll(ledenVerwijderen);
         aanwezigeLijst.removeAll(ledenVerwijderen);
         listAanwezigeLeden.setItems(aanwezigeLijst);
         listLeden.setItems(ledenLijst);
         listAanwezigeLeden.getSelectionModel().clearSelection();
+        txtHuidigAantal.setText(Integer.toString(aanwezigeLijst.size()));
     }
 
 }

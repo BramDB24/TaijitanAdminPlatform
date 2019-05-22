@@ -57,4 +57,8 @@ public class ActiviteitController<E> extends DomeinController<E> {
         return huidigeActiviteit.getAanwezigen();
     }
     
+    public void pasAanwezigenAan(List<Gebruiker> aanwezigen) {
+        huidigeActiviteit.setAanwezigen(aanwezigen);
+    }
+    
 }
