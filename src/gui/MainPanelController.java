@@ -6,8 +6,6 @@ import domein.GebruikerController;
 import domein.OefeningController;
 import domein.OverzichtController;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -89,7 +87,7 @@ public class MainPanelController extends GridPane {
 
     public void toonItem(Object object) {
         switch (object.getClass().getSimpleName()) {
-            case "Lid":
+            case "Lid": case "Lesgever" : 
                 addLidGegevensPanel();
                 gebruikerController.addObserver(lidGegevensPanel);
                 gebruikerController.toonItem(object);
@@ -123,6 +121,9 @@ public class MainPanelController extends GridPane {
             case "Raadplegingen lesmateriaal":
                 overzichtController.toonRaadplegingenLesmateriaalOverzicht();
                 break;
+        }
+        if (tableOverzichtPanel.getChildren().contains(addItemButtonPanel)) {
+            tableOverzichtPanel.getChildren().remove(addItemButtonPanel);
         }
         tableOverzichtPanel.setObservableList(overzichtController.toonOverzicht());
         tableOverzichtPanel.disableListener();
@@ -163,7 +164,7 @@ public class MainPanelController extends GridPane {
     public List<String> getFieldNames(Class<?> klasse) {
         List<String> fieldnames = new ArrayList<>();
         switch (klasse.getSimpleName()) {
-            case "Lid":
+            case "Lid": case "Lesgever":
                 fieldnames.add("gebruikersnaam");
                 fieldnames.add("naam");
                 fieldnames.add("voornaam");
@@ -218,7 +219,7 @@ public class MainPanelController extends GridPane {
     }
 
     private void addFilterPanel(DomeinController dc) {
-        if (tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
+        while (tableOverzichtPanel.getChildren().stream().anyMatch(o -> o instanceof FilterPanelController)) {
             tableOverzichtPanel.getChildren().remove(filterPanel);
         }
         filterPanel = new FilterPanelController(dc, this);

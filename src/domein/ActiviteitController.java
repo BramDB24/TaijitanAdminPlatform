@@ -16,13 +16,7 @@ import javafx.collections.ObservableList;
  */
 public class ActiviteitController<E> extends DomeinController<E> {
     private Activiteit huidigeActiviteit;
-    
-    
-    public void newItem(E object) {
-        getTaijitan().createActiviteit((ActiviteitDTO) object);
-    }
-    
-    
+        
     public void removeItem() {
         getTaijitan().removeActiviteit(huidigeActiviteit);
     }

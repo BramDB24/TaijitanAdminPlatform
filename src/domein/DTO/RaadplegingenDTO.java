@@ -6,6 +6,7 @@
 package domein.DTO;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -18,8 +19,8 @@ public class RaadplegingenDTO {
     private String voornaam;
     private String oefening;
 
-    public LocalDateTime getTijdstip() {
-        return tijdstip;
+    public String getTijdstip() {
+        return tijdstip.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public void setTijdstip(LocalDateTime tijdstip) {

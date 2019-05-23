@@ -53,6 +53,5 @@ public class FilterPanelController extends HBox {
         cbFilter.getItems().clear();
         cbFilter.getItems().addAll(fields);
         cbFilter.setValue(cbFilter.getItems().get(0));
-    }
-    
+    }    
 }

@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import domein.DTO.GebruikerDTO;
-import domein.DomeinController;
 import domein.GebruikerController;
 import domein.Observer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,11 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-/**
- * FXML Controller class
- *
- * @author bramd
- */
 public class LidGegevensPanelController extends GridPane implements Observer {
 
     private final GebruikerController dc;
@@ -81,6 +68,8 @@ public class LidGegevensPanelController extends GridPane implements Observer {
     private TextField txtWachtwoord;
     @FXML
     private ComboBox<String> cbGraad;
+    @FXML
+    private TextField txtScore;
 
     public LidGegevensPanelController(GebruikerController dc) {
         this.dc = dc;
@@ -101,7 +90,11 @@ public class LidGegevensPanelController extends GridPane implements Observer {
     @FXML
     private void slaOp(ActionEvent event) {
         GebruikerDTO dto = new GebruikerDTO();
-        String gebruikersnaam = txtVoornaam.getText() + "." + txtFamilienaam.getText();
+        //gebruikersnaam mag niet veranderen
+        if (txtGebruikersnaam.getText() == null || txtGebruikersnaam.getText().isEmpty()) {
+            txtGebruikersnaam.setText(dto.getGebruikersnaam());
+        }
+        String gebruikersnaam = txtGebruikersnaam.getText();
         dto.setGebruikersnaam(gebruikersnaam);
         dto.setNaam(txtFamilienaam.getText());
         dto.setVoornaam(txtVoornaam.getText());
@@ -122,12 +115,12 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         dto.setGraad(cbGraad.getValue());
         dto.setInschrijvingsdatum(dateInschrijving.getValue());
         dto.setWachtwoord(txtWachtwoord.getText());
+        dto.setScore(Integer.parseInt(txtScore.getText()));
         try {
-            dc.editItem(dto);        
-        } catch (IllegalArgumentException exception) {    
-              new Alert(Alert.AlertType.ERROR, exception.getMessage()).showAndWait();
+            dc.editItem(dto);
+        } catch (IllegalArgumentException exception) {
+            new Alert(Alert.AlertType.ERROR, exception.getMessage()).showAndWait();
         }
-        txtGebruikersnaam.setText(dto.getGebruikersnaam());
         String password = dto.getWachtwoord();
         setPasswordVisibility(password == null);
         txtWachtwoord.setText(password);
@@ -171,6 +164,7 @@ public class LidGegevensPanelController extends GridPane implements Observer {
         String password = gebruikerDTO.getWachtwoord();
         setPasswordVisibility(password == null);
         txtWachtwoord.setText(password);
+        txtScore.setText(Integer.toString(gebruikerDTO.getScore()));
     }
 
     private void setPasswordVisibility(boolean visibility) {
