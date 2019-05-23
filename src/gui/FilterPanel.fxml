@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="419.0" type="HBox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ComboBox fx:id="cbFilter" prefHeight="26.0" prefWidth="217.0">
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin></ComboBox>
+      <TextField fx:id="txtFilter" onKeyReleased="#filter" prefHeight="26.0" prefWidth="162.0">
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin></TextField>
+   </children>
+</fx:root>

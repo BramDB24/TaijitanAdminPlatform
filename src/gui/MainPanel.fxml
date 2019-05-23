@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root focusTraversable="true" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="GridPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" percentWidth="15.0" />
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="50.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="40.0" minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="5000.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="130.0" spacing="30.0" GridPane.rowIndex="1">
+         <children>
+            <Button fx:id="leden" mnemonicParsing="false" onAction="#toonLedenlijst" prefHeight="26.0" prefWidth="200.0" text="Beheren leden" />
+            <Button fx:id="aanwezigheden" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toonOverzichtenlijst" prefHeight="26.0" prefWidth="200.0" text="Overzicht opvragen" />
+            <Button fx:id="activiteiten" minWidth="125.0" mnemonicParsing="false" onAction="#beheerActiviteiten" prefHeight="26.0" prefWidth="200.0" text="Beheren activiteiten" />
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</fx:root>

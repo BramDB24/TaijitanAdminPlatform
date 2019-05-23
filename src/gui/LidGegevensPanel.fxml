@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<fx:root hgap="15.0" minHeight="-Infinity" minWidth="-Infinity" scaleShape="false" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Lid gegevens:" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
+      <Label text="Familienaam" GridPane.rowIndex="2" />
+      <Label text="Voornaam" GridPane.rowIndex="3" />
+      <Label text="Geslacht" GridPane.rowIndex="4" />
+      <Label text="Geboortedatum" GridPane.rowIndex="5" />
+      <Label text="Postcode" GridPane.rowIndex="7" />
+      <Label text="Rijksregisternummer" GridPane.rowIndex="9" />
+      <Label text="Email" GridPane.rowIndex="10" />
+      <Label text="Telefoon" GridPane.rowIndex="11" />
+      <Label text="Straat" GridPane.rowIndex="6" />
+      <Label text="Geboortepaats" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label text="Huisnummer" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Label text="Stad" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Label text="Email ouders" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <Label text="Gsm" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <Label text="Land" GridPane.rowIndex="8" />
+      <Label text="Nationaliteit" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+      <TextField fx:id="txtFamilienaam" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="txtVoornaam" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="txtStraat" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <TextField fx:id="txtPostcode" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="txtLand" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <TextField fx:id="txtRijksregisternummer" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <TextField fx:id="txtEmail" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <TextField fx:id="txtTelefoon" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <TextField fx:id="txtGeboorteplaats" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <TextField fx:id="txtHuisnummer" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <TextField fx:id="txtStad" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <TextField fx:id="txtNationaliteit" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+      <TextField fx:id="txtEmailOuders" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+      <TextField fx:id="txtGsm" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+      <ComboBox fx:id="cbGeslacht" prefHeight="26.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button fx:id="btnOpslaan" mnemonicParsing="false" onAction="#slaOp" text="Opslaan" GridPane.rowIndex="13" />
+      <Button fx:id="btnVerwijder" mnemonicParsing="false" onAction="#verwijder" text="Verwijder" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+      <Label text="Graad" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label text="Inschrijvingsdatum" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <DatePicker fx:id="dateGeboorte" prefHeight="26.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <DatePicker fx:id="dateInschrijving" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <TextField fx:id="txtGebruikersnaam" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="Gebruikersnaam" GridPane.rowIndex="1" />
+      <Label fx:id="lblWachtwoord" text="Wachtwoord" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="txtWachtwoord" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <ComboBox fx:id="cbGraad" prefHeight="26.0" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Label text="Score" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField fx:id="txtScore" prefWidth="145.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" />
+   </padding>
+</fx:root>
