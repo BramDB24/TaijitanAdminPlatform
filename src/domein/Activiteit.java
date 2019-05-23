@@ -58,10 +58,12 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         return dto;
     }
 
+    @Override
     public String getNaam() {
         return naam;
     }
 
+    @Override
     public LocalDate getStartDatum() {
         return startDatum;
     }
@@ -70,14 +72,17 @@ public class Activiteit implements ActiviteitInterface, Serializable {
         return eindDatum;
     }
 
+    @Override
     public ObservableValue<String> getAantalAanwezigen() {
         return new SimpleObjectProperty<>(Integer.toString(aanwezigen.size()));
     }
 
+    @Override
     public int getMaxAantal() {
         return maxAantal;
     }
 
+    @Override
     public List<Gebruiker> getAanwezigen() {
         return aanwezigen;
     }

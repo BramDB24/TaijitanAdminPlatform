@@ -34,6 +34,7 @@ public class TableOverzichtPanelController extends VBox {
     private MainPanelController mainPanel;
     @FXML
     private TableView<Object> tableView;
+    private SortedList sortedList;
 
     public TableOverzichtPanelController(MainPanelController mainPanel) {
         this.mainPanel = mainPanel;
@@ -81,11 +82,17 @@ public class TableOverzichtPanelController extends VBox {
     }
 
     public void setObservableList(ObservableList<Object> list) {
-        if (list instanceof SortedList) {
-            ((SortedList) list).comparatorProperty().bind(tableView.comparatorProperty());
+        
+        //if (list instanceof SortedList) {
+        //    ((SortedList) list).comparatorProperty().bind(tableView.comparatorProperty());
+        //}
+        if(sortedList != null){
+            sortedList.comparatorProperty().unbind();
         }
         if (list != null) {
-            tableView.setItems(list);
+            sortedList = list.sorted();
+            sortedList.comparatorProperty().bind(tableView.comparatorProperty());
+            tableView.setItems(sortedList);
             if (!list.isEmpty()) {
                 klasse = list.get(0).getClass();
                 setFields(mainPanel.getFieldNames(klasse), mainPanel.getMethodNames(klasse));

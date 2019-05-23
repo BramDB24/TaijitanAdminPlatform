@@ -91,8 +91,8 @@ public class LidGegevensPanelController extends GridPane implements Observer {
     private void slaOp(ActionEvent event) {
         GebruikerDTO dto = new GebruikerDTO();
         //gebruikersnaam mag niet veranderen
-        if (txtGebruikersnaam.getText() == null || txtGebruikersnaam.getText().isEmpty()) {
-            txtGebruikersnaam.setText(dto.getGebruikersnaam());
+        if (txtGebruikersnaam.getText() == null || txtGebruikersnaam.getText().isEmpty() || txtGebruikersnaam.getText().trim() == "") {
+            txtGebruikersnaam.setText(txtVoornaam.getText() + "." + txtFamilienaam.getText());
         }
         String gebruikersnaam = txtGebruikersnaam.getText();
         dto.setGebruikersnaam(gebruikersnaam);
